@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { HomePage, Dashboard } from '@/pages';
 import { ProtectedRoute } from '@/components/ProtectedRoute';
+import { Dashboard } from '@/pages/dashboard/ui/page';
+import { HomePage } from '@/pages/landing/ui/page';
 import './App.css';
 
 function App() {
