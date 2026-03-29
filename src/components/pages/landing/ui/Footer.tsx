@@ -1,0 +1,58 @@
+import { Logo } from '@/components/share/ui/logo.tsx';
+import { Camera, Mail, MapPin, MessageCircle } from 'lucide-react';
+
+export const Footer = () => {
+  return (
+    <div className={'w-full bg-[#2D5016] text-[#F5F0E8] font-dm-sans'}>
+      <div className={'grid grid-cols-12 p-10 max-w-6xl mx-auto gap-4'}>
+        <div className={'col-span-4 py-4 space-y-2'}>
+          <Logo />
+          <p className={'text-sm mt-10'}>
+            Origami en piel. Mayoreo directo desde León, Guanajuato, México.
+          </p>
+          <p className={'text-xs'}>
+            © 2026 PLEK. Todos los derechos reservados.
+          </p>
+        </div>
+        <div className={'col-span-4 text-center text-white py-4'}>
+          <p className={'text-sm text-center'}>
+            ¿Prefieres hablar directamente?
+          </p>
+
+          <button
+            className={
+              'border border-white rounded-md px-4 py-2 mt-4 flex items-center gap-2 mx-auto text-sm hover:bg-[#35561E] transition-colors'
+            }
+          >
+            <MessageCircle className={'size-4'} /> WhatsApp
+          </button>
+        </div>
+        <div className={'col-span-4 text-white py-4 space-y-2'}>
+          <p className={'text-sm flex items-center gap-1'}>
+            <Mail className={'size-3'} />
+            ventas@plekmoda.com
+          </p>
+          <p className={'text-sm flex items-center gap-1'}>
+            <Camera className={'size-3'} />
+            @plekmoda
+          </p>
+          <p className={'text-sm flex items-center gap-1'}>
+            <MapPin className={'size-3'} />
+            León, Guanajuato
+          </p>
+        </div>
+      </div>
+
+      <div className={'border-b border-[#35561E] w-full'} />
+
+      <div
+        className={
+          'flex items-center justify-between text-xs p-10 max-w-6xl mx-auto gap-4'
+        }
+      >
+        <p>© 2026 PLEK</p>
+        <p>León, Guanajuato · Mexico</p>
+      </div>
+    </div>
+  );
+};

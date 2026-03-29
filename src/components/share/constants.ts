@@ -61,3 +61,15 @@ export const CERTIFICATIONS = [
     icon: MapPin,
   },
 ];
+
+export const FAQ_QUESTIONS = [
+  {
+    question: '¿Cuál es el pedido mínimo al mayoreo?',
+    answer:
+      'El pedido mínimo es de $5.000 MXN, que pueden ser una combinación de diferentes productos de nuestro catálogo. Ofrecemos descuentos por volumen para pedidos superiores a $10.000, $15.000 y $20.000 MXN.',
+  },
+  {
+    question: '¿Ofrecen personalización con el logo de mi empresa?',
+    answer: 'Si',
+  },
+];

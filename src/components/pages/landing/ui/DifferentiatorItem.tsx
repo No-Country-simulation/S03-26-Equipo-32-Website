@@ -18,7 +18,7 @@ export const DifferentiatorsItem = ({
         {title}
       </div>
       <h3 className={'text-xl font-cormorant font-light'}>{subtitle}</h3>
-      <p className={'text-xs text-gray-600 max-w-xs'}>{description}</p>
+      <p className={'text-sm text-gray-600 max-w-xs'}>{description}</p>
     </div>
   );
 };
