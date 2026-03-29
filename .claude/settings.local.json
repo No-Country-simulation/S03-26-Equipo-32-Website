@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find C:UsersbryanOneDriveDocumentosworkspaceS03-26-Equipo-32-Website -maxdepth 2 -type f \\\\\\(-name tailwind* -o -name postcss* -o -name *.css -o -name index.html \\\\\\))"
+    ]
+  }
+}
