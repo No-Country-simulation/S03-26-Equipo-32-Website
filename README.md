@@ -41,39 +41,73 @@ Dashboard interactivo con métricas en tiempo real:
 ---
 ## 📁 Estructura del Proyecto
 
-La arquitectura está dividida en dos capas principales: **Frontend (React)** y **Backend**, siguiendo un patrón de organización modular y escalable.
-
 ```bash
 S03-26-Equipo-32-Website/
 ├── public/
+│   ├── _reedirects
+│   └── landing/
 ├── src/
-│   ├── assets/
-│   ├── components/         # Frontend – React
-│   │   ├── page/           # Componentes de página
-│   │   ├── shared/         # Componentes compartidos
-│   │   ├── ui/             # Componentes de interfaz
-│   │   └── widgets/        # Widgets reutilizables
-│   │       └── [component]/
-│   │           ├── hooks/  # Hooks, consts, mappers, etc.
-│   │           ├── model/  # Modelos del componente
-│   │           └── ui/     # UI del componente
-│   ├── core/               # Backend (Clean Architecture)
-│   │   └── entities/
-│   │       └── user/
-│   │           ├── dto/
-│   │           ├── entity/
-│   │           └── use-case/
-│   └── App.tsx
-├── .gitignore
-├── index.html
+│   ├── components/
+│   │   ├── ProtectedRoute.tsx
+│   │   ├── features/
+│   │   │   └── lead-form/
+│   │   │       └── ui/
+│   │   │           └── LeadForm.tsx
+│   │   ├── pages/
+│   │   │   ├── dashboard/
+│   │   │   │   └── ui/
+│   │   │   │       └── page.tsx
+│   │   │   └── landing/
+│   │   │       └── ui/
+│   │   │           ├── Contact.tsx
+│   │   │           ├── DifferentiatorItem.tsx
+│   │   │           ├── Differentiators.tsx
+│   │   │           ├── FAQ.tsx
+│   │   │           ├── Footer.tsx
+│   │   │           ├── Hero.tsx
+│   │   │           ├── HowItWorks.tsx
+│   │   │           ├── HowItWorksItem.tsx
+│   │   │           ├── Navbar.tsx
+│   │   │           ├── page.tsx
+│   │   │           ├── PopularCatalog.tsx
+│   │   │           ├── Question.tsx
+│   │   │           └── Testimonials.tsx
+│   │   └── share/
+│   │       ├── constants.ts
+│   │       └── ui/
+│   │           └── logo.tsx
+│   ├── core/
+│   │   ├── containers/
+│   │   │   └── user.container.ts
+│   │   ├── database/
+│   │   │   ├── firebase/
+│   │   │   │   └── firebase.config.ts
+│   │   │   ├── mappers/
+│   │   │   │   └── user.mapper.ts
+│   │   │   └── repositories/
+│   │   │       └── users.repository.ts
+│   │   └── users/
+│   │       ├── entities/
+│   │       │   └── user.entity.ts
+│   │       ├── repositories/
+│   │       │   └── user.repository.ts
+│   │       └── use-cases/
+│   │           ├── find-user-by-id.use-case.ts
+│   │           ├── login.use-case.ts
+│   │           └── logout.use-case.ts
+│   ├── App.css
+│   ├── App.tsx
+│   ├── index.css
+│   └── main.tsx
 ├── eslint.config.js
-├── vite.config.ts
-├── tsconfig.json
-├── tsconfig.app.json
-├── tsconfig.node.json
-├── pnpm-lock.yaml
+├── index.html
 ├── package.json
-└── README.md
+├── pnpm-lock.yaml
+├── README.md
+├── tsconfig.app.json
+├── tsconfig.json
+├── tsconfig.node.json
+└── vite.config.ts
 ```
 
 > **Nota:** No se exponen endpoints REST. El backend provee funciones listas para consumir directamente desde el frontend. Ejemplo de uso:
@@ -99,6 +133,7 @@ pnpm dev
 ```
 ---
 ## 👥 Equipo
+
 | Nombre | Rol | LinkedIn |
 |--------|-----|----------|
 | Bryan Lundberg | Full Stack Developer | [🔗 Perfil](https://www.linkedin.com/in/bryan-lundberg/) |
@@ -108,5 +143,7 @@ pnpm dev
 | Justina Gargano | UX/UI Designer | [🔗 Perfil](https://www.linkedin.com/in/justinagargano/) |
 | Natividad Romero | UX/UI Designer | [🔗 Perfil](https://www.linkedin.com/in/natyromero/) |
 | Silvana Motta | Community Manager | [🔗 Perfil](https://www.linkedin.com/in/silvana-motta/) |
+| Valentina Briceño | Graphic Designer | [🔗 Perfil](https://www.linkedin.com/in/valentinabriceno/) |
+
 ## 📄 Licencia
 Este proyecto fue desarrollado en el marco de un desafío académico/profesional.
