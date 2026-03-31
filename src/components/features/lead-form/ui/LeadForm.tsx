@@ -1,4 +1,8 @@
-import { BUSINESS, VOLUME_PURCHASE } from '@/components/share/constants.ts';
+import {
+  BUSINESS,
+  FOUND_US,
+  VOLUME_PURCHASE,
+} from '@/components/share/constants.ts';
 import { Input } from '@/components/share/ui/Input.tsx';
 import { Select } from '@/components/share/ui/Select.tsx';
 import { Textarea } from '@/components/share/ui/Textarea.tsx';
@@ -51,6 +55,17 @@ export const LeadForm = ({ ...rest }: LeadFormProps) => {
         <Label htmlFor="volume">Volumen de compra estimado (MXN) *</Label>
         <Select id="volume">
           {Object.entries(VOLUME_PURCHASE).map(([key, label]) => (
+            <option key={key} value={key}>
+              {label}
+            </option>
+          ))}
+        </Select>
+      </div>
+
+      <div>
+        <Label htmlFor="foundUs">Selecciona cómo nos encontraste *</Label>
+        <Select id="foundUs">
+          {Object.entries(FOUND_US).map(([key, label]) => (
             <option key={key} value={key}>
               {label}
             </option>

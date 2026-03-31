@@ -104,3 +104,11 @@ export const VOLUME_PURCHASE = {
   C: '$15,000 - $20,000 MXN',
   D: 'Más de $20,000 MXN',
 };
+
+export const FOUND_US = {
+  A: 'Instagram',
+  B: 'Facebook',
+  C: 'Google',
+  D: 'Recomendación',
+  E: 'Otro',
+};
