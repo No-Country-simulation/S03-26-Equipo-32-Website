@@ -4,7 +4,7 @@ import { FAQ_QUESTIONS } from '@/components/share/constants.ts';
 
 export const FAQ = () => {
   return (
-    <div className="py-16">
+    <div className="py-16 bg-[#F5F0E8]">
       <div className={'max-w-6xl mx-auto w-full'}>
         <div className={'grid grid-cols-12 items-center gap-10'}>
           <div className={'col-span-4 flex flex-col gap-4'}>
