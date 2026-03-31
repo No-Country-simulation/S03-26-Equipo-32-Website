@@ -89,3 +89,18 @@ export const FAQ_QUESTIONS = [
       'Las pantallas pueden variar ligeramente el tono — es algo natural en cualquier compra digital. Por eso fotografiamos nuestras pieles con luz natural y sin filtros para mostrarte el color más fiel posible. Si tienes duda sobre un acabado específico, escríbenos por WhatsApp y te mandamos fotos adicionales del producto bajo diferentes tipos de luz antes de que confirmes tu pedido.',
   },
 ];
+
+export const BUSINESS = {
+  BOUTIQUE: 'Boutique o tienda de accesorios',
+  STORE_GIFTS: 'Tienda de regalos',
+  STORE_CORPORATE_GIFT: 'Empresa con regalos corporativos',
+  WHOLESALER: 'Distribuidor mayorista',
+  OTHER: 'Otro',
+};
+
+export const VOLUME_PURCHASE = {
+  A: 'Menos de $10,000 MXN',
+  B: '$10,000 - $15,000 MXN',
+  C: '$15,000 - $20,000 MXN',
+  D: 'Más de $20,000 MXN',
+};

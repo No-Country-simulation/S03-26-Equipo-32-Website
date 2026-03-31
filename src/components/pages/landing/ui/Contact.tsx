@@ -37,7 +37,7 @@ export const Contact = () => {
           </div>
 
           <div className={'col-span-8'}>
-            <LeadForm />
+            <LeadForm className={'max-w-xl mx-auto'} />
           </div>
         </div>
       </div>
