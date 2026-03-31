@@ -106,9 +106,10 @@ export const VOLUME_PURCHASE = {
 };
 
 export const FOUND_US = {
-  A: 'Instagram',
-  B: 'Facebook',
-  C: 'Google',
-  D: 'Recomendación',
-  E: 'Otro',
+  A: 'SAPICA',
+  B: 'Instagram',
+  C: 'Facebook',
+  D: 'Google',
+  E: 'Recomendación',
+  F: 'Otro',
 };
