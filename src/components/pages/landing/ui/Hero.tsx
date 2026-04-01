@@ -2,10 +2,7 @@ import { ArrowRight } from 'lucide-react';
 
 export const Hero = () => {
   return (
-    <section
-      className="grid grid-cols-2 min-h-[calc(100vh-72px)] bg-cover bg-center"
-      style={{ backgroundImage: "url('/landing/texture.png')" }}
-    >
+    <section className="grid grid-cols-2 min-h-[calc(100vh-72px)]">
       {/* Left - Content */}
       <div className="flex flex-col justify-center px-10 py-16 max-w-xl ml-auto mr-0 font-newsreader">
         <div className="flex items-center gap-1 font-dm-sans text-[#934B19] uppercase text-xs mb-6">
@@ -44,9 +41,9 @@ export const Hero = () => {
       {/* Right - Product Image */}
       <div className="relative overflow-hidden">
         <img
-          src="/landing/carteras_leather.png"
+          src="/landing/hero.png"
           alt="Productos de piel Plek"
-          className="absolute top-0 right-0 w-full h-full object-contain object-right"
+          className="absolute top-0 right-0 w-full h-full object-cover object-right"
         />
       </div>
     </section>

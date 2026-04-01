@@ -2,7 +2,7 @@ import { CERTIFICATIONS } from '@/components/share/constants.ts';
 
 export const Testimonials = () => {
   return (
-    <div className="flex flex-col gap-8 py-16">
+    <div className="flex flex-col gap-8 py-16 bg-[#FEF9F1]">
       <div className={'max-w-4xl mx-auto w-full'}>
         <div className={'grid grid-cols-12 gap-8'}>
           {/* Left Column */}

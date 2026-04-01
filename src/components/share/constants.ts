@@ -70,6 +70,46 @@ export const FAQ_QUESTIONS = [
   },
   {
     question: '¿Ofrecen personalización con el logo de mi empresa?',
-    answer: 'Si',
+    answer:
+      'Sí. Ofrecemos grabado con nombre, iniciales o logotipo. Para pedidos con personalización, escríbenos y te explicamos el proceso y los tiempos.',
+  },
+  {
+    question: '¿Hacen envíos a todo México?',
+    answer:
+      'Sí, enviamos a todo México. El costo de envío corre por cuenta del comprador. Los pedidos en inventario disponible se despachan en 3 días hábiles.',
+  },
+  {
+    question: '¿Qué garantía tienen los productos?',
+    answer:
+      ' 12 meses de garantía por defectos de fabricación. Aceptamos devoluciones dentro de los 7 días hábiles posteriores a la recepción, con producto en estado original.',
+  },
+  {
+    question: '¿El color que veo en pantalla es el color real del producto?',
+    answer:
+      'Las pantallas pueden variar ligeramente el tono — es algo natural en cualquier compra digital. Por eso fotografiamos nuestras pieles con luz natural y sin filtros para mostrarte el color más fiel posible. Si tienes duda sobre un acabado específico, escríbenos por WhatsApp y te mandamos fotos adicionales del producto bajo diferentes tipos de luz antes de que confirmes tu pedido.',
   },
 ];
+
+export const BUSINESS = {
+  BOUTIQUE: 'Boutique o tienda de accesorios',
+  STORE_GIFTS: 'Tienda de regalos',
+  STORE_CORPORATE_GIFT: 'Empresa con regalos corporativos',
+  WHOLESALER: 'Distribuidor mayorista',
+  OTHER: 'Otro',
+};
+
+export const VOLUME_PURCHASE = {
+  A: 'Menos de $10,000 MXN',
+  B: '$10,000 - $15,000 MXN',
+  C: '$15,000 - $20,000 MXN',
+  D: 'Más de $20,000 MXN',
+};
+
+export const FOUND_US = {
+  A: 'SAPICA',
+  B: 'Instagram',
+  C: 'Facebook',
+  D: 'Google',
+  E: 'Recomendación',
+  F: 'Otro',
+};
