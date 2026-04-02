@@ -18,7 +18,7 @@ import {
 } from 'firebase/firestore';
 import { db } from '@/core/database/firebase/firebase.config.ts';
 
-const EMPTY_TOTALS = {
+export const EMPTY_TOTALS = {
   pageViews: 0,
   formInteractions: 0,
   catalogDownloads: 0,
