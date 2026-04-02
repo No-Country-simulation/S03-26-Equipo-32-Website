@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "site": "b2b-plek-com-mx",
+    "target": "b2b-site",
     "public": "dist",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
