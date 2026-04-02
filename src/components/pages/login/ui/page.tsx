@@ -1,18 +1,21 @@
+import { userContainer } from '@/core/containers/user.container';
+
 export const LoginPage = () => {
   return (
     <main className="min-h-screen bg-[#F6F5F3] flex flex-col items-center">
-      <section className="w-full max-w-190 flex-1 flex flex-col items-center px-6 pt-28">
-        <p className="font-newsreader tracking-[0.35em] text-[#244C23] text-3xl md:text-4xl font-semibold">
+      <section className="w-full max-w-190 flex-1 flex flex-col items-center px-6 pt-20">
+        <p className="font-cormorant tracking-[0.35em] text-[#244C23] text-5xl font-bold  mt-1 md:mt-16">
           PLEK
         </p>
 
-        <h1 className="mt-20 text-[#244C23] font-newsreader text-4xl md:text-6xl text-center leading-tight">
+        <h1 className="mt-8 md:mt-[64px] text-[#244C23] font-cormorant text-5xl md:text-6xl text-center leading-tight ">
           Accede a tu dashboard
         </h1>
 
         <button
+          onClick={() => userContainer.login.execute()}
           type="button"
-          className="mt-16 w-full max-w-140 h-14 border border-[#E7E7E7] bg-white flex items-center justify-center gap-3 text-[#717171] font-dm-sans text-sm"
+          className="mt-12 md:mt-[111px] w-full max-w-[448px] h-14 border border-[#E7E7E7] bg-white hover:inset-shadow-sm hover:shadow-lg  flex items-center justify-center gap-3 text-[#717171] font-dm-sans text-sm"
         >
           <svg
             width="20"
@@ -45,15 +48,18 @@ export const LoginPage = () => {
         <p className="mt-16 text-[#8A9B83] text-xs tracking-[0.2em] font-dm-sans uppercase">
           Acceso exclusivo
         </p>
+        <div
+          className="w-full max-w-[440px] h-1 mt-5"
+          style={{
+            background:
+              'linear-gradient(to right, transparent, #c8c4bc, transparent)',
+          }}
+        />
       </section>
 
       <footer className="w-full max-w-190 px-6 pb-10">
-        <div className="border-t border-[#E9E9E9] pt-8 text-center">
-          <div className="flex items-center justify-center gap-8 text-[11px] uppercase tracking-wide text-[#8E8E8E] font-dm-sans">
-            <span>Privacidad</span>
-            <span>Soporte</span>
-            <span>Términos</span>
-          </div>
+        <div className=" text-center">
+          <div className="flex items-center justify-center gap-8 text-[11px] uppercase tracking-wide text-[#8E8E8E] font-dm-sans"></div>
           <p className="mt-4 text-[11px] text-[#9A9A9A] font-dm-sans">
             © 2026 PLEK TODOS LOS DERECHOS RESERVADOS.
           </p>
