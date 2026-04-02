@@ -1,6 +1,7 @@
 import { Navigate } from 'react-router-dom';
 import { userContainer } from '@/core/containers/user.container';
 import { useAuth } from '@/context/AuthContext';
+import { Logo } from '@/components/share/ui/logo';
 
 export const LoginPage = () => {
   const { user, isLoading } = useAuth();
@@ -10,19 +11,17 @@ export const LoginPage = () => {
 
   return (
     <main className="min-h-screen bg-[#F6F5F3] flex flex-col items-center">
-      <section className="w-full max-w-190 flex-1 flex flex-col items-center px-6 pt-20">
-        <p className="font-cormorant tracking-[0.35em] text-[#244C23] text-5xl font-bold  mt-1 md:mt-16">
-          Si funciona
-        </p>
+      <section className="w-full max-w-190 flex-1 flex flex-col items-center justify-center px-6 gap-10 md:gap-14">
+        <Logo variant="brand" className="h-12 w-auto" />
 
-        <h1 className="mt-8 md:mt-[64px] text-[#244C23] font-cormorant text-5xl md:text-6xl text-center leading-tight ">
+        <h1 className="text-[#244C23] font-cormorant text-4xl md:text-4xl text-center leading-tight ">
           Accede a tu dashboard
         </h1>
 
         <button
           onClick={() => userContainer.login.execute()}
           type="button"
-          className="mt-12 md:mt-[111px] w-full max-w-[448px] h-14 border border-[#E7E7E7] bg-white hover:inset-shadow-sm hover:shadow-lg  flex items-center justify-center gap-3 text-[#717171] font-dm-sans text-sm"
+          className="w-full max-w-[400px] h-14 border border-[#E7E7E7] bg-white hover:inset-shadow-sm hover:shadow-lg  flex items-center justify-center gap-3 text-[#717171] font-dm-sans text-sm"
         >
           <svg
             width="20"
@@ -52,11 +51,11 @@ export const LoginPage = () => {
           Continuar con Google
         </button>
 
-        <p className="mt-16 text-[#8A9B83] text-xs tracking-[0.2em] font-dm-sans uppercase">
+        <p className="mt-2 text-[#8A9B83] text-[15px] tracking-[0.2em] font-cormorant font-semibold uppercase">
           Acceso exclusivo
         </p>
         <div
-          className="w-full max-w-[440px] h-1 mt-5"
+          className="w-full max-w-[420px] h-[2px] mt-1"
           style={{
             background:
               'linear-gradient(to right, transparent, #c8c4bc, transparent)',
