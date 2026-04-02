@@ -5,19 +5,22 @@ import { LoginPage } from '@/components/pages/login/ui/page';
 import { HomePage } from '@/components/pages/landing/ui/page';
 import './App.css';
 import { LeadsManagerPage } from '@/components/pages/leads-manager/ui/page.tsx';
+import { NuqsAdapter } from 'nuqs/adapters/react';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<LayoutDashboard />}>
-          <Route path="/panel-general" element={<DashboardPage />} />
-          <Route path="/prospectos" element={<LeadsManagerPage />} />
-        </Route>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/" element={<HomePage />} />
-      </Routes>
-    </BrowserRouter>
+    <NuqsAdapter>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<LayoutDashboard />}>
+            <Route path="/panel-general" element={<DashboardPage />} />
+            <Route path="/prospectos" element={<LeadsManagerPage />} />
+          </Route>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/" element={<HomePage />} />
+        </Routes>
+      </BrowserRouter>
+    </NuqsAdapter>
   );
 }
 
