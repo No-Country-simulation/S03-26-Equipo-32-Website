@@ -1,4 +1,5 @@
 import { Download } from 'lucide-react';
+import { statisticsContainer } from '@/core/containers/statistics.container.ts';
 
 export const PopularCatalog = () => {
   return (
@@ -16,9 +17,11 @@ export const PopularCatalog = () => {
         />
 
         <div className={'flex justify-center items-center'}>
-          <button className="mt-10 self-start bg-[#173901] text-white text-sm tracking-wide rounded-sm px-8 py-3 hover:bg-[#1e4a02] transition-colors cursor-pointer flex flex-row items-center gap-2 font-dm-sans">
-            <Download className={'size-3'} /> Ver catálogo completo — descarga
-            gratis
+          <button
+            onClick={() => statisticsContainer.trackCatalogDownload.execute()}
+            className="mt-10 self-start bg-[#173901] text-white text-sm tracking-wide rounded-sm px-8 py-3 hover:bg-[#1e4a02] transition-colors cursor-pointer flex flex-row items-center gap-2 font-dm-sans"
+          >
+            <Download className={'size-3'} /> Ver catálogo completo
           </button>
         </div>
       </div>
