@@ -1,14 +1,22 @@
 import { ConversionFunnel } from '@/components/pages/dashboard/ui/ConversionFunnel.tsx';
 import { useStats } from '@/components/features/statistics/model/useStats.ts';
-import { useLeads } from '@/components/features/leads/model/useLeads.ts';
+import { useDashboardFilter } from '@/components/pages/dashboard/model/useDashboardFilter.ts';
+import { DashboardHeader } from '@/components/pages/dashboard/ui/DashboardHeader.tsx';
 
 export const DashboardPage = () => {
-  const { stats } = useStats(); // TODO: Conectar a lo que se necesite del dashboard
-  const { leads } = useLeads(); // TODO: Conectar a lo que se necesite del dashboard
+  const { from, to } = useDashboardFilter();
+  const { stats } = useStats(from, to);
 
   return (
-    <div>
-      <ConversionFunnel />
+    <div className={'flex flex-col gap-4 p-4'}>
+      <DashboardHeader />
+
+      <ConversionFunnel
+        pageViews={stats.totals.pageViews}
+        formInteractions={stats.totals.formInteractions}
+        totalLeads={stats.totals.totalLeads}
+        contacted={stats.totals.contacted}
+      />
     </div>
   );
 };

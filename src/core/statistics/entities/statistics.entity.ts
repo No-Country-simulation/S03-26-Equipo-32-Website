@@ -5,6 +5,7 @@ export interface Statistics {
   formInteractions: number;
   catalogDownloads: number;
   totalLeads: number;
+  contacted: number;
 }
 
 export interface StatisticsRange {

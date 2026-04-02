@@ -4,7 +4,8 @@ export type StatisticsField =
   | 'pageViews'
   | 'formInteractions'
   | 'catalogDownloads'
-  | 'totalLeads';
+  | 'totalLeads'
+  | 'contacted';
 
 export interface StatisticsRepository {
   increment(field: StatisticsField): Promise<void>;

@@ -1,6 +1,21 @@
 import { FunnelCard } from '@/components/pages/dashboard/ui/FunnelCard.tsx';
 
-export const ConversionFunnel = () => {
+interface ConversionFunnelProps {
+  pageViews: number;
+  formInteractions: number;
+  totalLeads: number;
+  contacted: number;
+}
+
+const pct = (value: number, total: number) =>
+  total === 0 ? 0 : Math.round((value / total) * 1000) / 10;
+
+export const ConversionFunnel = ({
+  pageViews,
+  formInteractions,
+  totalLeads,
+  contacted,
+}: ConversionFunnelProps) => {
   return (
     <div
       className={'border border-md bg-white p-4 rounded-md border-neutral-200'}
@@ -18,7 +33,7 @@ export const ConversionFunnel = () => {
           label={'Visitantes'}
           labelColor={'#FFFFFF'}
           bgColor={'#2D5A3D'}
-          total={12842}
+          total={pageViews}
           totalColor={'#FFFFFF'}
           percentage={100}
           percentageColor={'rgba(255,255,255,0.5)'}
@@ -26,9 +41,9 @@ export const ConversionFunnel = () => {
         <FunnelCard
           label={'Forms iniciados'}
           labelColor={'#FFFFFF'}
-          total={2104}
+          total={formInteractions}
           totalColor={'#FFFFFF'}
-          percentage={16.4}
+          percentage={pct(formInteractions, pageViews)}
           bgColor={'#4A7C59'}
           percentageColor={'rgba(255,255,255,0.5)'}
         />
@@ -37,8 +52,8 @@ export const ConversionFunnel = () => {
           label={'Cotiz. enviadas'}
           labelColor={'#FFFFFF'}
           bgColor={'#6B9E7A'}
-          percentage={3.7}
-          total={482}
+          percentage={pct(totalLeads, pageViews)}
+          total={totalLeads}
           totalColor={'#FFFFFF'}
           percentageColor={'rgba(255,255,255,0.5)'}
         />
@@ -48,9 +63,9 @@ export const ConversionFunnel = () => {
           labelColor={'#162C14'}
           totalColor={'#162C14'}
           bgColor={'#B8D4BE'}
-          percentage={3}
+          percentage={pct(contacted, pageViews)}
           percentageColor={'rgba(22,44,20,0.5)'}
-          total={391}
+          total={contacted}
         />
       </div>
     </div>

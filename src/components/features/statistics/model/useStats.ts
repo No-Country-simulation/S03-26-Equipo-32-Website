@@ -8,22 +8,24 @@ const INITIAL_STATE: StatisticsRange = {
   byDay: [],
 };
 
-export const useStats = () => {
+export const useStats = (from: string, to: string) => {
   const [stats, setStats] = useState<StatisticsRange>(INITIAL_STATE);
 
   useEffect(() => {
-    const today = new Date();
-    const yyyy = today.getFullYear();
-    const mm = String(today.getMonth() + 1).padStart(2, '0');
-    const dd = String(today.getDate()).padStart(2, '0');
-    const isoToday = `${yyyy}-${mm}-${dd}`;
-
+    let cancelled = false;
+    setStats(INITIAL_STATE);
     statisticsContainer.getStatisticsRange
-      .execute(isoToday, isoToday)
-      .then((res) => {
-        setStats(res);
+      .execute(from, to)
+      .then((data) => {
+        if (!cancelled) setStats(data);
+      })
+      .catch((err) => {
+        console.error('[useStats] getRange error:', err);
       });
-  }, []);
+    return () => {
+      cancelled = true;
+    };
+  }, [from, to]);
 
   return { stats };
 };

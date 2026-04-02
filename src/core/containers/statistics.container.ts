@@ -3,6 +3,7 @@ import { TrackPageViewUseCase } from '@/core/statistics/use-cases/track-page-vie
 import { TrackFormInteractionUseCase } from '@/core/statistics/use-cases/track-form-interaction.use-case.ts';
 import { TrackCatalogDownloadUseCase } from '@/core/statistics/use-cases/track-catalog-download.use-case.ts';
 import { TrackLeadSubmittedUseCase } from '@/core/statistics/use-cases/track-lead-submitted.use-case.ts';
+import { TrackLeadContactedUseCase } from '@/core/statistics/use-cases/track-lead-contacted.use-case.ts';
 import { GetStatisticsRangeUseCase } from '@/core/statistics/use-cases/get-statistics-range.use-case.ts';
 
 const statisticsRepository = new StatisticsFirebaseRepository();
@@ -12,5 +13,6 @@ export const statisticsContainer = {
   trackFormInteraction: new TrackFormInteractionUseCase(statisticsRepository),
   trackCatalogDownload: new TrackCatalogDownloadUseCase(statisticsRepository),
   trackLeadSubmitted: new TrackLeadSubmittedUseCase(statisticsRepository),
+  trackLeadContacted: new TrackLeadContactedUseCase(statisticsRepository),
   getStatisticsRange: new GetStatisticsRangeUseCase(statisticsRepository),
 };
