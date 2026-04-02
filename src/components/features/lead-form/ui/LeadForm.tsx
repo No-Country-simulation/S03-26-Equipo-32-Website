@@ -16,7 +16,8 @@ import { useLeadForm } from '@/components/features/lead-form/model/useLeadForm.t
 type LeadFormProps = React.HTMLAttributes<HTMLDivElement>;
 
 export const LeadForm = ({ ...rest }: LeadFormProps) => {
-  const { form, onSubmit, isSubmitting, isSuccess } = useLeadForm();
+  const { form, onSubmit, isSubmitting, isSuccess, trackFirstInteraction } =
+    useLeadForm();
   const {
     register,
     formState: { errors },
@@ -30,7 +31,11 @@ export const LeadForm = ({ ...rest }: LeadFormProps) => {
         rest.className,
       )}
     >
-      <form onSubmit={onSubmit} className="space-y-4">
+      <form
+        onSubmit={onSubmit}
+        onFocus={trackFirstInteraction}
+        className="space-y-4"
+      >
         <div className={'flex flex-col gap-4 md:flex-row md:gap-6'}>
           <div className={'flex-1'}>
             <Label htmlFor="fullName">Nombre completo *</Label>
