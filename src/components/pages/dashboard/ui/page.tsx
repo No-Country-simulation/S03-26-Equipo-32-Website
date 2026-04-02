@@ -1,3 +1,9 @@
+import { ConversionFunnel } from '@/components/pages/dashboard/ui/ConversionFunnel.tsx';
+
 export const DashboardPage = () => {
-  return <div>Dashboard</div>;
+  return (
+    <div>
+      <ConversionFunnel />
+    </div>
+  );
 };
