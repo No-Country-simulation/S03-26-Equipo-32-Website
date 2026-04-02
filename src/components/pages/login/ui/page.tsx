@@ -12,16 +12,16 @@ export const LoginPage = () => {
   return (
     <main className="min-h-screen bg-[#F6F5F3] flex flex-col items-center">
       <section className="w-full max-w-190 flex-1 flex flex-col items-center justify-center px-6 gap-10 md:gap-14">
-        <Logo variant="brand" className="h-12 w-auto" />
+        <Logo variant="brand" className="h-10 w-auto" />
 
-        <h1 className="text-[#244C23] font-cormorant text-4xl md:text-4xl text-center leading-tight ">
+        <h1 className="text-[#244C23] font-cormorant text-5xl md:text-5xl text-center leading-tight ">
           Accede a tu dashboard
         </h1>
 
         <button
           onClick={() => userContainer.login.execute()}
           type="button"
-          className="w-full max-w-[400px] h-14 border border-[#E7E7E7] bg-white hover:inset-shadow-sm hover:shadow-lg  flex items-center justify-center gap-3 text-[#717171] font-dm-sans text-sm"
+          className="w-full max-w-[300px] h-15 border border-[#E7E7E7] bg-white hover:inset-shadow-sm hover:shadow-lg  flex items-center justify-center gap-3 text-[#717171] font-dm-sans text-sm"
         >
           <svg
             width="20"
