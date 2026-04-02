@@ -12,7 +12,7 @@ export const LoginPage = () => {
     <main className="min-h-screen bg-[#F6F5F3] flex flex-col items-center">
       <section className="w-full max-w-190 flex-1 flex flex-col items-center px-6 pt-20">
         <p className="font-cormorant tracking-[0.35em] text-[#244C23] text-5xl font-bold  mt-1 md:mt-16">
-          PLEK
+          Si funciona
         </p>
 
         <h1 className="mt-8 md:mt-[64px] text-[#244C23] font-cormorant text-5xl md:text-6xl text-center leading-tight ">
