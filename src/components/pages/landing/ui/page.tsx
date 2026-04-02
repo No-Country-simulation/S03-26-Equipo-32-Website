@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Hero } from '@/components/pages/landing/ui/Hero.tsx';
 import { Navbar } from '@/components/pages/landing/ui/Navbar.tsx';
 import { Differentiators } from '@/components/pages/landing/ui/Differentiators.tsx';
@@ -7,8 +8,13 @@ import { Testimonials } from '@/components/pages/landing/ui/Testimonials.tsx';
 import { Contact } from '@/components/pages/landing/ui/Contact.tsx';
 import { FAQ } from '@/components/pages/landing/ui/FAQ.tsx';
 import { Footer } from '@/components/pages/landing/ui/Footer.tsx';
+import { statisticsContainer } from '@/core/containers/statistics.container.ts';
 
 export const HomePage = () => {
+  useEffect(() => {
+    statisticsContainer.trackPageView.execute();
+  }, []);
+
   return (
     <div className="bg-[#FDF9F1]">
       <Navbar />

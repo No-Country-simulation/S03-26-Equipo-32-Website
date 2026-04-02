@@ -6,11 +6,19 @@ import {
   type CreateLeadInput,
 } from '@/core/leads/dto/create-lead.dto.ts';
 import { leadContainer } from '@/core/containers/lead.container.ts';
-import { useState } from 'react';
+import { statisticsContainer } from '@/core/containers/statistics.container.ts';
+import { useState, useRef, useCallback } from 'react';
 
 export const useLeadForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const hasTrackedInteraction = useRef(false);
+
+  const trackFirstInteraction = useCallback(() => {
+    if (hasTrackedInteraction.current) return;
+    hasTrackedInteraction.current = true;
+    statisticsContainer.trackFormInteraction.execute();
+  }, []);
 
   const form = useForm<CreateLeadInput>({
     resolver: zodResolver(createLeadSchema),
@@ -30,6 +38,7 @@ export const useLeadForm = () => {
     setIsSubmitting(true);
     try {
       await leadContainer.createLead.execute(data as CreateLeadDto);
+      statisticsContainer.trackLeadSubmitted.execute();
       setIsSuccess(true);
       form.reset();
     } finally {
@@ -37,5 +46,5 @@ export const useLeadForm = () => {
     }
   });
 
-  return { form, onSubmit, isSubmitting, isSuccess };
+  return { form, onSubmit, isSubmitting, isSuccess, trackFirstInteraction };
 };

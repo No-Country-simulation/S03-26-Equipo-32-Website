@@ -3,4 +3,5 @@ import type { CreateLeadDto } from '@/core/leads/dto/create-lead.dto.ts';
 
 export interface LeadRepository {
   create(dto: CreateLeadDto): Promise<Lead>;
+  markContacted(leadId: string): Promise<void>;
 }
