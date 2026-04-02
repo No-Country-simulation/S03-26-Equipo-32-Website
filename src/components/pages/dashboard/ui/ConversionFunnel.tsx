@@ -1,3 +1,4 @@
+import { ChevronRight } from 'lucide-react';
 import { FunnelCard } from '@/components/pages/dashboard/ui/FunnelCard.tsx';
 
 interface ConversionFunnelProps {
@@ -27,9 +28,12 @@ export const ConversionFunnel = ({
         Visualización del recorrido del usuario desde la visita hasta el cierre
       </div>
       <div
-        className={'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-4'}
+        className={
+          'grid grid-cols-1 sm:grid-cols-2 lg:flex lg:items-center gap-4 mt-4'
+        }
       >
         <FunnelCard
+          className={'lg:flex-1'}
           label={'Visitantes'}
           labelColor={'#FFFFFF'}
           bgColor={'#2D5A3D'}
@@ -38,7 +42,20 @@ export const ConversionFunnel = ({
           percentage={100}
           percentageColor={'rgba(255,255,255,0.5)'}
         />
+
+        <div
+          className={
+            'hidden lg:flex flex-col items-center flex-shrink-0 text-[#78716C]'
+          }
+        >
+          <span className={'text-xs font-dm-sans'}>
+            {pct(formInteractions, pageViews)}%
+          </span>
+          <ChevronRight size={20} />
+        </div>
+
         <FunnelCard
+          className={'lg:flex-1'}
           label={'Forms iniciados'}
           labelColor={'#FFFFFF'}
           total={formInteractions}
@@ -48,7 +65,19 @@ export const ConversionFunnel = ({
           percentageColor={'rgba(255,255,255,0.5)'}
         />
 
+        <div
+          className={
+            'hidden lg:flex flex-col items-center flex-shrink-0 text-[#78716C]'
+          }
+        >
+          <span className={'text-xs font-dm-sans'}>
+            {pct(totalLeads, formInteractions)}%
+          </span>
+          <ChevronRight size={20} />
+        </div>
+
         <FunnelCard
+          className={'lg:flex-1'}
           label={'Cotiz. enviadas'}
           labelColor={'#FFFFFF'}
           bgColor={'#6B9E7A'}
@@ -58,7 +87,19 @@ export const ConversionFunnel = ({
           percentageColor={'rgba(255,255,255,0.5)'}
         />
 
+        <div
+          className={
+            'hidden lg:flex flex-col items-center flex-shrink-0 text-[#78716C]'
+          }
+        >
+          <span className={'text-xs font-dm-sans'}>
+            {pct(contacted, totalLeads)}%
+          </span>
+          <ChevronRight size={20} />
+        </div>
+
         <FunnelCard
+          className={'lg:flex-1'}
           label={'Contactados'}
           labelColor={'#162C14'}
           totalColor={'#162C14'}
