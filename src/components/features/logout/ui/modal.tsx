@@ -23,7 +23,10 @@ export const LogoutModal = () => {
         </button>
         <button
           className={'px-4 py-2 bg-[#BA1A1A] text-white rounded w-full'}
-          onClick={() => userContainer.logout.execute()}
+          onClick={() => {
+            userContainer.logout.execute();
+            modal.close();
+          }}
         >
           Sí, salir
         </button>
