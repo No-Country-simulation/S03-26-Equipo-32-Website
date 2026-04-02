@@ -13,7 +13,6 @@ export const useStats = (from: string, to: string) => {
 
   useEffect(() => {
     let cancelled = false;
-    setStats(INITIAL_STATE);
     statisticsContainer.getStatisticsRange
       .execute(from, to)
       .then((data) => {
