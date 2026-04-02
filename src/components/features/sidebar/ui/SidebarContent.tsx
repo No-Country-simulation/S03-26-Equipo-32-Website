@@ -34,7 +34,7 @@ export const SidebarContent = ({
           className={({ isActive }) =>
             `flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors ${
               isActive
-                ? 'bg-[#E8E3DB] text-zinc-900 font-medium'
+                ? 'bg-[#6B9E7A] text-white font-medium'
                 : 'text-[#71717A] hover:bg-[#EDE9E3] hover:text-zinc-800'
             }`
           }
