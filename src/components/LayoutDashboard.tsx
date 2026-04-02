@@ -3,11 +3,13 @@ import { Navigate, Outlet } from 'react-router-dom';
 import { Menu } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { Sidebar } from '@/components/features/sidebar/ui/Sidebar';
-import { userContainer } from '@/core/containers/user.container.ts';
+import { LogoutModal } from '@/components/features/logout/ui/modal.tsx';
+import { useModal } from '@/context/ModalContext.tsx';
 
 export const LayoutDashboard = () => {
   const { user, isLoading } = useAuth();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const modal = useModal();
 
   if (isLoading) {
     return (
@@ -23,13 +25,20 @@ export const LayoutDashboard = () => {
     user.displayName || user.email?.split('@')[0] || 'Usuario';
   const initials = displayName.slice(0, 2).toUpperCase();
 
+  const handleLogout = () => {
+    modal.open({
+      render: <LogoutModal />,
+      size: 'sm',
+    });
+  };
+
   return (
     <div className="min-h-screen flex bg-[#FCF9F5]">
       <Sidebar
         displayName={displayName}
         initials={initials}
-        email={user.email}
-        onLogout={() => userContainer.logout.execute()}
+        role={'ADMINISTRADOR'}
+        onLogout={handleLogout}
         mobileOpen={mobileOpen}
         onMobileClose={() => setMobileOpen(false)}
       />

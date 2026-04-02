@@ -6,7 +6,7 @@ const SIDEBAR_WIDTH = 'w-64';
 interface SidebarProps {
   displayName: string;
   initials: string;
-  email: string | null;
+  role: string | null;
   onLogout: () => void;
   mobileOpen: boolean;
   onMobileClose: () => void;
@@ -15,12 +15,12 @@ interface SidebarProps {
 export const Sidebar = ({
   displayName,
   initials,
-  email,
+  role,
   onLogout,
   mobileOpen,
   onMobileClose,
 }: SidebarProps) => {
-  const sharedProps = { displayName, initials, email, onLogout };
+  const sharedProps = { displayName, initials, role, onLogout };
 
   return (
     <>

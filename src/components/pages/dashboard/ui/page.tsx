@@ -10,7 +10,6 @@ export const DashboardPage = () => {
   return (
     <div className={'flex flex-col gap-4 p-4'}>
       <DashboardHeader />
-
       <ConversionFunnel
         pageViews={stats.totals.pageViews}
         formInteractions={stats.totals.formInteractions}

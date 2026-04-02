@@ -5,7 +5,7 @@ import { navItems } from '../model/navItems';
 interface SidebarContentProps {
   displayName: string;
   initials: string;
-  email: string | null;
+  role: string | null;
   onLogout: () => void;
   onNavClick?: () => void;
 }
@@ -13,7 +13,7 @@ interface SidebarContentProps {
 export const SidebarContent = ({
   displayName,
   initials,
-  email,
+  role,
   onLogout,
   onNavClick,
 }: SidebarContentProps) => (
@@ -52,7 +52,9 @@ export const SidebarContent = ({
       </div>
       <div className="flex flex-col min-w-0 flex-1">
         <span className="text-sm font-medium truncate">{displayName}</span>
-        <span className="text-xs text-[#71717A] truncate">{email}</span>
+        <span className="text-xs text-[#71717A] truncate uppercase">
+          {role}
+        </span>
       </div>
       <button
         onClick={onLogout}

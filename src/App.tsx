@@ -6,20 +6,23 @@ import { HomePage } from '@/components/pages/landing/ui/page';
 import './App.css';
 import { LeadsManagerPage } from '@/components/pages/leads-manager/ui/page.tsx';
 import { NuqsAdapter } from 'nuqs/adapters/react';
+import { ModalProvider } from '@/context/ModalContext.tsx';
 
 function App() {
   return (
     <NuqsAdapter>
-      <BrowserRouter>
-        <Routes>
-          <Route element={<LayoutDashboard />}>
-            <Route path="/panel-general" element={<DashboardPage />} />
-            <Route path="/prospectos" element={<LeadsManagerPage />} />
-          </Route>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/" element={<HomePage />} />
-        </Routes>
-      </BrowserRouter>
+      <ModalProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route element={<LayoutDashboard />}>
+              <Route path="/panel-general" element={<DashboardPage />} />
+              <Route path="/prospectos" element={<LeadsManagerPage />} />
+            </Route>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/" element={<HomePage />} />
+          </Routes>
+        </BrowserRouter>
+      </ModalProvider>
     </NuqsAdapter>
   );
 }
