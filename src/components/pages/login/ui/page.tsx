@@ -1,6 +1,13 @@
+import { Navigate } from 'react-router-dom';
 import { userContainer } from '@/core/containers/user.container';
+import { useAuth } from '@/context/AuthContext';
 
 export const LoginPage = () => {
+  const { user, isLoading } = useAuth();
+
+  if (isLoading) return null;
+  if (user) return <Navigate to="/panel-general" replace />;
+
   return (
     <main className="min-h-screen bg-[#F6F5F3] flex flex-col items-center">
       <section className="w-full max-w-190 flex-1 flex flex-col items-center px-6 pt-20">
