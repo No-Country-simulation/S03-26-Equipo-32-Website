@@ -9,4 +9,5 @@ export interface Lead {
   products: string;
   consent: boolean;
   createdAt: number;
+  contactedAt?: number;
 }

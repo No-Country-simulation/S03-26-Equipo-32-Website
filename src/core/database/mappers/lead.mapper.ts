@@ -14,5 +14,6 @@ export function mapToLeadEntity(doc: DocumentSnapshot): Lead {
     products: data?.products ?? '',
     consent: data?.consent ?? false,
     createdAt: data?.createdAt ?? 0,
+    contactedAt: data?.contactedAt,
   };
 }
