@@ -5,9 +5,8 @@
   "targets": {
     "plek-8b6bf": {
       "hosting": {
-        "b2b-site": [
-          "b2b-plek-com-mx"
-        ]
+        "prod": ["b2b-plek-com-mx"],
+        "staging": ["b2b-plek-com-mx-staging"]
       }
     }
   }
