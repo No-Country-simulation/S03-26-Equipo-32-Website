@@ -3,7 +3,7 @@ name: Firebase Hosting Deploy
 on:
   pull_request:
     branches:
-      - main
+      - staging
   push:
     branches:
       - main
@@ -47,16 +47,17 @@ jobs:
           VITE_APP_ID: ${{ secrets.VITE_APP_ID }}
           VITE_MEASUREMENT_ID: ${{ secrets.VITE_MEASUREMENT_ID }}
 
-      - name: Deploy preview channel
+      - name: Deploy staging
         if: github.event_name == 'pull_request'
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PLEK }}
+          channelId: live
           projectId: ${{ secrets.FIREBASE_PROJECT_ID }}
-          target: prod
+          target: staging
 
-      - name: Deploy staging
+      - name: Deploy staging on push
         if: github.event_name == 'push' && github.ref == 'refs/heads/staging'
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
