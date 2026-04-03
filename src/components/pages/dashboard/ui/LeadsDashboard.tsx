@@ -99,25 +99,24 @@ export const LeadsDashboard = ({
   onSelectRange,
   businessData,
   channels,
-  activeSlice,
   onSliceEnter,
   onSliceLeave,
 }: LeadsDashboardViewModel) => {
   return (
     <section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
       <div className="rounded-[18px] border border-[#EFE7DE] bg-white shadow-[0_20px_40px_rgba(40,30,20,0.08)] p-6">
-        <h3 className="font-cormorant text-[16px] leading-[24px] font-semibold text-[#3B2F24]">
+        <h3 className="font-cormorant text-[16px] leading-6 font-semibold text-[#3B2F24]">
           Registro de visitas
         </h3>
         <div className="mt-2">
-          <div className="text-[26px] leading-[30px] font-semibold text-[#2D5A3D] font-dm-sans">
+          <div className="text-[26px] leading-7.5 font-semibold text-[#2D5A3D] font-dm-sans">
             {visitsTotal.toLocaleString('en-US')}
           </div>
           <div className="text-[12px] text-[#9C9389] font-dm-sans">
             Visitantes
           </div>
         </div>
-        <div className="mt-4 h-[140px]">
+        <div className="mt-4 h-35">
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart
               data={visitsSeries}
@@ -177,13 +176,13 @@ export const LeadsDashboard = ({
               <span className="text-[10px]">{menuOpen ? '▲' : '▼'}</span>
             </button>
             {menuOpen && (
-              <div className="absolute right-0 bottom-7 w-36 rounded-[12px] border border-[#EFE7DE] bg-white shadow-[0_12px_26px_rgba(40,30,20,0.12)] p-2">
+              <div className="absolute right-0 bottom-7 w-36 rounded-xl border border-[#EFE7DE] bg-white shadow-[0_12px_26px_rgba(40,30,20,0.12)] p-2">
                 <div className="space-y-1">
                   {rangeOptions.map((option) => (
                     <button
                       key={option.key}
                       onClick={() => onSelectRange(option.key)}
-                      className={`w-full text-left px-2 py-1 rounded-[8px] text-[11px] font-dm-sans ${
+                      className={`w-full text-left px-2 py-1 rounded-lg text-[11px] font-dm-sans ${
                         option.active
                           ? 'bg-[#6B9E7A] text-white'
                           : 'text-[#5F574E] hover:bg-[#F3EEE8]'
@@ -200,7 +199,7 @@ export const LeadsDashboard = ({
       </div>
 
       <div className="rounded-[18px] border border-[#EFE7DE] bg-white shadow-[0_20px_40px_rgba(40,30,20,0.08)] p-6">
-        <h3 className="font-cormorant text-[20px] leading-[28px] font-bold text-[#3B2F24]">
+        <h3 className="font-cormorant text-[20px] leading-7 font-bold text-[#3B2F24]">
           Clientes potenciales
         </h3>
         <div className="mt-4 space-y-3">
@@ -210,7 +209,7 @@ export const LeadsDashboard = ({
                 <span>{item.label}</span>
                 <span>{item.percent}%</span>
               </div>
-              <div className="h-[4px] rounded-full bg-[#F3EEE8]">
+              <div className="h-1 rounded-full bg-[#F3EEE8]">
                 <div
                   className="h-full rounded-full bg-[#6B9E7A]"
                   style={{ width: `${item.percent}%` }}
@@ -222,7 +221,7 @@ export const LeadsDashboard = ({
       </div>
 
       <div className="rounded-[18px] border border-[#EFE7DE] bg-white shadow-[0_20px_40px_rgba(40,30,20,0.08)] p-6">
-        <h3 className="font-cormorant text-[20px] leading-[28px] font-bold text-[#3B2F24]">
+        <h3 className="font-cormorant text-[20px] leading-7 font-bold text-[#3B2F24]">
           Canal de adquisición
         </h3>
         <div className="mt-5 flex items-center justify-center">
@@ -238,7 +237,6 @@ export const LeadsDashboard = ({
                   stroke="#FFFFFF"
                   strokeWidth={2}
                   paddingAngle={1}
-                  activeIndex={activeSlice ?? undefined}
                   activeShape={renderActiveShape}
                   onMouseEnter={(_, index) => onSliceEnter(index)}
                   onMouseLeave={onSliceLeave}

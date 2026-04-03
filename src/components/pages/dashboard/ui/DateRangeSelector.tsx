@@ -54,7 +54,7 @@ export const DateRangeSelector = ({
 
       {/* Dropdown — separated from trigger with margin */}
       {open && (
-        <div className="absolute right-0 mt-2 min-w-[160px] rounded-xl border border-neutral-200 bg-[#FCF9F5] shadow-md z-50 overflow-hidden py-1 px-2">
+        <div className="absolute right-0 mt-2 min-w-40 rounded-xl border border-neutral-200 bg-[#FCF9F5] shadow-md z-50 overflow-hidden py-1 px-2">
           {DATE_RANGE_PRESETS.map((preset) => (
             <button
               key={preset}

@@ -73,7 +73,7 @@ export type LeadsDashboardViewModel = {
   rangeLabel: string;
   rangeOptions: LeadsRangeOption[];
   menuOpen: boolean;
-  menuRef: RefObject<HTMLDivElement>;
+  menuRef: RefObject<HTMLDivElement | null>;
   onToggleMenu: () => void;
   onSelectRange: (preset: DateRangePreset) => void;
   businessData: LeadsBusinessItem[];
