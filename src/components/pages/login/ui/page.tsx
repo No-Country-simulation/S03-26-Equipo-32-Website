@@ -15,7 +15,7 @@ export const LoginPage = () => {
         <Logo variant="brand" className="h-10 w-auto" />
 
         <h1 className="text-[#244C23] font-cormorant text-5xl md:text-5xl text-center leading-tight ">
-          Accede a tu dashboard y descubre el poder de tus datos con PLEK
+          Accede a tu dashboard
         </h1>
 
         <button
