@@ -15,10 +15,6 @@ export const LoginPage = () => {
           Si funciona
         </p>
 
-        <h1 className="mt-8 md:mt-[64px] text-[#244C23] font-cormorant text-5xl md:text-6xl text-center leading-tight ">
-          Accede a tu dashboard
-        </h1>
-
         <button
           onClick={() => userContainer.login.execute()}
           type="button"
