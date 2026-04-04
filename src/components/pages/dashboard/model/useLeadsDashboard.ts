@@ -175,6 +175,19 @@ const buildGridValues = (maxValue: number) => {
   );
 };
 
+const hasLocationData = (lead: {
+  country?: string;
+  countryCode?: string;
+  region?: string;
+  city?: string;
+}) =>
+  Boolean(
+    lead.country?.trim() ||
+    lead.countryCode?.trim() ||
+    lead.region?.trim() ||
+    lead.city?.trim(),
+  );
+
 export const useLeadsDashboard = ({
   from,
   to,
@@ -277,7 +290,9 @@ export const useLeadsDashboard = ({
       }
     >();
 
-    leads.forEach((lead) => {
+    const locatedLeads = leads.filter(hasLocationData);
+
+    locatedLeads.forEach((lead) => {
       const country = resolveCountryLabel(lead.country, lead.countryCode);
       const countryCode = lead.countryCode?.trim() ?? '';
       const region = lead.region?.trim() ?? '';
@@ -297,7 +312,7 @@ export const useLeadsDashboard = ({
       regionMap.set(label, current);
     });
 
-    const total = leads.length;
+    const total = locatedLeads.length;
 
     return [...regionMap.entries()]
       .map(([label, value]) => ({
@@ -309,8 +324,7 @@ export const useLeadsDashboard = ({
         region: value.region,
         city: value.city,
       }))
-      .sort((left, right) => right.leads - left.leads)
-      .slice(0, 6);
+      .sort((left, right) => right.leads - left.leads);
   }, [leads]);
 
   const [menuOpen, setMenuOpen] = useState(false);

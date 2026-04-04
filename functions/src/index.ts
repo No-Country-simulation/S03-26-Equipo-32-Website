@@ -40,14 +40,16 @@ const getClientIp = (
   fallback?: string,
 ) => {
   const forwarded = readHeader(headers, 'x-forwarded-for');
+  const forwardedIp = forwarded
+    ?.split(',')
+    .map((entry) => entry.trim())
+    .filter(Boolean)
+    .pop();
   const realIp =
-    forwarded
-      ?.split(',')
-      .map((entry) => entry.trim())
-      .find(Boolean) ||
+    fallback ||
+    forwardedIp ||
     readHeader(headers, 'x-real-ip') ||
-    readHeader(headers, 'cf-connecting-ip') ||
-    fallback;
+    readHeader(headers, 'cf-connecting-ip');
 
   if (!realIp) return undefined;
 
@@ -61,11 +63,15 @@ const getClientIp = (
 const resolveGeoLocation = async (ip?: string): Promise<GeoLocation> => {
   if (!ip) return {};
 
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 2500);
+
   try {
     const response = await fetch(`https://ipapi.co/${ip}/json/`, {
       headers: {
         Accept: 'application/json',
       },
+      signal: controller.signal,
     });
 
     if (!response.ok) return { ip };
@@ -88,6 +94,8 @@ const resolveGeoLocation = async (ip?: string): Promise<GeoLocation> => {
     };
   } catch {
     return { ip };
+  } finally {
+    clearTimeout(timeout);
   }
 };
 

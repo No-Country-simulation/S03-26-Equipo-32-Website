@@ -26,11 +26,15 @@ type GeoLocation = {
 const resolveGeoLocation = async (ip?: string): Promise<GeoLocation> => {
   if (!ip) return {};
 
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 2500);
+
   try {
     const response = await fetch(`https://ipapi.co/${ip}/json/`, {
       headers: {
         Accept: 'application/json',
       },
+      signal: controller.signal,
     });
 
     if (!response.ok) return { ip };
@@ -53,8 +57,15 @@ const resolveGeoLocation = async (ip?: string): Promise<GeoLocation> => {
     };
   } catch {
     return { ip };
+  } finally {
+    clearTimeout(timeout);
   }
 };
+
+const stripUndefined = <T extends Record<string, unknown>>(value: T) =>
+  Object.fromEntries(
+    Object.entries(value).filter(([, entry]) => entry !== undefined),
+  ) as Partial<T>;
 
 const hasLocationData = (lead: LeadDoc) =>
   Boolean(
@@ -94,13 +105,15 @@ async function main() {
       continue;
     }
 
-    await doc.ref.update({
-      country: location.country,
-      countryCode: location.countryCode,
-      region: location.region,
-      regionCode: location.regionCode,
-      city: location.city,
-    });
+    await doc.ref.update(
+      stripUndefined({
+        country: location.country,
+        countryCode: location.countryCode,
+        region: location.region,
+        regionCode: location.regionCode,
+        city: location.city,
+      }),
+    );
 
     updated += 1;
   }

@@ -412,7 +412,7 @@ export const RegionMapCard = ({ regions }: RegionMapCardProps) => {
             className={'absolute inset-0 h-full w-full'}
             style={{ width: '100%', height: '100%' }}
           >
-            <Geographies geography={countries110m as never}>
+            <Geographies geography={countries110m}>
               {({ geographies }) =>
                 geographies.map((geo) => (
                   <Geography
