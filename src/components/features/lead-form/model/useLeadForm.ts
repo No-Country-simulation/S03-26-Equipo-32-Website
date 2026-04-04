@@ -38,7 +38,6 @@ export const useLeadForm = () => {
     setIsSubmitting(true);
     try {
       await leadContainer.createLead.execute(data as CreateLeadDto);
-      statisticsContainer.trackLeadSubmitted.execute();
       setIsSuccess(true);
       form.reset();
     } finally {

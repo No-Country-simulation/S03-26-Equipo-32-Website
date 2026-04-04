@@ -19,6 +19,7 @@ import { db, functions } from '@/core/database/firebase/firebase.config.ts';
 import { mapToLeadEntity } from '@/core/database/mappers/lead.mapper.ts';
 import { addDoc } from 'firebase/firestore';
 import { httpsCallable } from 'firebase/functions';
+import { statisticsContainer } from '@/core/containers/statistics.container.ts';
 
 type CreateLeadResponse = {
   lead: Lead;
@@ -36,6 +37,7 @@ export class LeadsRepository implements LeadRepository {
 
       const response = await createLeadWithGeo(dto);
       if (response.data?.lead) {
+        await statisticsContainer.trackLeadSubmitted.execute();
         return response.data.lead;
       }
     } catch {
@@ -48,6 +50,7 @@ export class LeadsRepository implements LeadRepository {
       const snapshot = await getDoc(docRef);
 
       if (snapshot.exists()) {
+        await statisticsContainer.trackLeadSubmitted.execute();
         return mapToLeadEntity(snapshot);
       }
     }
