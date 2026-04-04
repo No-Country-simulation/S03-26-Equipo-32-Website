@@ -40,6 +40,48 @@ const channelPalette = [
   { label: 'Otro', color: '#B8D4BE' },
 ] as const;
 
+const countryCodeLabels: Record<string, string> = {
+  MX: 'México',
+  US: 'Estados Unidos',
+  USA: 'Estados Unidos',
+  CA: 'Canadá',
+  GT: 'Guatemala',
+  CO: 'Colombia',
+  PE: 'Perú',
+  AR: 'Argentina',
+  BR: 'Brasil',
+  ES: 'España',
+  FR: 'Francia',
+  PT: 'Portugal',
+  GB: 'Reino Unido',
+  UK: 'Reino Unido',
+  DE: 'Alemania',
+  IT: 'Italia',
+  NL: 'Países Bajos',
+  CH: 'Suiza',
+  MA: 'Marruecos',
+  NG: 'Nigeria',
+  ZA: 'Sudáfrica',
+  EG: 'Egipto',
+  TR: 'Turquía',
+  AE: 'Emiratos Árabes Unidos',
+  IN: 'India',
+  CN: 'China',
+  JP: 'Japón',
+  KR: 'Corea del Sur',
+  AU: 'Australia',
+};
+
+const resolveCountryLabel = (country?: string, countryCode?: string) => {
+  const trimmedCountry = country?.trim();
+  if (trimmedCountry) return trimmedCountry;
+
+  const normalizedCode = countryCode?.trim().toUpperCase();
+  if (!normalizedCode) return '';
+
+  return countryCodeLabels[normalizedCode] ?? normalizedCode;
+};
+
 type BusinessKey = (typeof businessOrder)[number]['key'];
 
 export type LeadsVisitPoint = {
@@ -56,6 +98,16 @@ export type LeadsChannelItem = {
   label: string;
   value: number;
   color: string;
+};
+
+export type LeadsRegionItem = {
+  label: string;
+  leads: number;
+  percent: number;
+  country?: string;
+  countryCode?: string;
+  region?: string;
+  city?: string;
 };
 
 export type LeadsRangeOption = {
@@ -78,6 +130,7 @@ export type LeadsDashboardViewModel = {
   onSelectRange: (preset: DateRangePreset) => void;
   businessData: LeadsBusinessItem[];
   channels: LeadsChannelItem[];
+  regions: LeadsRegionItem[];
   activeSlice: number | null;
   onSliceEnter: (index: number) => void;
   onSliceLeave: () => void;
@@ -212,6 +265,54 @@ export const useLeadsDashboard = ({
     }));
   }, [leads]);
 
+  const regions = useMemo<LeadsRegionItem[]>(() => {
+    const regionMap = new Map<
+      string,
+      {
+        leads: number;
+        country?: string;
+        countryCode?: string;
+        region?: string;
+        city?: string;
+      }
+    >();
+
+    leads.forEach((lead) => {
+      const country = resolveCountryLabel(lead.country, lead.countryCode);
+      const countryCode = lead.countryCode?.trim() ?? '';
+      const region = lead.region?.trim() ?? '';
+      const city = lead.city?.trim() ?? '';
+      const labelParts = [country, region, city].filter(Boolean);
+      const label = labelParts.join(' · ') || 'Sin ubicación';
+
+      const current = regionMap.get(label) ?? {
+        leads: 0,
+        country: country || undefined,
+        countryCode: countryCode || undefined,
+        region: region || undefined,
+        city: city || undefined,
+      };
+
+      current.leads += 1;
+      regionMap.set(label, current);
+    });
+
+    const total = leads.length;
+
+    return [...regionMap.entries()]
+      .map(([label, value]) => ({
+        label,
+        leads: value.leads,
+        percent: total > 0 ? Math.round((value.leads / total) * 100) : 0,
+        country: value.country,
+        countryCode: value.countryCode,
+        region: value.region,
+        city: value.city,
+      }))
+      .sort((left, right) => right.leads - left.leads)
+      .slice(0, 6);
+  }, [leads]);
+
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -261,6 +362,7 @@ export const useLeadsDashboard = ({
     onSelectRange,
     businessData,
     channels,
+    regions,
     activeSlice,
     onSliceEnter,
     onSliceLeave,

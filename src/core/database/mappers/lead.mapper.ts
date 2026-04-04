@@ -13,6 +13,12 @@ export function mapToLeadEntity(doc: DocumentSnapshot): Lead {
     foundUs: data?.foundUs ?? '',
     products: data?.products ?? '',
     consent: data?.consent ?? false,
+    country: data?.country,
+    countryCode: data?.countryCode,
+    region: data?.region,
+    regionCode: data?.regionCode,
+    city: data?.city,
+    ip: data?.ip,
     createdAt: data?.createdAt ?? 0,
     contactedAt: data?.contactedAt,
   };

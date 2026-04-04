@@ -3,6 +3,7 @@ import { useStats } from '@/components/features/statistics/model/useStats.ts';
 import { useDashboardFilter } from '@/components/pages/dashboard/model/useDashboardFilter.ts';
 import { DashboardHeader } from '@/components/pages/dashboard/ui/DashboardHeader.tsx';
 import { KPIOverview } from '@/components/pages/dashboard/ui/KPIOverview.tsx';
+import { RegionMapCard } from '@/components/pages/dashboard/ui/RegionMapCard.tsx';
 import { LeadsDashboard } from '@/components/pages/dashboard/ui/LeadsDashboard.tsx';
 import { useLeadsDashboard } from '@/components/pages/dashboard/model/useLeadsDashboard.ts';
 
@@ -31,7 +32,10 @@ export const DashboardPage = () => {
         totalLeads={stats.totals.totalLeads}
         contacted={stats.totals.contacted}
       />
+
       <LeadsDashboard {...leadsDashboard} />
+
+      <RegionMapCard regions={leadsDashboard.regions} />
     </div>
   );
 };

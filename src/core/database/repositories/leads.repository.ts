@@ -5,7 +5,6 @@ import type {
 import type { Lead } from '@/core/leads/entities/lead.entity.ts';
 import type { CreateLeadDto } from '@/core/leads/dto/create-lead.dto.ts';
 import {
-  addDoc,
   collection,
   doc,
   getDoc,
@@ -16,26 +15,44 @@ import {
   updateDoc,
   where,
 } from 'firebase/firestore';
-import { db } from '@/core/database/firebase/firebase.config.ts';
+import { db, functions } from '@/core/database/firebase/firebase.config.ts';
 import { mapToLeadEntity } from '@/core/database/mappers/lead.mapper.ts';
+import { addDoc } from 'firebase/firestore';
+import { httpsCallable } from 'firebase/functions';
+
+type CreateLeadResponse = {
+  lead: Lead;
+};
 
 export class LeadsRepository implements LeadRepository {
   private COLLECTION = 'leads';
 
   async create(dto: CreateLeadDto): Promise<Lead> {
-    const now = Date.now();
-    const docRef = await addDoc(collection(db, this.COLLECTION), {
-      ...dto,
-      createdAt: now,
-    });
+    try {
+      const createLeadWithGeo = httpsCallable<
+        CreateLeadDto,
+        CreateLeadResponse
+      >(functions, 'createLeadWithGeo');
 
-    const snapshot = await getDoc(docRef);
+      const response = await createLeadWithGeo(dto);
+      if (response.data?.lead) {
+        return response.data.lead;
+      }
+    } catch {
+      const now = Date.now();
+      const docRef = await addDoc(collection(db, this.COLLECTION), {
+        ...dto,
+        createdAt: now,
+      });
 
-    if (!snapshot.exists()) {
-      throw new Error('Failed to create lead');
+      const snapshot = await getDoc(docRef);
+
+      if (snapshot.exists()) {
+        return mapToLeadEntity(snapshot);
+      }
     }
 
-    return mapToLeadEntity(snapshot);
+    throw new Error('Failed to create lead');
   }
 
   async getAll(filter?: LeadDateFilter): Promise<Lead[]> {

@@ -1,6 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getAnalytics } from 'firebase/analytics';
 import { getAuth } from 'firebase/auth';
+import { getFunctions } from 'firebase/functions';
 import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
@@ -14,7 +15,10 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+const functionsRegion = import.meta.env.VITE_FUNCTIONS_REGION ?? 'us-central1';
 
+export { app };
 export const analytics = getAnalytics(app);
 export const auth = getAuth(app);
+export const functions = getFunctions(app, functionsRegion);
 export const db = getFirestore(app);
