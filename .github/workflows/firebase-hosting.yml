@@ -7,7 +7,6 @@ on:
   push:
     branches:
       - main
-      - staging
 
 permissions:
   contents: read
@@ -55,16 +54,6 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PLEK }}
           projectId: ${{ secrets.FIREBASE_PROJECT_ID }}
           target: prod
-
-      - name: Deploy staging
-        if: github.event_name == 'push' && github.ref == 'refs/heads/staging'
-        uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PLEK }}
-          channelId: live
-          projectId: ${{ secrets.FIREBASE_PROJECT_ID }}
-          target: staging
 
       - name: Deploy production
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
