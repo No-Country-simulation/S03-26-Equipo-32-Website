@@ -105,7 +105,7 @@ export const LeadsDashboard = ({
   return (
     <section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
       <div className="rounded-[18px] border border-[#EFE7DE] bg-white shadow-[0_20px_40px_rgba(40,30,20,0.08)] p-6">
-        <h3 className="font-cormorant text-[16px] leading-6 font-semibold text-[#3B2F24]">
+        <h3 className="font-cormorant text-[20px] leading-7 font-bold text-[#3B2F24]">
           Registro de visitas
         </h3>
         <div className="mt-2">
