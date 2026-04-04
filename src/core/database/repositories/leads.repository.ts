@@ -4,7 +4,8 @@ import type {
 } from '@/core/leads/repositories/lead.repository.ts';
 import type { Lead } from '@/core/leads/entities/lead.entity.ts';
 import type { CreateLeadDto } from '@/core/leads/dto/create-lead.dto.ts';
-import { IPWho } from '@ipwho/ipwho';
+import type { LeadLocationProvider } from '@/core/leads/services/lead-location.provider.ts';
+import { IpWhoLeadLocationProvider } from '@/core/database/services/ipwho-lead-location.provider.ts';
 import {
   addDoc,
   collection,
@@ -20,44 +21,24 @@ import {
 import { db } from '@/core/database/firebase/firebase.config.ts';
 import { mapToLeadEntity } from '@/core/database/mappers/lead.mapper.ts';
 
-type LeadLocation = {
-  country?: string;
-  countryCode?: string;
-  city?: string;
-  ip?: string;
-};
-
-const ipwhoApiKey = import.meta.env.VITE_IP_WHO;
-const ipwhoClient = ipwhoApiKey ? new IPWho(ipwhoApiKey) : null;
-
-const resolveLeadLocation = async (): Promise<LeadLocation> => {
-  if (!ipwhoClient) return {};
-
-  try {
-    const response = await ipwhoClient.getMe();
-    const location = response?.data ?? response;
-
-    if (!location) return {};
-
-    return {
-      country: location.country ?? undefined,
-      countryCode: location.countryCode ?? undefined,
-      city: location.city ?? undefined,
-    };
-  } catch {
-    return {};
-  }
-};
+const stripUndefined = <T extends Record<string, unknown>>(value: T) =>
+  Object.fromEntries(
+    Object.entries(value).filter(([, entry]) => entry !== undefined),
+  ) as Partial<T>;
 
 export class LeadsRepository implements LeadRepository {
   private COLLECTION = 'leads';
 
+  constructor(
+    private readonly leadLocationProvider: LeadLocationProvider = new IpWhoLeadLocationProvider(),
+  ) {}
+
   async create(dto: CreateLeadDto): Promise<Lead> {
     const now = Date.now();
-    const location = await resolveLeadLocation();
+    const location = await this.leadLocationProvider.resolve();
     const docRef = await addDoc(collection(db, this.COLLECTION), {
       ...dto,
-      ...location,
+      ...stripUndefined(location),
       createdAt: now,
     });
 
