@@ -34,7 +34,7 @@ export const PopularCatalog = () => {
   }, [paginate]);
 
   return (
-    <div className="flex flex-col gap-8 py-16 bg-[#FAFAFA]">
+    <div id="catalogo" className="flex flex-col gap-8 py-16 bg-[#FAFAFA]">
       <div className="max-w-4xl mx-auto w-full px-4">
         <div className="text-[#8B4513] text-xs">PRODUCTOS DESTACADOS</div>
         <div className="font-cormorant text-4xl mt-5">

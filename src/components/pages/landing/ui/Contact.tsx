@@ -3,7 +3,7 @@ import { CircleCheck, Clock, Shield } from 'lucide-react';
 
 export const Contact = () => {
   return (
-    <div className="py-16 bg-white">
+    <div id="contacto" className="py-16 bg-white">
       <div className={'max-w-6xl mx-auto w-full'}>
         <div className={'grid grid-cols-12 items-center gap-10'}>
           <div className={'col-span-4 flex flex-col gap-4'}>
