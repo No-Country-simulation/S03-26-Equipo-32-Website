@@ -18,7 +18,7 @@ export const LeadsManagerFilters = () => {
   return (
     <div className={'flex gap-4 mb-4'}>
       <CustomSelect
-        className={'w-fit'}
+        className={'w-fit font-dm-sans'}
         label={'Prioridad'}
         options={PRIORITY_OPTIONS}
         value={priority}
@@ -26,7 +26,7 @@ export const LeadsManagerFilters = () => {
       />
 
       <CustomSelect
-        className={'w-fit'}
+        className={'w-fit font-dm-sans'}
         label={'Urgencia'}
         options={URGENCY_OPTIONS}
         value={urgency}
@@ -34,7 +34,7 @@ export const LeadsManagerFilters = () => {
       />
 
       <CustomSelect
-        className={'w-fit'}
+        className={'w-fit font-dm-sans'}
         label={'Estado'}
         options={STATUS_OPTIONS}
         value={status}
