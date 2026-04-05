@@ -3,6 +3,7 @@ import { CreateLeadUseCase } from '@/core/leads/use-cases/create-lead.use-case.t
 import { MarkLeadContactedUseCase } from '@/core/leads/use-cases/mark-lead-contacted.use-case.ts';
 import { GetLeadsUseCase } from '@/core/leads/use-cases/get-leads.use-case.ts';
 import { GetLeadUbicationUseCase } from '@/core/leads/use-cases/get-lead-ubication.use-case.ts';
+import { DeleteLeadUseCase } from '@/core/leads/use-cases/delete-lead.use-case.ts';
 
 const leadRepository = new LeadsRepository();
 
@@ -11,4 +12,5 @@ export const leadContainer = {
   markLeadContacted: new MarkLeadContactedUseCase(leadRepository),
   getLeads: new GetLeadsUseCase(leadRepository),
   getLeadUbication: new GetLeadUbicationUseCase(),
+  deleteLead: new DeleteLeadUseCase(leadRepository),
 };

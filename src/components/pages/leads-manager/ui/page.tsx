@@ -6,6 +6,7 @@ import { useUrgencyFilter } from '@/components/pages/leads-manager/model/useUrge
 import { useStatusFilter } from '@/components/pages/leads-manager/model/useStatusFilter.ts';
 import { useDashboardFilter } from '@/components/pages/dashboard/model/useDashboardFilter.ts';
 import { useLeads } from '@/components/features/leads/model/useLeads.ts';
+import { leadContainer } from '@/core/containers/lead.container.ts';
 import type { Lead } from '@/core/leads/entities/lead.entity.ts';
 import {
   calculateScore,
@@ -40,13 +41,18 @@ export const LeadsManagerPage = () => {
     return !(status === 'en-espera' && contacted);
   });
 
+  const handleDeleteLead = async (id: string) => {
+    await leadContainer.deleteLead.execute(id);
+    setLeads((prev) => prev.filter((l) => l.id !== id));
+  };
+
   return (
     <div className="p-4">
       <h1 className="text-2xl font-semibold font-cormorant mb-4">
         Gestión de Leads
       </h1>
       <LeadsManagerFilters />
-      <LeadsTable leads={filteredLeads} />
+      <LeadsTable leads={filteredLeads} onDelete={handleDeleteLead} />
       <ScoringRules />
     </div>
   );

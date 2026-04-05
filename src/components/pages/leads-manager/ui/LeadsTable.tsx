@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { MessageCircleCheck, Pencil, Trash } from 'lucide-react';
+import { MessageCircleCheck, Pencil, Trash2 } from 'lucide-react';
 import type { Lead } from '@/core/leads/entities/lead.entity.ts';
 import { VOLUME_PURCHASE } from '@/components/share/constants.ts';
 import {
   calculateScore,
   getPriority,
 } from '@/components/pages/leads-manager/lib/scoreLeads.ts';
+import { useModal } from '@/context/ModalContext.tsx';
+import { DeleteLeadModal } from '@/components/pages/leads-manager/ui/DeleteLeadModal.tsx';
 
 const dateFormatter = new Intl.DateTimeFormat('es-MX', {
   day: '2-digit',
@@ -42,10 +44,12 @@ const PRIORITY_STYLES = {
 
 interface Props {
   leads: Lead[];
+  onDelete: (id: string) => void;
 }
 
-export function LeadsTable({ leads }: Props) {
+export function LeadsTable({ leads, onDelete }: Props) {
   const [page, setPage] = useState(1);
+  const modal = useModal();
 
   const totalPages = Math.max(1, Math.ceil(leads.length / PAGE_SIZE));
   const safePage = Math.min(page, totalPages);
@@ -180,8 +184,21 @@ export function LeadsTable({ leads }: Props) {
                         />
                       </button>
 
-                      <button>
-                        <Trash
+                      <button
+                        onClick={() =>
+                          modal.open({
+                            render: (
+                              <DeleteLeadModal
+                                businessName={lead.businessName}
+                                onConfirm={() => onDelete(lead.id)}
+                              />
+                            ),
+                            size: 'sm',
+                            showCloseButton: false,
+                          })
+                        }
+                      >
+                        <Trash2
                           size={16}
                           className="text-[#78716C] hover:text-[#162C14] transition-colors"
                         />

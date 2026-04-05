@@ -7,6 +7,7 @@ import type { CreateLeadDto } from '@/core/leads/dto/create-lead.dto.ts';
 import {
   addDoc,
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getDocs,
@@ -78,5 +79,10 @@ export class LeadsRepository implements LeadRepository {
     await updateDoc(leadRef, {
       contactedAt: Date.now(),
     });
+  }
+
+  async delete(leadId: string): Promise<void> {
+    const leadRef = doc(db, this.COLLECTION, leadId);
+    await deleteDoc(leadRef);
   }
 }
