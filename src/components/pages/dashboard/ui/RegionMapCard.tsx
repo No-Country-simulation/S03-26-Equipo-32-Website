@@ -4,6 +4,7 @@ import {
   Geographies,
   Geography,
   Marker,
+  ZoomableGroup,
 } from 'react-simple-maps';
 import countries110m from 'world-atlas/countries-110m.json';
 import type { LeadsRegionItem } from '@/components/pages/dashboard/model/useLeadsDashboard.ts';
@@ -21,6 +22,10 @@ type MapMarker = {
   country?: string;
   region?: string;
   city?: string;
+  cityBreakdown: Array<{
+    city: string;
+    leads: number;
+  }>;
 };
 
 type CountryRankItem = {
@@ -177,6 +182,46 @@ const buildMarkers = (regions: LeadsRegionItem[]): MapMarker[] => {
 
   return [...countryGroups.values()].map((group, index) => {
     const representative = group.regions[0];
+    const cityMap = new Map<
+      string,
+      {
+        leads: number;
+        preciseRegions: LeadsRegionItem[];
+      }
+    >();
+
+    group.regions.forEach((region) => {
+      const cityLabel =
+        region.city?.trim() || region.region?.trim() || 'Sin ciudad';
+      const current = cityMap.get(cityLabel) ?? {
+        leads: 0,
+        preciseRegions: [],
+      };
+
+      current.leads += region.leads;
+
+      if (
+        typeof region.latitude === 'number' &&
+        Number.isFinite(region.latitude) &&
+        typeof region.longitude === 'number' &&
+        Number.isFinite(region.longitude)
+      ) {
+        current.preciseRegions.push(region);
+      }
+
+      cityMap.set(cityLabel, current);
+    });
+
+    const cityBreakdown = [...cityMap.entries()]
+      .map(([city, value]) => ({ city, leads: value.leads }))
+      .sort((left, right) => right.leads - left.leads)
+      .slice(0, 6);
+
+    const dominantCity = cityBreakdown[0]?.city;
+    const dominantCityRegions = dominantCity
+      ? (cityMap.get(dominantCity)?.preciseRegions ?? [])
+      : [];
+
     const preciseRegions = group.regions.filter(
       (region) =>
         typeof region.latitude === 'number' &&
@@ -186,29 +231,57 @@ const buildMarkers = (regions: LeadsRegionItem[]): MapMarker[] => {
     );
 
     const point =
-      preciseRegions.length > 0
+      dominantCityRegions.length > 0
         ? {
             lat:
-              preciseRegions.reduce(
-                (acc, region) => acc + (region.latitude as number),
+              dominantCityRegions.reduce(
+                (acc, region) =>
+                  acc + (region.latitude as number) * region.leads,
                 0,
-              ) / preciseRegions.length,
+              ) /
+              dominantCityRegions.reduce(
+                (acc, region) => acc + region.leads,
+                0,
+              ),
             lon:
-              preciseRegions.reduce(
-                (acc, region) => acc + (region.longitude as number),
+              dominantCityRegions.reduce(
+                (acc, region) =>
+                  acc + (region.longitude as number) * region.leads,
                 0,
-              ) / preciseRegions.length,
+              ) /
+              dominantCityRegions.reduce(
+                (acc, region) => acc + region.leads,
+                0,
+              ),
             isPrecise: true,
           }
-        : getCountryPoint(
-            representative ?? ({ label: group.label } as LeadsRegionItem),
-          );
+        : preciseRegions.length > 0
+          ? {
+              lat:
+                preciseRegions.reduce(
+                  (acc, region) => acc + (region.latitude as number),
+                  0,
+                ) / preciseRegions.length,
+              lon:
+                preciseRegions.reduce(
+                  (acc, region) => acc + (region.longitude as number),
+                  0,
+                ) / preciseRegions.length,
+              isPrecise: true,
+            }
+          : getCountryPoint(
+              representative ?? ({ label: group.label } as LeadsRegionItem),
+            );
     const seed = hashString(`${group.label}:${group.leads}:${index}`);
-    const primaryCity =
-      group.regions.find((region) => region.city?.trim())?.city?.trim() ?? '';
+    const primaryCity = dominantCity ?? '';
     const primaryRegion =
-      group.regions.find((region) => region.region?.trim())?.region?.trim() ??
-      '';
+      group.regions
+        .find(
+          (region) =>
+            (region.city?.trim() || region.region?.trim() || 'Sin ciudad') ===
+            dominantCity,
+        )
+        ?.region?.trim() ?? '';
 
     const jitterLon = point.isPrecise ? 0 : ((seed % 7) - 3) * 1.2;
     const jitterLat = point.isPrecise ? 0 : (((seed >> 3) % 7) - 3) * 0.8;
@@ -220,6 +293,7 @@ const buildMarkers = (regions: LeadsRegionItem[]): MapMarker[] => {
       country: representative?.country || group.label,
       region: primaryRegion,
       city: primaryCity,
+      cityBreakdown,
       lon: Math.min(165, Math.max(-165, point.lon + jitterLon)),
       lat: Math.min(70, Math.max(-45, point.lat + jitterLat)),
     };
@@ -252,19 +326,30 @@ export const RegionMapCard = ({ regions }: RegionMapCardProps) => {
   const countryRanking = useMemo(() => buildCountryRanking(regions), [regions]);
   const topCountry = countryRanking[0];
   const [selectedMarker, setSelectedMarker] = useState<MapMarker | null>(null);
-  const [mapZoom, setMapZoom] = useState(175);
+  const [mapZoom, setMapZoom] = useState(1);
   const [mapCenter, setMapCenter] = useState<[number, number]>([0, 16]);
 
   const resetMapView = () => {
     setSelectedMarker(null);
-    setMapZoom(175);
+    setMapZoom(1);
     setMapCenter([0, 16]);
   };
 
   const handleMarkerClick = (marker: MapMarker) => {
     setSelectedMarker(marker);
-    setMapZoom(380);
+    setMapZoom(2.4);
     setMapCenter([marker.lon, marker.lat]);
+  };
+
+  const handleMapMoveEnd = ({
+    coordinates,
+    zoom,
+  }: {
+    coordinates: [number, number];
+    zoom: number;
+  }) => {
+    setMapCenter(coordinates);
+    setMapZoom(zoom);
   };
 
   return (
@@ -393,28 +478,28 @@ export const RegionMapCard = ({ regions }: RegionMapCardProps) => {
           {selectedMarker && (
             <div
               className={
-                'absolute bottom-4 left-4 z-20 max-w-70 text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.65)]'
+                'absolute bottom-4 left-4 z-20 w-[min(24rem,calc(100%-2rem))] rounded-xl border border-[#6C7A92]/28 bg-[linear-gradient(145deg,rgba(10,18,30,0.66),rgba(8,14,24,0.5))] p-4 text-white shadow-[0_16px_34px_rgba(0,0,0,0.36)] backdrop-blur-md'
               }
             >
               <div className={'flex items-start justify-between gap-3'}>
                 <div>
                   <p
                     className={
-                      'font-dm-sans text-[11px] uppercase tracking-[0.2em] text-white/55'
+                      'font-dm-sans text-[10px] uppercase tracking-[0.24em] text-white/55'
                     }
                   >
                     Ubicación seleccionada
                   </p>
                   <h3
                     className={
-                      'mt-1 font-cormorant text-[20px] leading-tight font-semibold text-white'
+                      'mt-1 font-dm-sans text-[24px] leading-tight font-semibold text-white'
                     }
                   >
-                    {selectedMarker.city || selectedMarker.label}
+                    {selectedMarker.country || selectedMarker.label}
                   </h3>
                   <p className={'mt-1 text-sm text-white/75 font-dm-sans'}>
-                    {selectedMarker.region ? `${selectedMarker.region} · ` : ''}
-                    {selectedMarker.country || selectedMarker.label}
+                    {selectedMarker.city || 'Varias ciudades'}
+                    {selectedMarker.region ? ` · ${selectedMarker.region}` : ''}
                   </p>
                 </div>
 
@@ -422,7 +507,7 @@ export const RegionMapCard = ({ regions }: RegionMapCardProps) => {
                   type="button"
                   onClick={resetMapView}
                   className={
-                    'rounded-full border border-white/15 bg-black/20 px-3 py-1 text-[11px] font-dm-sans text-white/80 backdrop-blur-sm transition hover:bg-black/30'
+                    'rounded-full border border-[#7D8CA3]/34 bg-[#0A1422]/45 px-3 py-1 text-[11px] font-dm-sans text-white/80 transition hover:bg-[#0D1A2C]/60'
                   }
                 >
                   Ver todo
@@ -430,13 +515,46 @@ export const RegionMapCard = ({ regions }: RegionMapCardProps) => {
               </div>
               <div
                 className={
-                  'mt-3 flex items-center justify-between text-sm font-dm-sans'
+                  'mt-4 grid grid-cols-[1fr_auto] items-center border-y border-[#6C7A92]/25 py-2 text-sm font-dm-sans'
                 }
               >
                 <span className={'text-white/65'}>Leads</span>
                 <span className={'font-semibold text-white'}>
                   {selectedMarker.leads}
                 </span>
+              </div>
+
+              <div className={'mt-3 space-y-1.5'}>
+                <p
+                  className={
+                    'font-dm-sans text-[10px] uppercase tracking-[0.24em] text-white/55'
+                  }
+                >
+                  Ciudades
+                </p>
+                <div className={'space-y-1'}>
+                  {selectedMarker.cityBreakdown.length > 0 ? (
+                    selectedMarker.cityBreakdown.map((item) => (
+                      <div
+                        key={`${selectedMarker.label}:${item.city}`}
+                        className={
+                          'grid grid-cols-[1fr_auto] items-center gap-3 rounded-md px-2 py-1 text-sm font-dm-sans hover:bg-[#112136]/42'
+                        }
+                      >
+                        <span className={'truncate text-white/80'}>
+                          {item.city}
+                        </span>
+                        <span className={'font-semibold text-white'}>
+                          {item.leads}
+                        </span>
+                      </div>
+                    ))
+                  ) : (
+                    <p className={'text-sm font-dm-sans text-white/60'}>
+                      Sin detalle por ciudad
+                    </p>
+                  )}
+                </div>
               </div>
             </div>
           )}
@@ -449,88 +567,100 @@ export const RegionMapCard = ({ regions }: RegionMapCardProps) => {
 
           <ComposableMap
             projection="geoMercator"
-            projectionConfig={{ scale: mapZoom, center: mapCenter }}
+            projectionConfig={{ scale: 175 }}
             className={'absolute inset-0 h-full w-full'}
             style={{ width: '100%', height: '100%' }}
           >
-            <Geographies geography={countries110m as never}>
-              {({ geographies }) =>
-                geographies.map((geo) => (
-                  <Geography
-                    key={geo.rsmKey}
-                    geography={geo}
-                    fill="#1A202A"
-                    stroke="#3A4556"
-                    strokeWidth={0.45}
-                    style={{
-                      default: { outline: 'none' },
-                      hover: { outline: 'none', fill: '#283242' },
-                      pressed: { outline: 'none' },
-                    }}
-                  />
-                ))
-              }
-            </Geographies>
+            <ZoomableGroup
+              center={mapCenter}
+              zoom={mapZoom}
+              minZoom={1}
+              maxZoom={8}
+              onMoveEnd={handleMapMoveEnd}
+            >
+              <Geographies geography={countries110m as never}>
+                {({ geographies }) =>
+                  geographies.map((geo) => (
+                    <Geography
+                      key={geo.rsmKey}
+                      geography={geo}
+                      fill="#1A202A"
+                      stroke="#3A4556"
+                      strokeWidth={0.45}
+                      style={{
+                        default: { outline: 'none' },
+                        hover: { outline: 'none', fill: '#283242' },
+                        pressed: { outline: 'none' },
+                      }}
+                    />
+                  ))
+                }
+              </Geographies>
 
-            {markers.map((marker) => {
-              const isStrong = marker.leads > 1;
+              {markers.map((marker) => {
+                const isStrong = marker.leads > 1;
+                const markerVisualScale = 1 / mapZoom;
 
-              return (
-                <Marker
-                  key={marker.label}
-                  coordinates={[marker.lon, marker.lat]}
-                  onClick={() => handleMarkerClick(marker)}
-                >
-                  <g style={{ cursor: 'pointer' }}>
-                    <g transform="translate(16,-22)">
-                      <line
-                        x1={-8}
-                        y1={16}
-                        x2={-1}
-                        y2={8}
-                        stroke="rgba(244, 247, 243, 0.24)"
+                return (
+                  <Marker
+                    key={marker.label}
+                    coordinates={[marker.lon, marker.lat]}
+                    onClick={() => handleMarkerClick(marker)}
+                  >
+                    <g
+                      style={{ cursor: 'pointer' }}
+                      transform={`scale(${markerVisualScale})`}
+                    >
+                      <g transform="translate(16,-22)">
+                        <line
+                          x1={-8}
+                          y1={16}
+                          x2={-1}
+                          y2={8}
+                          stroke="rgba(244, 247, 243, 0.24)"
+                          strokeWidth={1}
+                          strokeLinecap="round"
+                        />
+                        <rect
+                          x={-6}
+                          y={-16}
+                          rx={16}
+                          ry={16}
+                          width={Math.max(68, marker.label.length * 6.1)}
+                          height={22}
+                          fill="rgba(7, 11, 15, 0.78)"
+                          stroke="rgba(219, 229, 222, 0.16)"
+                          strokeWidth={0.7}
+                        />
+                        <text
+                          x={6}
+                          y={-3}
+                          fill="#F8FBF8"
+                          fontSize={9.5}
+                          fontWeight={700}
+                          letterSpacing="0.01em"
+                          fontFamily="var(--font-dm-sans)"
+                        >
+                          {marker.label}
+                        </text>
+                      </g>
+                      <circle
+                        r={8}
+                        fill="#9BB79E"
+                        fillOpacity={0.1}
+                        className={'animate-ping motion-reduce:animate-none'}
+                      />
+                      <circle
+                        r={3.1}
+                        fill={isStrong ? '#E3EEE1' : '#C0D0C4'}
+                        stroke="#F2F6F1"
                         strokeWidth={1}
-                        strokeLinecap="round"
                       />
-                      <rect
-                        x={-6}
-                        y={-16}
-                        rx={16}
-                        ry={16}
-                        width={Math.max(68, marker.label.length * 6.1)}
-                        height={22}
-                        fill="rgba(7, 11, 15, 0.78)"
-                        stroke="rgba(219, 229, 222, 0.16)"
-                        strokeWidth={0.7}
-                      />
-                      <text
-                        x={6}
-                        y={-3}
-                        fill="#F8FBF8"
-                        fontSize={9.5}
-                        fontWeight={700}
-                        letterSpacing="0.01em"
-                        fontFamily="var(--font-dm-sans)"
-                      >
-                        {marker.label}
-                      </text>
                     </g>
-                    <circle
-                      r={8}
-                      fill="#9BB79E"
-                      fillOpacity={0.1}
-                      className={'animate-ping motion-reduce:animate-none'}
-                    />
-                    <circle
-                      r={3.1}
-                      fill={isStrong ? '#E3EEE1' : '#C0D0C4'}
-                      stroke="#F2F6F1"
-                      strokeWidth={1}
-                    />
-                  </g>
-                </Marker>
-              );
-            })}
+                  </Marker>
+                );
+              })}
+            </ZoomableGroup>
           </ComposableMap>
 
           <div
