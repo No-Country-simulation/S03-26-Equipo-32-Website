@@ -4,10 +4,10 @@ import { FAQ_QUESTIONS } from '@/components/share/constants.ts';
 
 export const FAQ = () => {
   return (
-    <div className="py-16 bg-[#F5F0E8]">
-      <div className={'max-w-6xl mx-auto w-full'}>
-        <div className={'grid grid-cols-12 items-center gap-10'}>
-          <div className={'col-span-4 flex flex-col gap-4'}>
+    <div id="faq" className="py-16 bg-[#F5F0E8]">
+      <div className={'max-w-6xl mx-auto w-full px-6 md:px-10'}>
+        <div className={'grid grid-cols-1 md:grid-cols-12 items-center gap-10'}>
+          <div className={'md:col-span-4 flex flex-col gap-4'}>
             <div className={'text-[#8B4513] text-xs uppercase'}>FAQ</div>
 
             <div className={'font-cormorant text-4xl'}>
@@ -28,7 +28,7 @@ export const FAQ = () => {
             </div>
           </div>
 
-          <div className={'col-span-8 flex flex-col gap-4'}>
+          <div className={'md:col-span-8 flex flex-col gap-4'}>
             {FAQ_QUESTIONS.map((item, index) => {
               return (
                 <Question

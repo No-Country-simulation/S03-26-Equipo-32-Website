@@ -3,10 +3,10 @@ import { CircleCheck, Clock, Shield } from 'lucide-react';
 
 export const Contact = () => {
   return (
-    <div className="py-16 bg-white">
-      <div className={'max-w-6xl mx-auto w-full'}>
-        <div className={'grid grid-cols-12 items-center gap-10'}>
-          <div className={'col-span-4 flex flex-col gap-4'}>
+    <div id="contacto" className="py-16 bg-white">
+      <div className={'max-w-6xl mx-auto w-full px-6 md:px-10'}>
+        <div className={'grid grid-cols-1 md:grid-cols-12 items-center gap-10'}>
+          <div className={'md:col-span-4 flex flex-col gap-4'}>
             <div className={'text-[#8B4513] text-xs uppercase'}>
               comienza ahora
             </div>
@@ -36,7 +36,7 @@ export const Contact = () => {
             </ul>
           </div>
 
-          <div className={'col-span-8'}>
+          <div className={'md:col-span-8'}>
             <LeadForm className={'max-w-xl mx-auto'} />
           </div>
         </div>

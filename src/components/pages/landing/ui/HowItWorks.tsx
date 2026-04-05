@@ -3,7 +3,10 @@ import { HowItWorksItem } from '@/components/pages/landing/ui/HowItWorksItem.tsx
 
 export const HowItWorks = () => {
   return (
-    <div className="flex flex-col items-center gap-8 py-16 bg-[#F5F0E8]">
+    <div
+      id="como-funciona"
+      className="flex flex-col items-center gap-8 py-16 px-6 md:px-10 bg-[#F5F0E8]"
+    >
       <div className={'text-[#8B4513] text-xs'}>CÓMO FUNCIONA</div>
       <div className={'font-cormorant text-4xl'}>Cuatro pasos simples</div>
 

@@ -4,8 +4,12 @@ import { Camera, Mail, MapPin, MessageCircle } from 'lucide-react';
 export const Footer = () => {
   return (
     <div className={'w-full bg-[#2D5016] text-[#F5F0E8] font-dm-sans'}>
-      <div className={'grid grid-cols-12 p-10 max-w-6xl mx-auto gap-4'}>
-        <div className={'col-span-4 py-4 space-y-2'}>
+      <div
+        className={
+          'grid grid-cols-1 md:grid-cols-12 p-6 md:p-10 max-w-6xl mx-auto gap-4'
+        }
+      >
+        <div className={'md:col-span-4 py-4 space-y-2'}>
           <Logo />
           <p className={'text-sm mt-10'}>
             Origami en piel. Mayoreo directo desde León, Guanajuato, México.
@@ -14,7 +18,7 @@ export const Footer = () => {
             © 2026 PLEK. Todos los derechos reservados.
           </p>
         </div>
-        <div className={'col-span-4 text-center text-white py-4'}>
+        <div className={'md:col-span-4 text-center text-white py-4'}>
           <p className={'text-sm text-center'}>
             ¿Prefieres hablar directamente?
           </p>
@@ -27,7 +31,7 @@ export const Footer = () => {
             <MessageCircle className={'size-4'} /> WhatsApp
           </button>
         </div>
-        <div className={'col-span-4 text-white py-4 space-y-2'}>
+        <div className={'md:col-span-4 text-white py-4 space-y-2'}>
           <p className={'text-sm flex items-center gap-1'}>
             <Mail className={'size-3'} />
             ventas@plekmoda.com
@@ -47,7 +51,7 @@ export const Footer = () => {
 
       <div
         className={
-          'flex items-center justify-between text-xs p-10 max-w-6xl mx-auto gap-4'
+          'flex flex-col sm:flex-row items-center justify-between text-xs p-6 md:p-10 max-w-6xl mx-auto gap-4'
         }
       >
         <p>© 2026 PLEK</p>
