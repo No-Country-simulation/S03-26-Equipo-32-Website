@@ -8,6 +8,14 @@ export interface Lead {
   foundUs: string;
   products: string;
   consent: boolean;
+  country?: string;
+  countryCode?: string;
+  region?: string;
+  regionCode?: string;
+  city?: string;
+  ip?: string;
+  latitude?: number;
+  longitude?: number;
   createdAt: number;
   contactedAt?: number;
 }

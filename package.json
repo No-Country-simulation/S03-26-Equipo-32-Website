@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
+    "@ipwho/ipwho": "^1.0.6",
     "@tailwindcss/vite": "^4.2.2",
     "firebase": "^12.11.0",
     "lucide-react": "^1.7.0",
@@ -25,9 +26,12 @@
     "react-dom": "^19.2.4",
     "react-hook-form": "^7.72.0",
     "react-router-dom": "^7.13.2",
+    "react-simple-maps": "^3.0.0",
     "recharts": "^3.8.1",
     "tailwind-merge": "^3.5.0",
     "tailwindcss": "^4.2.2",
+    "topojson-client": "^3.1.0",
+    "world-atlas": "^2.0.2",
     "zod": "^4.3.6"
   },
   "devDependencies": {

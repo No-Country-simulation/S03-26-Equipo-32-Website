@@ -4,6 +4,7 @@ import { useDashboardFilter } from '@/components/pages/dashboard/model/useDashbo
 import { DashboardHeader } from '@/components/pages/dashboard/ui/DashboardHeader.tsx';
 import { KPIOverview } from '@/components/pages/dashboard/ui/KPIOverview.tsx';
 import { LeadsDashboard } from '@/components/pages/dashboard/ui/LeadsDashboard.tsx';
+import { RegionMapCard } from '@/components/pages/dashboard/ui/RegionMapCard.tsx';
 import { useLeadsDashboard } from '@/components/pages/dashboard/model/useLeadsDashboard.ts';
 
 export const DashboardPage = () => {
@@ -32,6 +33,7 @@ export const DashboardPage = () => {
         contacted={stats.totals.contacted}
       />
       <LeadsDashboard {...leadsDashboard} />
+      <RegionMapCard regions={leadsDashboard.regions} />
     </div>
   );
 };
