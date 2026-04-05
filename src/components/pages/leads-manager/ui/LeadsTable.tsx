@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { MessageCircleCheck, Pencil, Trash } from 'lucide-react';
+import { MessageCircleCheck, Pencil, Trash2 } from 'lucide-react';
 import type { Lead } from '@/core/leads/entities/lead.entity.ts';
 import { VOLUME_PURCHASE } from '@/components/share/constants.ts';
 import {
@@ -198,7 +198,7 @@ export function LeadsTable({ leads, onDelete }: Props) {
                           })
                         }
                       >
-                        <Trash
+                        <Trash2
                           size={16}
                           className="text-[#78716C] hover:text-[#162C14] transition-colors"
                         />
