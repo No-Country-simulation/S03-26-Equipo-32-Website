@@ -37,7 +37,11 @@ export const useLeadForm = () => {
   const onSubmit = form.handleSubmit(async (data) => {
     setIsSubmitting(true);
     try {
-      await leadContainer.createLead.execute(data as CreateLeadDto);
+      const ipInfo = await leadContainer.getLeadUbication.execute();
+      await leadContainer.createLead.execute({
+        ...data,
+        ...ipInfo,
+      } as CreateLeadDto);
       statisticsContainer.trackLeadSubmitted.execute();
       setIsSuccess(true);
       form.reset();
