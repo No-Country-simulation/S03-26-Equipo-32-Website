@@ -9,7 +9,7 @@ type Option = {
 
 type CustomSelectProps = {
   label: string;
-  options: Option[];
+  options: readonly Option[];
   value?: string;
   onChange?: (value: string) => void;
   placeholder?: string;

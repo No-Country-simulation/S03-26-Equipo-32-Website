@@ -4,6 +4,11 @@ import { useDashboardFilter } from '@/components/pages/dashboard/model/useDashbo
 import { usePriorityFilter } from '@/components/pages/leads-manager/model/usePriorityFilter.ts';
 import { useUrgencyFilter } from '@/components/pages/leads-manager/model/useUrgencyFilter.ts';
 import { useStatusFilter } from '@/components/pages/leads-manager/model/useStatusFilter.ts';
+import {
+  PRIORITY_OPTIONS,
+  URGENCY_OPTIONS,
+  STATUS_OPTIONS,
+} from '@/components/pages/leads-manager/model/leadsFilterOptions.ts';
 
 export const LeadsManagerFilters = () => {
   const [priority, setPriority] = usePriorityFilter();
@@ -15,24 +20,7 @@ export const LeadsManagerFilters = () => {
       <CustomSelect
         className={'w-fit'}
         label={'Prioridad'}
-        options={[
-          {
-            value: 'todos',
-            label: 'Todos',
-          },
-          {
-            value: 'alta',
-            label: 'Alta prioridad',
-          },
-          {
-            value: 'media',
-            label: 'Potencial medio',
-          },
-          {
-            value: 'baja',
-            label: 'Bajo potencial',
-          },
-        ]}
+        options={PRIORITY_OPTIONS}
         value={priority}
         onChange={setPriority}
       />
@@ -40,20 +28,7 @@ export const LeadsManagerFilters = () => {
       <CustomSelect
         className={'w-fit'}
         label={'Urgencia'}
-        options={[
-          {
-            value: 'todos',
-            label: 'Todos',
-          },
-          {
-            value: 'urgente',
-            label: 'Urgente',
-          },
-          {
-            value: 'no-urgente',
-            label: 'No urgente',
-          },
-        ]}
+        options={URGENCY_OPTIONS}
         value={urgency}
         onChange={setUrgency}
       />
@@ -61,20 +36,7 @@ export const LeadsManagerFilters = () => {
       <CustomSelect
         className={'w-fit'}
         label={'Estado'}
-        options={[
-          {
-            value: 'todos',
-            label: 'Todos',
-          },
-          {
-            value: 'en-espera',
-            label: 'En espera',
-          },
-          {
-            value: 'contactado',
-            label: 'Contactado',
-          },
-        ]}
+        options={STATUS_OPTIONS}
         value={status}
         onChange={setStatus}
       />
