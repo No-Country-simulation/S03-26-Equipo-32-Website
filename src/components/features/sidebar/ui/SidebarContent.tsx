@@ -47,7 +47,7 @@ export const SidebarContent = ({
 
     {/* footer */}
     <div className="flex items-center gap-3 pt-4 border-t border-[#E2DDD7]">
-      <div className="w-8 h-8 rounded-full bg-[#71717A] flex items-center justify-center text-white text-xs font-medium shrink-0">
+      <div className="w-8 h-8 rounded-full bg-[#557961] flex items-center justify-center text-white text-xs font-medium shrink-0">
         {initials}
       </div>
       <div className="flex flex-col min-w-0 flex-1">

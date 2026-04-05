@@ -1,11 +1,51 @@
+import { useEffect, useState } from 'react';
+import { LeadsManagerFilters } from '@/components/pages/leads-manager/ui/LeadsManagerFilters.tsx';
+import { LeadsTable } from '@/components/pages/leads-manager/ui/LeadsTable.tsx';
+import { usePriorityFilter } from '@/components/pages/leads-manager/model/usePriorityFilter.ts';
+import { useUrgencyFilter } from '@/components/pages/leads-manager/model/useUrgencyFilter.ts';
+import { useStatusFilter } from '@/components/pages/leads-manager/model/useStatusFilter.ts';
+import { useDashboardFilter } from '@/components/pages/dashboard/model/useDashboardFilter.ts';
+import { useLeads } from '@/components/features/leads/model/useLeads.ts';
+import type { Lead } from '@/core/leads/entities/lead.entity.ts';
+import {
+  calculateScore,
+  getPriority,
+  isUrgent,
+} from '@/components/pages/leads-manager/lib/scoreLeads.ts';
+
 export const LeadsManagerPage = () => {
+  const { from, to } = useDashboardFilter();
+  const [priority] = usePriorityFilter();
+  const [urgency] = useUrgencyFilter();
+  const [status] = useStatusFilter();
+
+  const { leads: fetchedLeads } = useLeads({ from, to });
+  const [leads, setLeads] = useState<Lead[]>([]);
+
+  useEffect(() => {
+    setLeads(fetchedLeads);
+  }, [fetchedLeads]);
+
+  const filteredLeads = leads.filter((lead) => {
+    const score = calculateScore(lead);
+
+    if (priority !== 'todos' && getPriority(score) !== priority) return false;
+
+    if (urgency !== 'todos' && isUrgent(lead) !== (urgency === 'urgente'))
+      return false;
+
+    const contacted = !!lead.contactedAt;
+    if (status === 'contactado' && !contacted) return false;
+    return !(status === 'en-espera' && contacted);
+  });
+
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Gestión de Leads</h1>
-      <p className="text-gray-600">
-        Aquí podrás gestionar tus prospectos y convertirlos en clientes.
-      </p>
-      {/* Aquí puedes agregar más contenido relacionado con la gestión de leads */}
+      <h1 className="text-2xl font-semibold font-cormorant mb-4">
+        Gestión de Leads
+      </h1>
+      <LeadsManagerFilters />
+      <LeadsTable leads={filteredLeads} />
     </div>
   );
 };

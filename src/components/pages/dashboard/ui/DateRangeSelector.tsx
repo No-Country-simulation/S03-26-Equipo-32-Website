@@ -5,7 +5,7 @@ import {
   matchPreset,
   type DateRangePreset,
 } from '@/components/pages/dashboard/lib/dateRangePresets.ts';
-import { ChevronDown } from 'lucide-react';
+import { Calendar, ChevronDown } from 'lucide-react';
 
 interface DateRangeSelectorProps {
   from: string;
@@ -43,8 +43,9 @@ export const DateRangeSelector = ({
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="flex items-center gap-2 px-3 py-1.5 rounded-md border border-neutral-200 text-sm font-dm-sans text-[#78716C] bg-[#F6F3EF] cursor-pointer focus:outline-none focus:border-[#6B9E7A] select-none"
+        className="flex items-center gap-2 px-3 py-1.5 rounded-md border-none text-sm font-dm-sans text-black bg-[#F6F3EF] cursor-pointer focus:outline-none focus:border-[#6B9E7A] select-none hover:bg-[#EDE9E3]"
       >
+        <Calendar size={14} className="text-[#78716C]" />
         <span>{active ? DATE_RANGE_LABELS[active] : 'Seleccionar'}</span>
         <ChevronDown
           size={14}
