@@ -24,10 +24,12 @@ export class LeadsRepository implements LeadRepository {
 
   async create(dto: CreateLeadDto): Promise<Lead> {
     const now = Date.now();
-    const docRef = await addDoc(collection(db, this.COLLECTION), {
+    const payload = {
       ...dto,
       createdAt: now,
-    });
+    };
+
+    const docRef = await addDoc(collection(db, this.COLLECTION), payload);
 
     const snapshot = await getDoc(docRef);
 

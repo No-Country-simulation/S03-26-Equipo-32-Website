@@ -9,6 +9,14 @@ export const createLeadSchema = z.object({
   foundUs: z.string().min(1, 'Selecciona cómo nos encontraste'),
   products: z.string().default(''),
   consent: z.boolean().refine((val) => val, 'Debes aceptar para continuar'),
+  country: z.string().optional(),
+  countryCode: z.string().optional(),
+  region: z.string().optional(),
+  regionCode: z.string().optional(),
+  city: z.string().optional(),
+  ip: z.string().optional(),
+  latitude: z.number().optional(),
+  longitude: z.number().optional(),
 });
 
 export type CreateLeadDto = z.output<typeof createLeadSchema>;
