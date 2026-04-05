@@ -7,7 +7,7 @@ interface ScoreSectionProps {
 }
 
 export const ScoreSection = ({ title, items }: ScoreSectionProps) => (
-  <div className="mt-4 text-sm">
+  <div className="mt-4 text-[11px]">
     <div className="uppercase text-[#A8A29E] font-semibold">{title}</div>
     <div className="border-b border-[#F6F3EF] my-2" />
     <div className="grid grid-cols-2 gap-1">

@@ -10,13 +10,15 @@ export const ScoringRules = () => {
   return (
     <div className="p-4 bg-white rounded-lg mt-6 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 font-dm-sans">
       <div>
-        <h2 className="text-xl font-semibold font-cormorant mb-2">
+        <h2 className="text-2xl text-[#162C14] font-semibold font-cormorant mb-2">
           Reglas de scoring
         </h2>
-        <p className="mb-4 text-sm">Criterios de calificación de leads</p>
-        <ul className="list-disc list-inside text-gray-700 text-sm">
+        <p className="mb-4 text-sm text-[#78716C]">
+          Criterios de calificación de leads
+        </p>
+        <ul className="list-disc list-inside text-gray-700 text-xs">
           {scoringThresholds.map(({ range, color, label }) => (
-            <li key={range} className="grid grid-cols-3 gap-1">
+            <li key={range} className="grid grid-cols-3 gap-1 text-[11px]">
               <div style={{ color }}>{range}</div>
               <div className="text-[#78716C] mx-auto">→</div>
               <div className="text-[#78716C]">{label}</div>
