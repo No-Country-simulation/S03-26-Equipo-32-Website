@@ -26,7 +26,7 @@ export function calculateScore(lead: Lead): number {
 
 export function getPriority(score: number): 'alta' | 'media' | 'baja' {
   if (score >= 70) return 'alta';
-  if (score >= 40) return 'media';
+  if (score >= 45) return 'media';
   return 'baja';
 }
 
