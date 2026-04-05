@@ -57,7 +57,7 @@ export function LeadsTable({ leads }: Props) {
   const pageRange = getPageRange(safePage, totalPages);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col font-dm-sans">
       <div className="overflow-x-auto rounded-xl border border-[#A8A29E]/20">
         <table className="w-full text-sm">
           <thead>
