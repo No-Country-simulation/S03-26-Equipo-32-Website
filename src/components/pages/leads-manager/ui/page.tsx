@@ -12,6 +12,7 @@ import {
   getPriority,
   isUrgent,
 } from '@/components/pages/leads-manager/lib/scoreLeads.ts';
+import { ScoringRules } from '@/components/pages/leads-manager/ui/ScoringRules.tsx';
 
 export const LeadsManagerPage = () => {
   const { from, to } = useDashboardFilter();
@@ -46,6 +47,7 @@ export const LeadsManagerPage = () => {
       </h1>
       <LeadsManagerFilters />
       <LeadsTable leads={filteredLeads} />
+      <ScoringRules />
     </div>
   );
 };
