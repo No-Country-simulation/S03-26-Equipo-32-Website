@@ -7,6 +7,8 @@ import {
   calculateScore,
   getPriority,
 } from '@/components/pages/leads-manager/lib/scoreLeads.ts';
+import { useModal } from '@/context/ModalContext.tsx';
+import { DeleteLeadModal } from '@/components/pages/leads-manager/ui/DeleteLeadModal.tsx';
 
 const dateFormatter = new Intl.DateTimeFormat('es-MX', {
   day: '2-digit',
@@ -46,6 +48,7 @@ interface Props {
 
 export function LeadsTable({ leads }: Props) {
   const [page, setPage] = useState(1);
+  const modal = useModal();
 
   const totalPages = Math.max(1, Math.ceil(leads.length / PAGE_SIZE));
   const safePage = Math.min(page, totalPages);
@@ -180,7 +183,20 @@ export function LeadsTable({ leads }: Props) {
                         />
                       </button>
 
-                      <button>
+                      <button
+                        onClick={() =>
+                          modal.open({
+                            render: (
+                              <DeleteLeadModal
+                                businessName={lead.businessName}
+                                onConfirm={() => {}}
+                              />
+                            ),
+                            size: 'sm',
+                            showCloseButton: false,
+                          })
+                        }
+                      >
                         <Trash
                           size={16}
                           className="text-[#78716C] hover:text-[#162C14] transition-colors"
