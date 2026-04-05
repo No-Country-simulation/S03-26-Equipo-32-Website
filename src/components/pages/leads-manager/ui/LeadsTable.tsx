@@ -44,9 +44,10 @@ const PRIORITY_STYLES = {
 
 interface Props {
   leads: Lead[];
+  onDelete: (id: string) => void;
 }
 
-export function LeadsTable({ leads }: Props) {
+export function LeadsTable({ leads, onDelete }: Props) {
   const [page, setPage] = useState(1);
   const modal = useModal();
 
@@ -189,7 +190,7 @@ export function LeadsTable({ leads }: Props) {
                             render: (
                               <DeleteLeadModal
                                 businessName={lead.businessName}
-                                onConfirm={() => {}}
+                                onConfirm={() => onDelete(lead.id)}
                               />
                             ),
                             size: 'sm',
