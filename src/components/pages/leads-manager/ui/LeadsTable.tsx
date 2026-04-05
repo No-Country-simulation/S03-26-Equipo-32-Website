@@ -57,11 +57,11 @@ export function LeadsTable({ leads }: Props) {
   const pageRange = getPageRange(safePage, totalPages);
 
   return (
-    <div className="flex flex-col font-dm-sans">
-      <div className="overflow-x-auto rounded-xl border border-[#A8A29E]/20">
+    <div className="flex flex-col font-dm-sans  rounded-lg overflow-hidden">
+      <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-neutral-200 bg-[#FBF9F7]">
+            <tr className="bg-[#F6F3EF]/50">
               <th className="px-4 py-3 text-left font-medium text-[#A8A29E] uppercase text-xs tracking-wide">
                 Puntaje
               </th>
@@ -195,7 +195,7 @@ export function LeadsTable({ leads }: Props) {
         </table>
       </div>
 
-      <div className="flex items-center justify-between p-3 text-sm text-[#A8A29E] bg-[#FDFDFC]">
+      <div className="flex items-center justify-between p-3 text-sm text-[#A8A29E] bg-[#FDFDFC] border-t border-[#F6F3EF]">
         <span className={'uppercase tracking-wide text-xs'}>
           Mostrando {leads.length === 0 ? 0 : start + 1}–{end} de {leads.length}{' '}
           leads
