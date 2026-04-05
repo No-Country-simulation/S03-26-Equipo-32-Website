@@ -6,10 +6,10 @@ export const Testimonials = () => {
       id="certificaciones"
       className="flex flex-col gap-8 py-16 bg-[#FEF9F1]"
     >
-      <div className={'max-w-4xl mx-auto w-full'}>
-        <div className={'grid grid-cols-12 gap-8'}>
+      <div className={'max-w-4xl mx-auto w-full px-6 md:px-0'}>
+        <div className={'grid grid-cols-1 md:grid-cols-12 gap-8'}>
           {/* Left Column */}
-          <div className={'col-span-5 flex flex-col gap-4'}>
+          <div className={'md:col-span-5 flex flex-col gap-4'}>
             <div className={'text-[#8B4513] text-xs uppercase'}>
               Certificaciones y Alianzas
             </div>
@@ -32,7 +32,7 @@ export const Testimonials = () => {
           {/* Right Column */}
           <div
             className={
-              'col-span-7 flex flex-col gap-4 border-l-4 border-[#8B4513] pl-8 relative'
+              'md:col-span-7 flex flex-col gap-4 border-l-4 border-[#8B4513] pl-8 relative'
             }
           >
             <img

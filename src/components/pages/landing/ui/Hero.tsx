@@ -2,16 +2,16 @@ import { ArrowRight } from 'lucide-react';
 
 export const Hero = () => {
   return (
-    <section className="grid grid-cols-2 min-h-[calc(100vh-72px)]">
+    <section className="grid grid-cols-1 md:grid-cols-2 min-h-[50vh] md:min-h-[calc(100vh-72px)]">
       {/* Left - Content */}
-      <div className="flex flex-col justify-center px-10 py-16 max-w-xl ml-auto mr-0 font-newsreader">
+      <div className="flex flex-col justify-center px-6 md:px-10 py-10 md:py-16 max-w-xl mx-auto md:ml-auto md:mr-0 font-newsreader">
         <div className="flex items-center gap-1 font-dm-sans text-[#934B19] uppercase text-xs mb-6">
           <div>Regalos Corporativos</div>
           <div>|</div>
           <div>Productos para tu tienda</div>
         </div>
 
-        <h1 className="text-6xl leading-tight font-semibold">
+        <h1 className="text-4xl md:text-6xl leading-tight font-semibold">
           Productos de piel <em className="italic font-light">origami</em>.
           Mayoreo directo.
         </h1>
@@ -23,7 +23,7 @@ export const Hero = () => {
 
         <div
           className={
-            'flex gap-1 mt-6 text-[#9FAD8E] text-[11px] uppercase tracking-wide font-dm-sans'
+            'flex flex-wrap gap-1 mt-6 text-[#9FAD8E] text-[11px] uppercase tracking-wide font-dm-sans'
           }
         >
           <div>EXPOSICIÓN SAPICA</div>
@@ -39,7 +39,7 @@ export const Hero = () => {
       </div>
 
       {/* Right - Product Image */}
-      <div className="relative overflow-hidden">
+      <div className="relative overflow-hidden h-64 md:h-auto">
         <img
           src="/landing/hero.png"
           alt="Productos de piel Plek"
