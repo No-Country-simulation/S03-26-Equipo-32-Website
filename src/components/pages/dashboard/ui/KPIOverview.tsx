@@ -15,7 +15,11 @@ export const KPIOverview = ({
   contacted,
 }: KPIOverviewProps) => {
   return (
-    <div className={'grid grid-cols-5 gap-4 font-dm-sans'}>
+    <div
+      className={
+        'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 font-dm-sans'
+      }
+    >
       <KPIItem
         icon={<Users size={20} />}
         value={pageViews.toLocaleString()}
