@@ -6,12 +6,14 @@ export const DashboardHeader = () => {
   const { from, to, setPreset } = useDashboardFilter();
 
   return (
-    <div className={'flex items-center justify-between'}>
+    <div
+      className={'flex flex-col md:flex-row md:items-center justify-between'}
+    >
       <h1 className={'text-2xl font-semibold font-cormorant text-[#162C14]'}>
         Panel General
       </h1>
 
-      <div className={'flex items-center gap-4'}>
+      <div className={'flex items-center gap-4 flex-wrap'}>
         <DateRangeSelector from={from} to={to} onSelect={setPreset} />
 
         <div
