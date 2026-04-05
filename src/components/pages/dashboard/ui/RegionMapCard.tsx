@@ -29,6 +29,12 @@ type CountryRankItem = {
   percent: number;
 };
 
+type PointResolution = {
+  lat: number;
+  lon: number;
+  isPrecise: boolean;
+};
+
 const countryGeoPoints: Record<string, { lat: number; lon: number }> = {
   mx: { lat: 23.6345, lon: -102.5528 },
   mexico: { lat: 23.6345, lon: -102.5528 },
@@ -106,7 +112,20 @@ const hashString = (value: string) => {
   return hash;
 };
 
-const getCountryPoint = (region: LeadsRegionItem) => {
+const getCountryPoint = (region: LeadsRegionItem): PointResolution => {
+  if (
+    typeof region.latitude === 'number' &&
+    Number.isFinite(region.latitude) &&
+    typeof region.longitude === 'number' &&
+    Number.isFinite(region.longitude)
+  ) {
+    return {
+      lat: region.latitude,
+      lon: region.longitude,
+      isPrecise: true,
+    };
+  }
+
   const lookupKeys = [
     normalizeText(region.countryCode),
     normalizeText(region.country),
@@ -115,20 +134,20 @@ const getCountryPoint = (region: LeadsRegionItem) => {
 
   for (const key of lookupKeys) {
     if (countryGeoPoints[key]) {
-      return countryGeoPoints[key];
+      return { ...countryGeoPoints[key], isPrecise: false };
     }
   }
 
   for (const key of Object.keys(countryGeoPoints)) {
     if (lookupKeys.some((value) => value.includes(key))) {
-      return countryGeoPoints[key];
+      return { ...countryGeoPoints[key], isPrecise: false };
     }
   }
 
   const fallbackLat = (hashString(region.label) % 120) / 2 - 30;
   const fallbackLon = (hashString(`${region.label}:lon`) % 260) / 2 - 65;
 
-  return { lat: fallbackLat, lon: fallbackLon };
+  return { lat: fallbackLat, lon: fallbackLon, isPrecise: false };
 };
 
 const buildMarkers = (regions: LeadsRegionItem[]): MapMarker[] => {
@@ -158,15 +177,41 @@ const buildMarkers = (regions: LeadsRegionItem[]): MapMarker[] => {
 
   return [...countryGroups.values()].map((group, index) => {
     const representative = group.regions[0];
-    const point = getCountryPoint(
-      representative ?? ({ label: group.label } as LeadsRegionItem),
+    const preciseRegions = group.regions.filter(
+      (region) =>
+        typeof region.latitude === 'number' &&
+        Number.isFinite(region.latitude) &&
+        typeof region.longitude === 'number' &&
+        Number.isFinite(region.longitude),
     );
+
+    const point =
+      preciseRegions.length > 0
+        ? {
+            lat:
+              preciseRegions.reduce(
+                (acc, region) => acc + (region.latitude as number),
+                0,
+              ) / preciseRegions.length,
+            lon:
+              preciseRegions.reduce(
+                (acc, region) => acc + (region.longitude as number),
+                0,
+              ) / preciseRegions.length,
+            isPrecise: true,
+          }
+        : getCountryPoint(
+            representative ?? ({ label: group.label } as LeadsRegionItem),
+          );
     const seed = hashString(`${group.label}:${group.leads}:${index}`);
     const primaryCity =
       group.regions.find((region) => region.city?.trim())?.city?.trim() ?? '';
     const primaryRegion =
       group.regions.find((region) => region.region?.trim())?.region?.trim() ??
       '';
+
+    const jitterLon = point.isPrecise ? 0 : ((seed % 7) - 3) * 1.2;
+    const jitterLat = point.isPrecise ? 0 : (((seed >> 3) % 7) - 3) * 0.8;
 
     return {
       label: group.label,
@@ -175,11 +220,8 @@ const buildMarkers = (regions: LeadsRegionItem[]): MapMarker[] => {
       country: representative?.country || group.label,
       region: primaryRegion,
       city: primaryCity,
-      lon: Math.min(165, Math.max(-165, point.lon + ((seed % 7) - 3) * 1.2)),
-      lat: Math.min(
-        70,
-        Math.max(-45, point.lat + (((seed >> 3) % 7) - 3) * 0.8),
-      ),
+      lon: Math.min(165, Math.max(-165, point.lon + jitterLon)),
+      lat: Math.min(70, Math.max(-45, point.lat + jitterLat)),
     };
   });
 };

@@ -14,6 +14,8 @@ export interface Lead {
   regionCode?: string;
   city?: string;
   ip?: string;
+  latitude?: number;
+  longitude?: number;
   createdAt: number;
   contactedAt?: number;
 }

@@ -108,6 +108,8 @@ export type LeadsRegionItem = {
   countryCode?: string;
   region?: string;
   city?: string;
+  latitude?: number;
+  longitude?: number;
 };
 
 export type LeadsRangeOption = {
@@ -180,12 +182,16 @@ const hasLocationData = (lead: {
   countryCode?: string;
   region?: string;
   city?: string;
+  latitude?: number;
+  longitude?: number;
 }) =>
   Boolean(
     lead.country?.trim() ||
     lead.countryCode?.trim() ||
     lead.region?.trim() ||
-    lead.city?.trim(),
+    lead.city?.trim() ||
+    (typeof lead.latitude === 'number' && Number.isFinite(lead.latitude)) ||
+    (typeof lead.longitude === 'number' && Number.isFinite(lead.longitude)),
   );
 
 export const useLeadsDashboard = ({
@@ -287,6 +293,8 @@ export const useLeadsDashboard = ({
         countryCode?: string;
         region?: string;
         city?: string;
+        latitude?: number;
+        longitude?: number;
       }
     >();
 
@@ -297,6 +305,14 @@ export const useLeadsDashboard = ({
       const countryCode = lead.countryCode?.trim() ?? '';
       const region = lead.region?.trim() ?? '';
       const city = lead.city?.trim() ?? '';
+      const latitude =
+        typeof lead.latitude === 'number' && Number.isFinite(lead.latitude)
+          ? lead.latitude
+          : undefined;
+      const longitude =
+        typeof lead.longitude === 'number' && Number.isFinite(lead.longitude)
+          ? lead.longitude
+          : undefined;
       const labelParts = [country, region, city].filter(Boolean);
       const label = labelParts.join(' · ') || 'Sin ubicación';
 
@@ -306,9 +322,17 @@ export const useLeadsDashboard = ({
         countryCode: countryCode || undefined,
         region: region || undefined,
         city: city || undefined,
+        latitude,
+        longitude,
       };
 
       current.leads += 1;
+      if (current.latitude === undefined && latitude !== undefined) {
+        current.latitude = latitude;
+      }
+      if (current.longitude === undefined && longitude !== undefined) {
+        current.longitude = longitude;
+      }
       regionMap.set(label, current);
     });
 
@@ -323,6 +347,8 @@ export const useLeadsDashboard = ({
         countryCode: value.countryCode,
         region: value.region,
         city: value.city,
+        latitude: value.latitude,
+        longitude: value.longitude,
       }))
       .sort((left, right) => right.leads - left.leads);
   }, [leads]);

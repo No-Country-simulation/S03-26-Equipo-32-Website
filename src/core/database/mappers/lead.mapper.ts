@@ -19,6 +19,18 @@ export function mapToLeadEntity(doc: DocumentSnapshot): Lead {
     regionCode: data?.regionCode,
     city: data?.city,
     ip: data?.ip,
+    latitude:
+      typeof data?.latitude === 'number'
+        ? data.latitude
+        : typeof data?.lat === 'number'
+          ? data.lat
+          : undefined,
+    longitude:
+      typeof data?.longitude === 'number'
+        ? data.longitude
+        : typeof data?.lon === 'number'
+          ? data.lon
+          : undefined,
     createdAt: data?.createdAt ?? 0,
     contactedAt: data?.contactedAt,
   };
