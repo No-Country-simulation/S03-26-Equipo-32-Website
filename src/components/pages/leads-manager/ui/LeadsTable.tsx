@@ -170,7 +170,12 @@ export function LeadsTable({ leads, onDelete }: Props) {
                     </td>
 
                     <td className="px-4 py-3 flex items-center gap-2">
-                      <button>
+                      <button
+                        onClick={() => {
+                          const number = lead.whatsapp.replace(/\D/g, '');
+                          window.open(`https://wa.me/${number}`, '_blank');
+                        }}
+                      >
                         <MessageCircleCheck
                           size={16}
                           className="text-[#78716C] hover:text-[#162C14] transition-colors"
