@@ -1,34 +1,41 @@
-# S03-26-Equipo-32-Website
-Website de generación de leads B2B para PLEK. Landing page con formularios  inteligentes y dashboard de métricas. Desafío Marketing &amp; Growth.
 # PLEK – Sistema de Generación de Leads B2B
+
 ![Status](https://img.shields.io/badge/status-en%20desarrollo-yellow)
 ![Tech](https://img.shields.io/badge/tech-React%20%7C%20Tailwind%20CSS-blue)
 ![Equipo](https://img.shields.io/badge/equipo-32-purple)
-Desafío con enfoque integral de **Marketing & Growth**.
+
+Website de generación de leads B2B para PLEK. Landing page con formularios inteligentes y dashboard de métricas. Desafío Marketing & Growth.
+
 ---
+
 ## 📌 Descripción
-Diseñar e implementar un sistema integrado de generación y cualificación
-de leads B2B para PLEK, optimizando la presencia en web y redes sociales.
----
+
+Diseñar e implementar un sistema integrado de generación y cualificación de leads B2B para PLEK, optimizando la presencia en web y redes sociales.
+
 ## 🎯 Objetivo Principal
-Construir un prototipo funcional de un embudo de ventas digital que permita
-aumentar el volumen de leads calificados y medir la efectividad de las
-acciones de marketing.
+
+Construir un prototipo funcional de un embudo de ventas digital que permita aumentar el volumen de leads calificados y medir la efectividad de las acciones de marketing.
+
 ---
+
 ## 📦 Entregables
+
 ### 1. Estrategia y Contenido (Marketing & Growth)
-Propuesta de campaña de contenido (lead magnets) e integración en web y
-redes sociales para atraer al cliente ideal.
+Propuesta de campaña de contenido (lead magnets) e integración en web y redes sociales para atraer al cliente ideal.
+
 ### 2. Funcionalidad Web (Desarrollo de MVP)
-Implementación de un micro-sitio / landing page con formularios inteligentes
-y llamadas a la acción claras.
+Implementación de un micro-sitio / landing page con formularios inteligentes y llamadas a la acción claras.
+
 ### 3. Medición (Análisis de Datos) *(deseable)*
 Dashboard interactivo con métricas en tiempo real:
 - Fuentes de tráfico
 - Tasa de conversión web
 - Origen y cantidad de leads generados
+
 ---
+
 ## 🛠️ Tech Stack
+
 | Tecnología | Uso |
 |------------|-----|
 | React + Vite | Framework frontend |
@@ -38,13 +45,14 @@ Dashboard interactivo con métricas en tiempo real:
 | Firebase | Autenticación y sesión de usuario |
 | Husky | Git hooks y calidad de código |
 | pnpm | Gestor de paquetes |
----
-## 📁 Estructura del Proyecto
 
-```bash
+---
+
+## 📁 Estructura del Proyecto
+```
 S03-26-Equipo-32-Website/
 ├── public/
-│   ├── _reedirects
+│   ├── _redirects
 │   └── landing/
 ├── src/
 │   ├── components/
@@ -76,6 +84,8 @@ S03-26-Equipo-32-Website/
 │   │       ├── constants.ts
 │   │       └── ui/
 │   │           └── logo.tsx
+│   ├── context/
+│   │   └── AuthContext.tsx
 │   ├── core/
 │   │   ├── containers/
 │   │   │   └── user.container.ts
@@ -100,38 +110,67 @@ S03-26-Equipo-32-Website/
 │   ├── index.css
 │   └── main.tsx
 ├── eslint.config.js
+├── firebase.json
 ├── index.html
 ├── package.json
 ├── pnpm-lock.yaml
-├── README.md
 ├── tsconfig.app.json
 ├── tsconfig.json
 ├── tsconfig.node.json
 └── vite.config.ts
 ```
-
-> **Nota:** No se exponen endpoints REST. El backend provee funciones listas para consumir directamente desde el frontend. Ejemplo de uso:
-> ```js
-> userContainer.login.execute(data)
-> ```
-
 ---
+
 ## 🚀 Getting Started
+
 ### Prerrequisitos
+
 - Node.js >= 18
 - pnpm
+
 ### Instalación
 ```bash
 # Clonar el repositorio
-git clone https://github.com/tu-org/S03-26-Equipo-32-Website.git
+git clone https://github.com/No-Country-simulation/S03-26-Equipo-32-Website.git
+
 # Entrar al proyecto
 cd S03-26-Equipo-32-Website
+
 # Instalar dependencias
 pnpm install
+
 # Iniciar en desarrollo
 pnpm dev
 ```
+
 ---
+
+## 🔐 Autenticación
+
+El flujo de autenticación usa Firebase Auth con Google OAuth.
+El estado global se maneja mediante `AuthContext` con `AuthProvider`.
+Las rutas privadas se protegen con `ProtectedRoute`.
+```ts
+// Ejemplo de uso del contenedor
+userContainer.login.execute()
+```
+
+---
+
+## 📐 Convenciones
+
+- Variables booleanas con prefijo `is` → `isLoading`
+- Callbacks con prefijo `on` → `onChangeLeadStatus`
+- Commits en conventional commits → `feat:`, `fix:`, `style:`
+
+---
+
+## 🌐 Deploy
+
+[b2b-plek-com-mx.web.app](https://b2b-plek-com-mx.web.app)
+
+---
+
 ## 👥 Equipo
 
 | Nombre | Rol | LinkedIn |
@@ -145,5 +184,8 @@ pnpm dev
 | Silvana Motta | Community Manager | [🔗 Perfil](https://www.linkedin.com/in/silvana-motta/) |
 | Valentina Briceño | Graphic Designer | [🔗 Perfil](https://www.linkedin.com/in/valentinabriceno/) |
 
+---
+
 ## 📄 Licencia
-Este proyecto fue desarrollado en el marco de un desafío académico/profesional.
+
+Este proyecto fue desarrollado en el marco de un desafío académico/profesional de No Country.
