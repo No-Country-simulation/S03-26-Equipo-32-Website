@@ -189,7 +189,6 @@ if (!user) return <Navigate to="/login" replace />;
 | Jhorman Nieto     | Frontend Developer   | [🔗 Perfil](https://www.linkedin.com/in/jhormandev/)       |
 | Justina Gargano   | UX/UI Designer       | [🔗 Perfil](https://www.linkedin.com/in/justinagargano/)   |
 | Natividad Romero  | UX/UI Designer       | [🔗 Perfil](https://www.linkedin.com/in/natyromero/)       |
-| Silvana Motta     | Community Manager    | [🔗 Perfil](https://www.linkedin.com/in/silvana-motta/)    |
 | Valentina Briceño | Graphic Designer     | [🔗 Perfil](https://www.linkedin.com/in/valentinabriceno/) |
 
 ---
