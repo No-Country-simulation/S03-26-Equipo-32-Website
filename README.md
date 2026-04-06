@@ -21,13 +21,17 @@ Construir un prototipo funcional de un embudo de ventas digital que permita aume
 ## 📦 Entregables
 
 ### 1. Estrategia y Contenido (Marketing & Growth)
+
 Propuesta de campaña de contenido (lead magnets) e integración en web y redes sociales para atraer al cliente ideal.
 
 ### 2. Funcionalidad Web (Desarrollo de MVP)
+
 Implementación de un micro-sitio / landing page con formularios inteligentes y llamadas a la acción claras.
 
-### 3. Medición (Análisis de Datos) *(deseable)*
+### 3. Medición (Análisis de Datos) _(deseable)_
+
 Dashboard interactivo con métricas en tiempo real:
+
 - Fuentes de tráfico
 - Tasa de conversión web
 - Origen y cantidad de leads generados
@@ -36,23 +40,24 @@ Dashboard interactivo con métricas en tiempo real:
 
 ## 🛠️ Tech Stack
 
-| Tecnología | Uso |
-|------------|-----|
-| React + Vite | Framework frontend |
-| TypeScript | Tipado estático |
-| Tailwind CSS | Estilos y diseño |
+| Tecnología   | Uso                                               |
+| ------------ | ------------------------------------------------- |
+| React + Vite | Framework frontend                                |
+| TypeScript   | Tipado estático                                   |
+| Tailwind CSS | Estilos y diseño                                  |
 | React Router | Navegación SPA (`/`, `/plek-admin`, `/dashboard`) |
-| Firebase | Autenticación y sesión de usuario |
-| Husky | Git hooks y calidad de código |
-| pnpm | Gestor de paquetes |
+| Firebase     | Autenticación y sesión de usuario                 |
+| Husky        | Git hooks y calidad de código                     |
+| pnpm         | Gestor de paquetes                                |
 
 ---
 
 ## 📁 Estructura del Proyecto
+
 ```
 S03-26-Equipo-32-Website/
 ├── public/
-│   ├── _redirects
+│   ├── _reedirects
 │   └── landing/
 ├── src/
 │   ├── components/
@@ -119,6 +124,7 @@ S03-26-Equipo-32-Website/
 ├── tsconfig.node.json
 └── vite.config.ts
 ```
+
 ---
 
 ## 🚀 Getting Started
@@ -129,6 +135,7 @@ S03-26-Equipo-32-Website/
 - pnpm
 
 ### Instalación
+
 ```bash
 # Clonar el repositorio
 git clone https://github.com/No-Country-simulation/S03-26-Equipo-32-Website.git
@@ -149,10 +156,11 @@ pnpm dev
 
 El flujo de autenticación usa Firebase Auth con Google OAuth.
 El estado global se maneja mediante `AuthContext` con `AuthProvider`.
-Las rutas privadas se protegen con `ProtectedRoute`.
-```ts
-// Ejemplo de uso del contenedor
-userContainer.login.execute()
+Actualmente, las rutas privadas se protegen desde `LayoutDashboard`: si no hay un usuario autenticado (`!user`), se redirige a `/login` mediante `Navigate`.
+
+```tsx
+// Protección de rutas privadas desde el layout del dashboard
+if (!user) return <Navigate to="/login" replace />;
 ```
 
 ---
@@ -173,16 +181,16 @@ userContainer.login.execute()
 
 ## 👥 Equipo
 
-| Nombre | Rol | LinkedIn |
-|--------|-----|----------|
-| Bryan Lundberg | Full Stack Developer | [🔗 Perfil](https://www.linkedin.com/in/bryan-lundberg/) |
-| Hazael Degante | UX/UI Designer | [🔗 Perfil](https://www.linkedin.com/in/hazaelld/) |
-| Héctor Duarte | Frontend Developer | [🔗 Perfil](https://www.linkedin.com/in/hector-duarte/) |
-| Jhorman Nieto | Frontend Developer | [🔗 Perfil](https://www.linkedin.com/in/jhormandev/) |
-| Justina Gargano | UX/UI Designer | [🔗 Perfil](https://www.linkedin.com/in/justinagargano/) |
-| Natividad Romero | UX/UI Designer | [🔗 Perfil](https://www.linkedin.com/in/natyromero/) |
-| Silvana Motta | Community Manager | [🔗 Perfil](https://www.linkedin.com/in/silvana-motta/) |
-| Valentina Briceño | Graphic Designer | [🔗 Perfil](https://www.linkedin.com/in/valentinabriceno/) |
+| Nombre            | Rol                  | LinkedIn                                                   |
+| ----------------- | -------------------- | ---------------------------------------------------------- |
+| Bryan Lundberg    | Full Stack Developer | [🔗 Perfil](https://www.linkedin.com/in/bryan-lundberg/)   |
+| Hazael Degante    | UX/UI Designer       | [🔗 Perfil](https://www.linkedin.com/in/hazaelld/)         |
+| Héctor Duarte     | Frontend Developer   | [🔗 Perfil](https://www.linkedin.com/in/hector-duarte/)    |
+| Jhorman Nieto     | Frontend Developer   | [🔗 Perfil](https://www.linkedin.com/in/jhormandev/)       |
+| Justina Gargano   | UX/UI Designer       | [🔗 Perfil](https://www.linkedin.com/in/justinagargano/)   |
+| Natividad Romero  | UX/UI Designer       | [🔗 Perfil](https://www.linkedin.com/in/natyromero/)       |
+| Silvana Motta     | Community Manager    | [🔗 Perfil](https://www.linkedin.com/in/silvana-motta/)    |
+| Valentina Briceño | Graphic Designer     | [🔗 Perfil](https://www.linkedin.com/in/valentinabriceno/) |
 
 ---
 
