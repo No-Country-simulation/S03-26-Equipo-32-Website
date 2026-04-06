@@ -40,15 +40,15 @@ Dashboard interactivo con métricas en tiempo real:
 
 ## 🛠️ Tech Stack
 
-| Tecnología   | Uso                                               |
-| ------------ | ------------------------------------------------- |
-| React + Vite | Framework frontend                                |
-| TypeScript   | Tipado estático                                   |
-| Tailwind CSS | Estilos y diseño                                  |
-| React Router | Navegación SPA (`/`, `/plek-admin`, `/dashboard`) |
-| Firebase     | Autenticación y sesión de usuario                 |
-| Husky        | Git hooks y calidad de código                     |
-| pnpm         | Gestor de paquetes                                |
+| Tecnología   | Uso                                                             |
+| ------------ | --------------------------------------------------------------- |
+| React + Vite | Framework frontend                                              |
+| TypeScript   | Tipado estático                                                 |
+| Tailwind CSS | Estilos y diseño                                                |
+| React Router | Navegación SPA (`/`, `/login`, `/panel-general`, `/prospectos`) |
+| Firebase     | Autenticación y sesión de usuario                               |
+| Husky        | Git hooks y calidad de código                                   |
+| pnpm         | Gestor de paquetes                                              |
 
 ---
 
@@ -57,7 +57,7 @@ Dashboard interactivo con métricas en tiempo real:
 ```
 S03-26-Equipo-32-Website/
 ├── public/
-│   ├── _reedirects
+│   ├── _redirects
 │   └── landing/
 ├── src/
 │   ├── components/
