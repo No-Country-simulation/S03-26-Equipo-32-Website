@@ -57,7 +57,7 @@ Dashboard interactivo con métricas en tiempo real:
 ```
 S03-26-Equipo-32-Website/
 ├── public/
-│   ├── _redirects
+│   ├── _reedirects
 │   └── landing/
 ├── src/
 │   ├── components/
