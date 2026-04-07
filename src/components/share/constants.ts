@@ -105,11 +105,15 @@ export const VOLUME_PURCHASE = {
   D: 'Más de $20,000 MXN',
 };
 
+export const NEEDED_BY = {
+  A: 'Lo antes posible',
+  B: 'En las próximas semanas',
+  C: 'Solo estoy explorando opciones',
+};
+
 export const FOUND_US = {
-  A: 'SAPICA',
-  B: 'Instagram',
-  C: 'Facebook',
-  D: 'Google',
-  E: 'Recomendación',
-  F: 'Otro',
+  A: 'Instagram',
+  B: 'SAPICA',
+  C: 'Búsqueda de Google',
+  D: 'Otro',
 };

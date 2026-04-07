@@ -1,6 +1,7 @@
 import {
   BUSINESS,
   FOUND_US,
+  NEEDED_BY,
   VOLUME_PURCHASE,
 } from '@/components/share/constants.ts';
 import { Input } from '@/components/share/ui/Input.tsx';
@@ -8,7 +9,7 @@ import { Select } from '@/components/share/ui/Select.tsx';
 import { Textarea } from '@/components/share/ui/Textarea.tsx';
 import { Checkbox } from '@/components/share/ui/Checkbox.tsx';
 import { Label } from '@/components/share/ui/Label.tsx';
-import { Lock } from 'lucide-react';
+import { ArrowRight, Lock } from 'lucide-react';
 import { twMerge } from 'tailwind-merge';
 import * as React from 'react';
 import { useLeadForm } from '@/components/features/lead-form/model/useLeadForm.ts';
@@ -39,7 +40,12 @@ export const LeadForm = ({ ...rest }: LeadFormProps) => {
         <div className={'flex flex-col gap-4 md:flex-row md:gap-6'}>
           <div className={'flex-1'}>
             <Label htmlFor="fullName">Nombre completo *</Label>
-            <Input id="fullName" {...register('fullName')} />
+            <Input
+              id="fullName"
+              className={'font-dm-sans'}
+              placeholder={'Ej: Juan Castro'}
+              {...register('fullName')}
+            />
             {errors.fullName && (
               <p className="text-red-500 text-xs mt-1">
                 {errors.fullName.message}
@@ -49,7 +55,12 @@ export const LeadForm = ({ ...rest }: LeadFormProps) => {
 
           <div className={'flex-1'}>
             <Label htmlFor="businessName">Nombre del negocio *</Label>
-            <Input id="businessName" {...register('businessName')} />
+            <Input
+              id="businessName"
+              className={'font-dm-sans'}
+              placeholder={'Ej: Boutique Rivera'}
+              {...register('businessName')}
+            />
             {errors.businessName && (
               <p className="text-red-500 text-xs mt-1">
                 {errors.businessName.message}
@@ -58,23 +69,46 @@ export const LeadForm = ({ ...rest }: LeadFormProps) => {
           </div>
         </div>
 
-        <div>
-          <Label htmlFor="whatsapp">Número de WhatsApp *</Label>
-          <Input
-            id="whatsapp"
-            placeholder={'+52 123 456 7890'}
-            {...register('whatsapp')}
-          />
-          {errors.whatsapp && (
-            <p className="text-red-500 text-xs mt-1">
-              {errors.whatsapp.message}
-            </p>
-          )}
+        <div className={'flex flex-col gap-4 md:flex-row md:gap-6'}>
+          <div className={'flex-1'}>
+            <Label htmlFor="whatsapp">Número de WhatsApp *</Label>
+            <Input
+              id="whatsapp"
+              className={'font-dm-sans'}
+              placeholder={'Ej: +52 55 1234 5678'}
+              {...register('whatsapp')}
+            />
+            {errors.whatsapp && (
+              <p className="text-red-500 text-xs mt-1">
+                {errors.whatsapp.message}
+              </p>
+            )}
+          </div>
+
+          <div className={'flex-1'}>
+            <Label htmlFor="email">Correo electrónico*</Label>
+            <Input
+              id="email"
+              type="email"
+              className={'font-dm-sans'}
+              placeholder={'Ej: contacto@negocio.com'}
+              {...register('email')}
+            />
+            {errors.email && (
+              <p className="text-red-500 text-xs mt-1">
+                {errors.email.message}
+              </p>
+            )}
+          </div>
         </div>
 
         <div>
           <Label htmlFor="businessType">Tipo de negocio *</Label>
-          <Select id="businessType" {...register('businessType')}>
+          <Select
+            id="businessType"
+            className={'font-dm-sans'}
+            {...register('businessType')}
+          >
             <option value="">Selecciona una opción</option>
             {Object.entries(BUSINESS).map(([key, label]) => (
               <option key={key} value={key}>
@@ -90,8 +124,14 @@ export const LeadForm = ({ ...rest }: LeadFormProps) => {
         </div>
 
         <div>
-          <Label htmlFor="volume">Volumen de compra estimado (MXN) *</Label>
-          <Select id="volume" {...register('volumePurchase')}>
+          <Label htmlFor="volume">
+            ¿De cuánto sería tu pedido aproximado? *
+          </Label>
+          <Select
+            id="volume"
+            className={'font-dm-sans'}
+            {...register('volumePurchase')}
+          >
             <option value="">Selecciona una opción</option>
             {Object.entries(VOLUME_PURCHASE).map(([key, label]) => (
               <option key={key} value={key}>
@@ -107,8 +147,33 @@ export const LeadForm = ({ ...rest }: LeadFormProps) => {
         </div>
 
         <div>
-          <Label htmlFor="foundUs">Selecciona cómo nos encontraste *</Label>
-          <Select id="foundUs" {...register('foundUs')}>
+          <Label htmlFor="neededBy">¿Para cuándo necesitas el pedido? *</Label>
+          <Select
+            id="neededBy"
+            className={'font-dm-sans'}
+            {...register('neededBy')}
+          >
+            <option value="">Selecciona una opción</option>
+            {Object.entries(NEEDED_BY).map(([key, label]) => (
+              <option key={key} value={key}>
+                {label}
+              </option>
+            ))}
+          </Select>
+          {errors.neededBy && (
+            <p className="text-red-500 text-xs mt-1">
+              {errors.neededBy.message}
+            </p>
+          )}
+        </div>
+
+        <div>
+          <Label htmlFor="foundUs">¿Cómo nos conociste? *</Label>
+          <Select
+            id="foundUs"
+            className={'font-dm-sans'}
+            {...register('foundUs')}
+          >
             <option value="">Selecciona una opción</option>
             {Object.entries(FOUND_US).map(([key, label]) => (
               <option key={key} value={key}>
@@ -125,12 +190,13 @@ export const LeadForm = ({ ...rest }: LeadFormProps) => {
 
         <div>
           <Label htmlFor="products">
-            ¿Qué productos te llamaron la atención?
+            ¿Quieres agregar algún comentario? (opcional)
           </Label>
           <Textarea
             id="products"
+            className={'font-dm-sans'}
             placeholder={
-              'Cuéntanos qué viste en el catálogo o qué estás buscando'
+              'Ej: algún detalle sobre tu pedido, productos de interés o cualquier información que consideres importante'
             }
             {...register('products')}
           />
@@ -157,10 +223,17 @@ export const LeadForm = ({ ...rest }: LeadFormProps) => {
           type="submit"
           disabled={isSubmitting}
           className={
-            'bg-[#2D5016] text-[#F5F0E8] p-4 w-full rounded-md disabled:opacity-50'
+            'bg-[#2D5016] text-[#F5F0E8] p-4 w-full rounded-md disabled:opacity-50 flex items-center justify-center gap-2'
           }
         >
-          {isSubmitting ? 'Enviando...' : 'Solicitar cotización'}
+          {isSubmitting ? (
+            'Enviando...'
+          ) : (
+            <>
+              <span>Solicitar cotización</span>
+              <ArrowRight className={'size-5'} aria-hidden="true" />
+            </>
+          )}
         </button>
 
         <p

@@ -3,8 +3,10 @@ export interface Lead {
   fullName: string;
   businessName: string;
   whatsapp: string;
+  email: string;
   businessType: string;
   volumePurchase: string;
+  neededBy: string;
   foundUs: string;
   products: string;
   consent: boolean;
