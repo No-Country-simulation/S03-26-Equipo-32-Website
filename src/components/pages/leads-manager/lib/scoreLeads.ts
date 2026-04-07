@@ -15,11 +15,18 @@ const BUSINESS_SCORE: Record<string, number> = {
   OTHER: 10,
 };
 
+const NEEDED_BY_SCORE: Record<string, number> = {
+  A: 15,
+  B: 8,
+  C: 3,
+};
+
 export function calculateScore(lead: Lead): number {
   let score = 0;
 
   score += VOLUME_SCORE[lead.volumePurchase] ?? 0;
   score += BUSINESS_SCORE[lead.businessType] ?? 10;
+  score += NEEDED_BY_SCORE[lead.neededBy] ?? 0;
 
   return Math.min(score, 100);
 }
@@ -30,7 +37,8 @@ export function getPriority(score: number): 'alta' | 'media' | 'baja' {
   return 'baja';
 }
 
-export function isUrgent(lead: Lead): boolean {
-  const daysSince = (Date.now() - lead.createdAt) / 86_400_000;
-  return daysSince <= 7 && !lead.contactedAt;
+export function getUrgency(lead: Lead): 'alto' | 'medio' | 'bajo' {
+  if (lead.neededBy === 'A') return 'alto';
+  if (lead.neededBy === 'B') return 'medio';
+  return 'bajo';
 }

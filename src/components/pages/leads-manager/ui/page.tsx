@@ -11,7 +11,7 @@ import type { Lead } from '@/core/leads/entities/lead.entity.ts';
 import {
   calculateScore,
   getPriority,
-  isUrgent,
+  getUrgency,
 } from '@/components/pages/leads-manager/lib/scoreLeads.ts';
 import { ScoringRules } from '@/components/pages/leads-manager/ui/ScoringRules.tsx';
 
@@ -33,8 +33,7 @@ export const LeadsManagerPage = () => {
 
     if (priority !== 'todos' && getPriority(score) !== priority) return false;
 
-    if (urgency !== 'todos' && isUrgent(lead) !== (urgency === 'urgente'))
-      return false;
+    if (urgency !== 'todos' && getUrgency(lead) !== urgency) return false;
 
     const contacted = !!lead.contactedAt;
     if (status === 'contactado' && !contacted) return false;
