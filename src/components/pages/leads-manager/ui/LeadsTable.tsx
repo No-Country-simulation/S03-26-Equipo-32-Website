@@ -140,7 +140,7 @@ export function LeadsTable({ leads, onDelete }: Props) {
                           {lead.whatsapp}
                         </p>
                         <p className="text-xs text-[#A8A29E] font-light">
-                          sin_emails_en_formulario@gmail.com
+                          {lead.email || '-'}
                         </p>
                       </div>
                     </td>
