@@ -86,7 +86,7 @@ export const LeadForm = ({ ...rest }: LeadFormProps) => {
           </div>
 
           <div className={'flex-1'}>
-            <Label htmlFor="email">Correo electrónico*</Label>
+            <Label htmlFor="email">Correo electrónico *</Label>
             <Input
               id="email"
               type="email"
