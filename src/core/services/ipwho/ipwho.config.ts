@@ -1,6 +1,7 @@
 import { IPWho } from '@ipwho/ipwho';
 
 const ipwhoApiKey = import.meta.env.VITE_IP_WHO;
+const trimmedApiKey = ipwhoApiKey?.trim();
 
 type IpwhoClient = Pick<IPWho, 'getMe' | 'getIp'>;
 
@@ -11,9 +12,9 @@ const fallbackClient: IpwhoClient = {
 
 let ipwhoClient: IpwhoClient = fallbackClient;
 
-if (ipwhoApiKey && ipwhoApiKey.trim()) {
+if (trimmedApiKey) {
   try {
-    ipwhoClient = new IPWho(ipwhoApiKey);
+    ipwhoClient = new IPWho(trimmedApiKey);
   } catch {
     ipwhoClient = fallbackClient;
   }
