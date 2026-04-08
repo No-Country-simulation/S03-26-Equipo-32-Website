@@ -50,6 +50,7 @@ jobs:
           VITE_MESSAGING_SENDER_ID: ${{ secrets.VITE_MESSAGING_SENDER_ID || '000000000000' }}
           VITE_APP_ID: ${{ secrets.VITE_APP_ID || '1:000000000000:web:dummy' }}
           VITE_MEASUREMENT_ID: ${{ secrets.VITE_MEASUREMENT_ID || 'G-DUMMY0000' }}
+          VITE_IP_WHO: ${{ secrets.VITE_IP_WHO || '' }}
 
       - name: Deploy preview channel
         if: github.event_name == 'pull_request' && github.event.action != 'closed' && github.event.pull_request.head.repo.fork == false && env.FIREBASE_SERVICE_ACCOUNT != ''
