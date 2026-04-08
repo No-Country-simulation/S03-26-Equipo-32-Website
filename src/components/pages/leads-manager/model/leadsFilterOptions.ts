@@ -7,8 +7,9 @@ export const PRIORITY_OPTIONS = [
 
 export const URGENCY_OPTIONS = [
   { value: 'todos', label: 'Todos' },
-  { value: 'urgente', label: 'Urgente' },
-  { value: 'no-urgente', label: 'No urgente' },
+  { value: 'alto', label: 'Alto' },
+  { value: 'medio', label: 'Medio' },
+  { value: 'bajo', label: 'Bajo' },
 ] as const;
 
 export const STATUS_OPTIONS = [
