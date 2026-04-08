@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { MessageCircleCheck, Pencil, Trash2 } from 'lucide-react';
+import { Eye, MessageCircleCheck, Trash2 } from 'lucide-react';
 import type { Lead } from '@/core/leads/entities/lead.entity.ts';
 import { VOLUME_PURCHASE } from '@/components/share/constants.ts';
 import {
@@ -45,9 +45,10 @@ const PRIORITY_STYLES = {
 interface Props {
   leads: Lead[];
   onDelete: (id: string) => void;
+  onContact: (lead: Lead) => void;
 }
 
-export function LeadsTable({ leads, onDelete }: Props) {
+export function LeadsTable({ leads, onDelete, onContact }: Props) {
   const [page, setPage] = useState(1);
   const modal = useModal();
 
@@ -170,12 +171,7 @@ export function LeadsTable({ leads, onDelete }: Props) {
                     </td>
 
                     <td className="px-4 py-3 flex items-center gap-2">
-                      <button
-                        onClick={() => {
-                          const number = lead.whatsapp.replace(/\D/g, '');
-                          window.open(`https://wa.me/${number}`, '_blank');
-                        }}
-                      >
+                      <button onClick={() => onContact(lead)}>
                         <MessageCircleCheck
                           size={16}
                           className="text-[#78716C] hover:text-[#162C14] transition-colors"
@@ -183,8 +179,8 @@ export function LeadsTable({ leads, onDelete }: Props) {
                       </button>
 
                       <button>
-                        <Pencil
-                          size={16}
+                        <Eye
+                          size={20}
                           className="text-[#78716C] hover:text-[#162C14] transition-colors"
                         />
                       </button>

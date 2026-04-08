@@ -10,6 +10,10 @@ const slides = [
     alt: 'Cartera amarilla Pleck',
   },
   { src: '/landing/accesorios-pleck.svg', alt: 'Accesorios Pleck' },
+  {
+    src: '/landing/sobre-rosa-pleck.svg',
+    alt: 'Sobre rosa',
+  },
 ];
 
 const wrap = (min: number, max: number, v: number) => {

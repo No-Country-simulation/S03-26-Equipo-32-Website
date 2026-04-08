@@ -46,13 +46,23 @@ export const LeadsManagerPage = () => {
     setLeads((prev) => prev.filter((l) => l.id !== id));
   };
 
+  const handleContactLead = async (lead: Lead) => {
+    await leadContainer.markLeadContacted.execute(lead.id);
+    const number = lead.whatsapp.replace(/\D/g, '');
+    window.open(`https://wa.me/${number}`, '_blank');
+  };
+
   return (
     <div className="p-4">
       <h1 className="text-2xl font-semibold font-cormorant mb-4">
         Gestión de Leads
       </h1>
       <LeadsManagerFilters />
-      <LeadsTable leads={filteredLeads} onDelete={handleDeleteLead} />
+      <LeadsTable
+        leads={filteredLeads}
+        onDelete={handleDeleteLead}
+        onContact={handleContactLead}
+      />
       <ScoringRules />
     </div>
   );

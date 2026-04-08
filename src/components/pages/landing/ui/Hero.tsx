@@ -4,7 +4,7 @@ export const Hero = () => {
   return (
     <section className="grid grid-cols-1 md:grid-cols-2 min-h-[50vh] md:min-h-[calc(100vh-72px)]">
       {/* Left - Content */}
-      <div className="flex flex-col justify-center px-6 md:px-10 py-10 md:py-16 max-w-xl mx-auto md:ml-auto md:mr-0 font-newsreader">
+      <div className="flex flex-col justify-center px-6 md:px-10 py-10 md:py-16 max-w-xl mx-auto font-newsreader">
         <div className="flex items-center gap-1 font-dm-sans text-[#934B19] uppercase text-xs mb-6">
           <div>Regalos Corporativos</div>
           <div>|</div>
@@ -41,7 +41,7 @@ export const Hero = () => {
       {/* Right - Product Image */}
       <div className="relative overflow-hidden h-64 md:h-auto">
         <img
-          src="/landing/hero.png"
+          src="/landing/hero.svg"
           alt="Productos de piel Plek"
           className="absolute top-0 right-0 w-full h-full object-cover object-right"
         />
