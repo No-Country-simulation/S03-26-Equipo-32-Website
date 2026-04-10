@@ -8,6 +8,7 @@ import {
 import { X } from 'lucide-react';
 
 type ModalSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
+type ModalVariant = 'modal' | 'sheet-right';
 
 const sizeClass: Record<ModalSize, string> = {
   xs: 'max-w-xs w-full',
@@ -24,6 +25,7 @@ interface OpenOptions {
   onClose?: () => void;
   showCloseButton?: boolean;
   size?: ModalSize;
+  variant?: ModalVariant;
 }
 
 interface ModalContextType {
@@ -59,13 +61,21 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
       {children}
       {state.visible && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+          className={`fixed inset-0 z-50 flex bg-black/50 ${
+            state.variant === 'sheet-right'
+              ? 'items-stretch justify-end'
+              : 'items-center justify-center'
+          }`}
           onClick={(e) => {
             if (e.target === e.currentTarget) close();
           }}
         >
           <div
-            className={`relative bg-white rounded-xl shadow-xl overflow-hidden ${sizeClass[state.size ?? 'md']}`}
+            className={`relative bg-white shadow-xl overflow-hidden ${
+              state.variant === 'sheet-right'
+                ? 'h-full w-full max-w-[560px] rounded-none md:rounded-l-2xl'
+                : `rounded-xl ${sizeClass[state.size ?? 'md']}`
+            }`}
           >
             {state.showCloseButton && (
               <button
