@@ -1,6 +1,12 @@
 import { Logo } from '@/components/share/ui/logo.tsx';
 import { Camera, Mail, MapPin, MessageCircle } from 'lucide-react';
 
+const WHATSAPP_NUMBER = '5214775818501';
+const WHATSAPP_MESSAGE = encodeURIComponent(
+  'Hola, quiero solicitar una cotizacion para productos de PLEK.',
+);
+const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MESSAGE}`;
+
 export const Footer = () => {
   return (
     <div className={'w-full bg-[#2D5016] text-[#F5F0E8] font-dm-sans'}>
@@ -23,13 +29,16 @@ export const Footer = () => {
             ¿Prefieres hablar directamente?
           </p>
 
-          <button
+          <a
+            href={WHATSAPP_LINK}
+            target="_blank"
+            rel="noreferrer"
             className={
-              'border border-white rounded-md px-4 py-2 mt-4 flex items-center gap-2 mx-auto text-sm hover:bg-[#35561E] transition-colors'
+              'border border-white rounded-md px-4 py-2 mt-4 flex items-center gap-2 mx-auto text-sm hover:bg-[#35561E] transition-colors w-fit'
             }
           >
             <MessageCircle className={'size-4'} /> WhatsApp
-          </button>
+          </a>
         </div>
         <div className={'md:col-span-4 text-white py-4 space-y-2'}>
           <p className={'text-sm flex items-center gap-1'}>
