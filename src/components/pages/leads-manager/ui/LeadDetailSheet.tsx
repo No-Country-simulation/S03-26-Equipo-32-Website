@@ -1,11 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import {
-  CheckCircle2,
-  ChevronDown,
-  Circle,
-  MessageCircle,
-  X,
-} from 'lucide-react';
+import { CheckCircle2, ChevronDown, Circle, X } from 'lucide-react';
 import type { Lead } from '@/core/leads/entities/lead.entity.ts';
 import {
   BUSINESS,
@@ -14,6 +8,7 @@ import {
   VOLUME_PURCHASE,
 } from '@/components/share/constants.ts';
 import { useModal } from '@/context/ModalContext.tsx';
+import { WhatsAppIcon } from '@/components/share/ui/WhatsAppIcon.tsx';
 
 interface Props {
   lead: Lead;
@@ -311,7 +306,7 @@ export const LeadDetailSheet = ({
             onClick={() => onContact(lead)}
             className="inline-flex w-full max-w-45 items-center justify-center gap-2 rounded-xl bg-[#2D5A3D] px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#234832]"
           >
-            <MessageCircle size={14} />
+            <WhatsAppIcon className="size-3.5" aria-hidden="true" />
             Contactar
           </button>
         </div>

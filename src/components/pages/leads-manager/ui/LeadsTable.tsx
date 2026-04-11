@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { Eye, MessageCircleCheck, Trash2 } from 'lucide-react';
+import { Eye, Trash2 } from 'lucide-react';
 import type { Lead } from '@/core/leads/entities/lead.entity.ts';
 import { VOLUME_PURCHASE } from '@/components/share/constants.ts';
 import {
@@ -10,6 +10,7 @@ import {
 import { useModal } from '@/context/ModalContext.tsx';
 import { DeleteLeadModal } from '@/components/pages/leads-manager/ui/DeleteLeadModal.tsx';
 import { LeadDetailSheet } from '@/components/pages/leads-manager/ui/LeadDetailSheet.tsx';
+import { WhatsAppIcon } from '@/components/share/ui/WhatsAppIcon.tsx';
 
 const dateFormatter = new Intl.DateTimeFormat('es-MX', {
   day: '2-digit',
@@ -181,10 +182,7 @@ export function LeadsTable({
 
                     <td className="px-4 py-3 flex items-center gap-2">
                       <button onClick={() => onContact(lead)}>
-                        <MessageCircleCheck
-                          size={16}
-                          className="text-[#78716C] hover:text-[#162C14] transition-colors"
-                        />
+                        <WhatsAppIcon className="size-5 text-[#78716C] hover:text-[#162C14] transition-colors" />
                       </button>
 
                       <button

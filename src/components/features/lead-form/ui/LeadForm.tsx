@@ -9,12 +9,23 @@ import { Select } from '@/components/share/ui/Select.tsx';
 import { Textarea } from '@/components/share/ui/Textarea.tsx';
 import { Checkbox } from '@/components/share/ui/Checkbox.tsx';
 import { Label } from '@/components/share/ui/Label.tsx';
-import { ArrowRight, Lock } from 'lucide-react';
+import { ArrowDownToLine, ArrowRight, Camera, Check, Lock } from 'lucide-react';
 import { twMerge } from 'tailwind-merge';
 import * as React from 'react';
 import { useLeadForm } from '@/components/features/lead-form/model/useLeadForm.ts';
+import { Logo } from '@/components/share/ui/logo.tsx';
+import { WhatsAppIcon } from '@/components/share/ui/WhatsAppIcon.tsx';
+import { statisticsContainer } from '@/core/containers/statistics.container.ts';
 
 type LeadFormProps = React.HTMLAttributes<HTMLDivElement>;
+
+const WHATSAPP_NUMBER = '5214775818501';
+const WHATSAPP_MESSAGE = encodeURIComponent(
+  'Hola, quiero solicitar una cotizacion para productos de PLEK.',
+);
+const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MESSAGE}`;
+const INSTAGRAM_LINK = 'https://www.instagram.com/plekmoda/';
+const CATALOG_PDF_LINK = '/docs/catalogoPlek.pdf';
 
 export const LeadForm = ({ ...rest }: LeadFormProps) => {
   const { form, onSubmit, isSubmitting, isSuccess, trackFirstInteraction } =
@@ -23,6 +34,63 @@ export const LeadForm = ({ ...rest }: LeadFormProps) => {
     register,
     formState: { errors },
   } = form;
+
+  if (isSuccess) {
+    return (
+      <div className="fixed inset-0 z-70 bg-[#F5F0E8] px-6 py-10 md:py-14 overflow-y-auto">
+        <div className="max-w-md mx-auto min-h-full flex flex-col items-center justify-center text-center gap-6 font-dm-sans">
+          <Logo variant="brand" className="h-10 w-auto" />
+
+          <div className="size-12 rounded-md bg-[#2D5016] text-white flex items-center justify-center">
+            <Check className="size-6" />
+          </div>
+
+          <div className="space-y-3">
+            <h3 className="font-cormorant text-5xl leading-tight text-[#161616]">
+              ¡Listo! Recibimos tu solicitud.
+            </h3>
+            <p className="text-[#7A7A7A] text-lg leading-relaxed">
+              En menos de 24 horas te enviamos tu cotización personalizada con
+              el descuento aplicado a tu selección.
+            </p>
+          </div>
+
+          <a
+            href={WHATSAPP_LINK}
+            target="_blank"
+            rel="noreferrer"
+            className="w-full bg-[#2D5016] text-white rounded-md px-4 py-3 flex items-center justify-center gap-2 text-sm hover:bg-[#244212] transition-colors"
+          >
+            <WhatsAppIcon className="size-4" aria-hidden="true" />
+            ¿Quieres platicar antes? Escríbenos
+          </a>
+
+          <div className="w-full space-y-3 text-sm text-[#6E6E6E]">
+            <a
+              href={INSTAGRAM_LINK}
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center justify-center gap-2"
+            >
+              <Camera className="size-4" />
+              Síguenos en Instagram para ver los productos: @plekmoda
+            </a>
+
+            <a
+              href={CATALOG_PDF_LINK}
+              download="catalogoPlek.pdf"
+              onClick={() => statisticsContainer.trackCatalogDownload.execute()}
+              className="flex items-center justify-center gap-2"
+            >
+              <ArrowDownToLine className="size-4" />
+              ¿Aún no tienes nuestro catálogo?
+              <span className="underline">Descargar PDF</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div

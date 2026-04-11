@@ -51,7 +51,7 @@ export const PopularCatalog = () => {
           {/* Previous slide (peek left) */}
           <div
             onClick={() => paginate(-1)}
-            className="hidden md:block w-1/4 flex-shrink-0 opacity-40 cursor-pointer hover:opacity-60 transition-opacity"
+            className="hidden md:block w-1/4 shrink-0 opacity-40 cursor-pointer hover:opacity-60 transition-opacity"
           >
             <img
               src={slides[prevIndex].src}
@@ -61,7 +61,7 @@ export const PopularCatalog = () => {
           </div>
 
           {/* Active slide */}
-          <div className="w-full md:w-1/2 flex-shrink-0 overflow-hidden relative h-80 md:h-96">
+          <div className="w-full md:w-1/2 shrink-0 overflow-hidden relative h-80 md:h-96">
             <AnimatePresence initial={false} custom={direction}>
               <motion.img
                 key={current}
@@ -80,7 +80,7 @@ export const PopularCatalog = () => {
           {/* Next slide (peek right) */}
           <div
             onClick={() => paginate(1)}
-            className="hidden md:block w-1/4 flex-shrink-0 opacity-40 cursor-pointer hover:opacity-60 transition-opacity"
+            className="hidden md:block w-1/4 shrink-0 opacity-40 cursor-pointer hover:opacity-60 transition-opacity"
           >
             <img
               src={slides[nextIndex].src}
@@ -123,12 +123,14 @@ export const PopularCatalog = () => {
       </div>
 
       <div className="flex justify-center items-center">
-        <button
+        <a
+          href="/docs/catalogoPlek.pdf"
+          download="Catálogo PLEK"
           onClick={() => statisticsContainer.trackCatalogDownload.execute()}
           className="mt-4 bg-[#173901] text-white text-sm tracking-wide rounded-sm px-8 py-3 hover:bg-[#1e4a02] transition-colors cursor-pointer flex flex-row items-center gap-2 font-dm-sans"
         >
           <Download className="size-3" /> Ver catálogo completo
-        </button>
+        </a>
       </div>
     </div>
   );
