@@ -9,6 +9,7 @@ import {
   collection,
   deleteDoc,
   doc,
+  deleteField,
   getDoc,
   getDocs,
   orderBy,
@@ -78,6 +79,20 @@ export class LeadsRepository implements LeadRepository {
 
     await updateDoc(leadRef, {
       contactedAt: Date.now(),
+    });
+  }
+
+  async markPending(leadId: string): Promise<void> {
+    const leadRef = doc(db, this.COLLECTION, leadId);
+
+    const snapshot = await getDoc(leadRef);
+
+    if (!snapshot.exists()) {
+      throw new Error('Lead not found');
+    }
+
+    await updateDoc(leadRef, {
+      contactedAt: deleteField(),
     });
   }
 

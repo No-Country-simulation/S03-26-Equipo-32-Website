@@ -9,6 +9,7 @@ import {
 } from '@/components/pages/leads-manager/lib/scoreLeads.ts';
 import { useModal } from '@/context/ModalContext.tsx';
 import { DeleteLeadModal } from '@/components/pages/leads-manager/ui/DeleteLeadModal.tsx';
+import { LeadDetailSheet } from '@/components/pages/leads-manager/ui/LeadDetailSheet.tsx';
 
 const dateFormatter = new Intl.DateTimeFormat('es-MX', {
   day: '2-digit',
@@ -46,9 +47,17 @@ interface Props {
   leads: Lead[];
   onDelete: (id: string) => void;
   onContact: (lead: Lead) => void;
+  onMarkContacted: (lead: Lead) => Promise<void>;
+  onMarkPending: (lead: Lead) => Promise<void>;
 }
 
-export function LeadsTable({ leads, onDelete, onContact }: Props) {
+export function LeadsTable({
+  leads,
+  onDelete,
+  onContact,
+  onMarkContacted,
+  onMarkPending,
+}: Props) {
   const [page, setPage] = useState(1);
   const modal = useModal();
 
@@ -178,7 +187,22 @@ export function LeadsTable({ leads, onDelete, onContact }: Props) {
                         />
                       </button>
 
-                      <button>
+                      <button
+                        onClick={() =>
+                          modal.open({
+                            render: (
+                              <LeadDetailSheet
+                                lead={lead}
+                                onContact={onContact}
+                                onMarkContacted={onMarkContacted}
+                                onMarkPending={onMarkPending}
+                              />
+                            ),
+                            showCloseButton: false,
+                            variant: 'sheet-right',
+                          })
+                        }
+                      >
                         <Eye
                           size={20}
                           className="text-[#78716C] hover:text-[#162C14] transition-colors"

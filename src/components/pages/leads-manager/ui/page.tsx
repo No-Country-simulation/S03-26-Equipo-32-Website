@@ -51,6 +51,24 @@ export const LeadsManagerPage = () => {
     window.open(`https://wa.me/${number}`, '_blank');
   };
 
+  const handleMarkLeadContacted = async (lead: Lead) => {
+    await leadContainer.markLeadContacted.execute(lead.id);
+    setLeads((prev) =>
+      prev.map((item) =>
+        item.id === lead.id ? { ...item, contactedAt: Date.now() } : item,
+      ),
+    );
+  };
+
+  const handleMarkLeadPending = async (lead: Lead) => {
+    await leadContainer.markLeadPending.execute(lead.id);
+    setLeads((prev) =>
+      prev.map((item) =>
+        item.id === lead.id ? { ...item, contactedAt: undefined } : item,
+      ),
+    );
+  };
+
   return (
     <div className="p-4">
       <h1 className="text-2xl font-semibold font-cormorant mb-4">
@@ -61,6 +79,8 @@ export const LeadsManagerPage = () => {
         leads={filteredLeads}
         onDelete={handleDeleteLead}
         onContact={handleContactLead}
+        onMarkContacted={handleMarkLeadContacted}
+        onMarkPending={handleMarkLeadPending}
       />
       <ScoringRules />
     </div>

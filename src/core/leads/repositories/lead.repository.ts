@@ -9,6 +9,7 @@ export interface LeadDateFilter {
 export interface LeadRepository {
   create(dto: CreateLeadDto): Promise<Lead>;
   markContacted(leadId: string): Promise<void>;
+  markPending(leadId: string): Promise<void>;
   getAll(filter?: LeadDateFilter): Promise<Lead[]>;
   delete(leadId: string): Promise<void>;
 }
