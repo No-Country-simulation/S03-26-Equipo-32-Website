@@ -171,6 +171,7 @@ export const LeadDetailSheet = ({
             <h3 className="mb-2 text-[10px] uppercase tracking-[0.12em] text-[#78716C] font-dm-sans">
               Información de contacto
             </h3>
+            <div className="mb-2 h-[1.5px] w-full bg-linear-to-r from-transparent via-[#EFE7DE] to-transparent" />
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <div className={FIELD_CARD}>
                 <p className="text-[10px] uppercase tracking-widest text-[#78716C]">
@@ -211,6 +212,7 @@ export const LeadDetailSheet = ({
             <h3 className="mb-2 text-[10px] uppercase tracking-[0.12em] text-[#78716C] font-dm-sans">
               Perfil de compra
             </h3>
+            <div className="mb-2 h-[1.5px] w-full bg-linear-to-r from-transparent via-[#EFE7DE] to-transparent" />
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <div className={FIELD_CARD}>
                 <p className="text-[10px] uppercase tracking-widest text-[#78716C]">
@@ -270,6 +272,7 @@ export const LeadDetailSheet = ({
             <h3 className="mb-2 text-[10px] uppercase tracking-[0.12em] text-[#78716C] font-dm-sans">
               Notas del cliente
             </h3>
+            <div className="mb-2 h-[1.5px] w-full bg-linear-to-r from-transparent via-[#EFE7DE] to-transparent" />
             <div className="rounded-xl bg-[#F6F3EF] border border-[#EFE7DE] px-3 py-3 min-h-30">
               <p className="text-sm leading-relaxed text-[#3B2F24] whitespace-pre-wrap">
                 {lead.products || 'No hay notas registradas.'}
