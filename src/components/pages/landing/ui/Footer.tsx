@@ -1,7 +1,6 @@
 import { Logo } from '@/components/share/ui/logo.tsx';
 import { Camera, Mail, MapPin } from 'lucide-react';
 import { WhatsAppIcon } from '@/components/share/ui/WhatsAppIcon.tsx';
-
 import { WHATSAPP_LINK } from '@/components/share/constants.ts';
 
 export const Footer = () => {

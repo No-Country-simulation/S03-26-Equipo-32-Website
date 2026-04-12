@@ -1,7 +1,6 @@
 import { Question } from '@/components/pages/landing/ui/Question.tsx';
 import { FAQ_QUESTIONS } from '@/components/share/constants.ts';
 import { WhatsAppIcon } from '@/components/share/ui/WhatsAppIcon.tsx';
-
 import { WHATSAPP_LINK } from '@/components/share/constants.ts';
 
 export const FAQ = () => {

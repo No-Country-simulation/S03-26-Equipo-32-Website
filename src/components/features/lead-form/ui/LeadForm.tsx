@@ -16,14 +16,13 @@ import { useLeadForm } from '@/components/features/lead-form/model/useLeadForm.t
 import { Logo } from '@/components/share/ui/logo.tsx';
 import { WhatsAppIcon } from '@/components/share/ui/WhatsAppIcon.tsx';
 import { statisticsContainer } from '@/core/containers/statistics.container.ts';
-
-type LeadFormProps = React.HTMLAttributes<HTMLDivElement>;
-
 import {
   WHATSAPP_LINK,
   INSTAGRAM_LINK,
   CATALOG_PDF_LINK,
 } from '@/components/share/constants.ts';
+
+type LeadFormProps = React.HTMLAttributes<HTMLDivElement>;
 
 export const LeadForm = ({ ...rest }: LeadFormProps) => {
   const { form, onSubmit, isSubmitting, isSuccess, trackFirstInteraction } =
