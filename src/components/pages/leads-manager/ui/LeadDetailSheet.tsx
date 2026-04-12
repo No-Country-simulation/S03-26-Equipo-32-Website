@@ -1,11 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import {
-  CheckCircle2,
-  ChevronDown,
-  Circle,
-  MessageCircle,
-  X,
-} from 'lucide-react';
+import { CheckCircle2, ChevronDown, Circle, X } from 'lucide-react';
 import type { Lead } from '@/core/leads/entities/lead.entity.ts';
 import {
   BUSINESS,
@@ -14,6 +8,7 @@ import {
   VOLUME_PURCHASE,
 } from '@/components/share/constants.ts';
 import { useModal } from '@/context/ModalContext.tsx';
+import { WhatsAppIcon } from '@/components/share/ui/WhatsAppIcon.tsx';
 
 interface Props {
   lead: Lead;
@@ -168,7 +163,7 @@ export const LeadDetailSheet = ({
 
         <div className="space-y-5">
           <section>
-            <h3 className="mb-2 text-[10px] uppercase tracking-[0.12em] text-[#78716C] font-dm-sans">
+            <h3 className="mb-2 text-[10px] uppercase tracking-[0.12em] text-[#9C9389] font-dm-sans">
               Información de contacto
             </h3>
             <div className="mb-2 h-[1.5px] w-full bg-linear-to-r from-transparent via-[#EFE7DE] to-transparent" />
@@ -198,8 +193,8 @@ export const LeadDetailSheet = ({
                 </p>
               </div>
               <div className={FIELD_CARD}>
-                <p className="text-[10px] uppercase tracking-widest text-[#78716C]">
-                  Telefono
+                <p className="text-[10px] uppercase tracking-widest text-[#9C9389]">
+                  Teléfono
                 </p>
                 <p className="mt-1 text-sm text-[#162C14]">
                   {lead.whatsapp || '-'}
@@ -260,8 +255,8 @@ export const LeadDetailSheet = ({
           </section>
 
           <section>
-            <h3 className="mb-2 text-[10px] uppercase tracking-[0.12em] text-[#78716C] font-dm-sans">
-              Ubicacion
+            <h3 className="mb-2 text-[10px] uppercase tracking-[0.12em] text-[#9C9389] font-dm-sans">
+              Ubicación
             </h3>
             <div className={FIELD_CARD}>
               <p className="text-sm text-[#3B2F24]">{location}</p>
@@ -289,20 +284,12 @@ export const LeadDetailSheet = ({
             onClick={() => onContact(lead)}
             className="inline-flex w-full max-w-45 items-center justify-center gap-2 rounded-xl bg-[#2D5A3D] px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#234832]"
           >
-            <MessageCircle size={14} />
+            <WhatsAppIcon className="size-3.5" aria-hidden="true" />
             Contactar
           </button>
         </div>
 
-        <div className="mt-5 border-t border-[#EFE7DE] pt-4">
-          {/* <button
-            type="button"
-            onClick={modal.close}
-            className="text-[12px] font-dm-sans text-[#8B8176] transition-colors hover:text-[#5F574E]"
-          >
-            Volver
-          </button> */}
-        </div>
+        <div className="mt-5 border-t border-[#EFE7DE] pt-4"></div>
       </footer>
     </section>
   );

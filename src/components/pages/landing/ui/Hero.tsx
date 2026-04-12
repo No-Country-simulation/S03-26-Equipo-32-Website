@@ -1,6 +1,11 @@
 import { ArrowRight } from 'lucide-react';
 
 export const Hero = () => {
+  const handleContactClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <section className="grid grid-cols-1 md:grid-cols-2 min-h-[50vh] md:min-h-[calc(100vh-72px)]">
       {/* Left - Content */}
@@ -33,13 +38,17 @@ export const Hero = () => {
           <div>USAID PRO - INTEGRIDAD</div>
         </div>
 
-        <button className="mt-10 self-start bg-[#173901] text-white text-sm tracking-wide rounded-sm px-8 py-3 hover:bg-[#1e4a02] transition-colors cursor-pointer flex flex-row items-center justify-between gap-2 font-dm-sans">
+        <a
+          href="#contacto"
+          onClick={handleContactClick}
+          className="mt-10 self-start bg-[#173901] text-white text-sm tracking-wide rounded-sm px-8 py-3 hover:bg-[#1e4a02] transition-colors cursor-pointer flex flex-row items-center justify-between gap-2 font-dm-sans"
+        >
           Solicita tu cotización <ArrowRight className={'size-4'} />
-        </button>
+        </a>
       </div>
 
       {/* Right - Product Image */}
-      <div className="relative overflow-hidden h-64 md:h-auto">
+      <div className="relative overflow-hidden h-96 md:h-auto">
         <img
           src="/landing/hero.svg"
           alt="Productos de piel Plek"

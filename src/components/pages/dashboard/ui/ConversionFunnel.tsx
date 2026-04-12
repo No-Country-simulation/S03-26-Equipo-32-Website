@@ -45,7 +45,7 @@ export const ConversionFunnel = ({
 
         <div
           className={
-            'hidden lg:flex flex-col items-center flex-shrink-0 text-[#78716C]'
+            'hidden lg:flex flex-col items-center shrink-0 text-[#78716C]'
           }
         >
           <span className={'text-xs font-dm-sans'}>
@@ -67,7 +67,7 @@ export const ConversionFunnel = ({
 
         <div
           className={
-            'hidden lg:flex flex-col items-center flex-shrink-0 text-[#78716C]'
+            'hidden lg:flex flex-col items-center shrink-0 text-[#78716C]'
           }
         >
           <span className={'text-xs font-dm-sans'}>
@@ -89,7 +89,7 @@ export const ConversionFunnel = ({
 
         <div
           className={
-            'hidden lg:flex flex-col items-center flex-shrink-0 text-[#78716C]'
+            'hidden lg:flex flex-col items-center shrink-0 text-[#78716C]'
           }
         >
           <span className={'text-xs font-dm-sans'}>

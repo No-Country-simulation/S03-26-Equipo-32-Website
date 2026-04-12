@@ -7,7 +7,7 @@ import {
 } from '@/core/leads/dto/create-lead.dto.ts';
 import { leadContainer } from '@/core/containers/lead.container.ts';
 import { statisticsContainer } from '@/core/containers/statistics.container.ts';
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 
 export const useLeadForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -19,6 +19,15 @@ export const useLeadForm = () => {
     hasTrackedInteraction.current = true;
     statisticsContainer.trackFormInteraction.execute();
   }, []);
+
+  useEffect(() => {
+    if (!isSuccess) return;
+    const timer = window.setTimeout(() => {
+      setIsSuccess(false);
+    }, 5000);
+
+    return () => window.clearTimeout(timer);
+  }, [isSuccess]);
 
   const form = useForm<CreateLeadInput>({
     resolver: zodResolver(createLeadSchema),
