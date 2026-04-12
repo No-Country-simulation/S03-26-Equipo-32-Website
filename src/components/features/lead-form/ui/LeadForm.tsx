@@ -19,13 +19,11 @@ import { statisticsContainer } from '@/core/containers/statistics.container.ts';
 
 type LeadFormProps = React.HTMLAttributes<HTMLDivElement>;
 
-const WHATSAPP_NUMBER = '5214775818501';
-const WHATSAPP_MESSAGE = encodeURIComponent(
-  'Hola, quiero solicitar una cotizacion para productos de PLEK.',
-);
-const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MESSAGE}`;
-const INSTAGRAM_LINK = 'https://www.instagram.com/plekmoda/';
-const CATALOG_PDF_LINK = '/docs/catalogoPlek.pdf';
+import {
+  WHATSAPP_LINK,
+  INSTAGRAM_LINK,
+  CATALOG_PDF_LINK,
+} from '@/components/share/constants.ts';
 
 export const LeadForm = ({ ...rest }: LeadFormProps) => {
   const { form, onSubmit, isSubmitting, isSuccess, trackFirstInteraction } =

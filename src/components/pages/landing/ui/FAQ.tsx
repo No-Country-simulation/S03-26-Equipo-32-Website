@@ -2,11 +2,7 @@ import { Question } from '@/components/pages/landing/ui/Question.tsx';
 import { FAQ_QUESTIONS } from '@/components/share/constants.ts';
 import { WhatsAppIcon } from '@/components/share/ui/WhatsAppIcon.tsx';
 
-const WHATSAPP_NUMBER = '5491124718183';
-const WHATSAPP_MESSAGE = encodeURIComponent(
-  'Hola, quiero solicitar una cotización para productos de PLEK.',
-);
-const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MESSAGE}`;
+import { WHATSAPP_LINK } from '@/components/share/constants.ts';
 
 export const FAQ = () => {
   return (

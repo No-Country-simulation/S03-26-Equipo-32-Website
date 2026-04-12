@@ -1,8 +1,12 @@
-// WhatsApp y contacto global
-export const WHATSAPP_NUMBER = '521234567890'; // Reemplaza por el número real
-export const WHATSAPP_CONTACT_TEXT =
-  '¡Hola! Estoy interesado en más información.';
 import { Award, MapPin } from 'lucide-react';
+
+export const WHATSAPP_NUMBER = '5214775818501';
+export const WHATSAPP_MESSAGE = encodeURIComponent(
+  'Hola, quiero solicitar una cotizacion para productos de PLEK.',
+);
+export const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MESSAGE}`;
+export const INSTAGRAM_LINK = 'https://www.instagram.com/plekmoda/';
+export const CATALOG_PDF_LINK = '/docs/catalogoPlek.pdf';
 
 export const DIFFERENTIATORS = [
   {

@@ -2,11 +2,7 @@ import { Logo } from '@/components/share/ui/logo.tsx';
 import { Camera, Mail, MapPin } from 'lucide-react';
 import { WhatsAppIcon } from '@/components/share/ui/WhatsAppIcon.tsx';
 
-const WHATSAPP_NUMBER = '5214775818501';
-const WHATSAPP_MESSAGE = encodeURIComponent(
-  'Hola, quiero solicitar una cotizacion para productos de PLEK.',
-);
-const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MESSAGE}`;
+import { WHATSAPP_LINK } from '@/components/share/constants.ts';
 
 export const Footer = () => {
   return (
