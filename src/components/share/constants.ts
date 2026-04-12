@@ -1,3 +1,7 @@
+// WhatsApp y contacto global
+export const WHATSAPP_NUMBER = '521234567890'; // Reemplaza por el número real
+export const WHATSAPP_CONTACT_TEXT =
+  '¡Hola! Estoy interesado en más información.';
 import { Award, MapPin } from 'lucide-react';
 
 export const DIFFERENTIATORS = [

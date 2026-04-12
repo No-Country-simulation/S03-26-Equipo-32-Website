@@ -189,7 +189,7 @@ export const LeadDetailSheet = ({
         <div className="space-y-5">
           <section>
             <h3 className="mb-2 text-[10px] uppercase tracking-[0.12em] text-[#9C9389] font-dm-sans">
-              Informacion de contacto
+              Información de contacto
             </h3>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <div className={FIELD_CARD}>
@@ -218,7 +218,7 @@ export const LeadDetailSheet = ({
               </div>
               <div className={FIELD_CARD}>
                 <p className="text-[10px] uppercase tracking-widest text-[#9C9389]">
-                  Telefono
+                  Teléfono
                 </p>
                 <p className="mt-1 text-sm text-[#3B2F24]">
                   {lead.whatsapp || '-'}
@@ -279,7 +279,7 @@ export const LeadDetailSheet = ({
 
           <section>
             <h3 className="mb-2 text-[10px] uppercase tracking-[0.12em] text-[#9C9389] font-dm-sans">
-              Ubicacion
+              Ubicación
             </h3>
             <div className={FIELD_CARD}>
               <p className="text-sm text-[#3B2F24]">{location}</p>
@@ -311,15 +311,7 @@ export const LeadDetailSheet = ({
           </button>
         </div>
 
-        <div className="mt-5 border-t border-[#EFE7DE] pt-4">
-          {/* <button
-            type="button"
-            onClick={modal.close}
-            className="text-[12px] font-dm-sans text-[#8B8176] transition-colors hover:text-[#5F574E]"
-          >
-            Volver
-          </button> */}
-        </div>
+        <div className="mt-5 border-t border-[#EFE7DE] pt-4"></div>
       </footer>
     </section>
   );

@@ -48,7 +48,7 @@ export const Hero = () => {
       </div>
 
       {/* Right - Product Image */}
-      <div className="relative overflow-hidden h-64 md:h-auto">
+      <div className="relative overflow-hidden h-96 md:h-auto">
         <img
           src="/landing/hero.svg"
           alt="Productos de piel Plek"
