@@ -37,7 +37,7 @@ export const Navbar = () => {
 
   return (
     <nav
-      className={`bg-[#173901] sticky top-0 z-50 transition-transform duration-300 ${visible ? 'translate-y-0' : '-translate-y-full'}`}
+      className={`bg-[#193903] sticky top-0 z-50 transition-transform duration-300 ${visible ? 'translate-y-0' : '-translate-y-full'}`}
     >
       <div className="flex items-center justify-between px-6 md:px-10 py-5">
         <Logo />

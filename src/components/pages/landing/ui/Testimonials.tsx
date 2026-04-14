@@ -10,19 +10,33 @@ export const Testimonials = () => {
         <div className={'grid grid-cols-1 md:grid-cols-12 gap-8'}>
           {/* Left Column */}
           <div className={'md:col-span-5 flex flex-col gap-4'}>
-            <div className={'text-[#8B4513] text-xs uppercase'}>
+            <div className={'text-[#8B4513] text-semibold uppercase'}>
               Certificaciones y Alianzas
             </div>
             {CERTIFICATIONS.map((cert, index) => (
-              <div
-                key={index}
-                className={'flex flex-row gap-4 items-center mt-5 font-dm-sans'}
-              >
-                <cert.icon className={'size-6 text-[#173901]'} />
-                <div>
-                  <div className={'font-cormorant text-lg'}>{cert.name}</div>
-                  <div className={'text-xs text-gray-600'}>
-                    {cert.description}
+              <div key={index}>
+                <div
+                  className={
+                    'flex flex-row gap-4 items-center mt-5 font-dm-sans font-medium pb-5' +
+                    (index !== CERTIFICATIONS.length - 1
+                      ? ' border-b border-gray-200'
+                      : '')
+                  }
+                >
+                  <cert.icon className={'size-6 text-[#173901]'} />
+                  <div className="flex flex-col gap-0 w-full">
+                    <div
+                      className="font-cormorant text-lg whitespace-nowrap overflow-hidden text-ellipsis max-w-xs md:max-w-sm lg:max-w-md"
+                      title={cert.name}
+                    >
+                      {cert.name}
+                    </div>
+                    <div
+                      className="text-xs text-gray-600 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs md:max-w-sm lg:max-w-md"
+                      title={cert.description}
+                    >
+                      {cert.description}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -42,7 +56,9 @@ export const Testimonials = () => {
             />
             <div className={'font-dm-sans text-[#8B4513] text-xs'}>
               <p
-                className={'font-cormorant text-xl text-[#173901] mt-20 italic'}
+                className={
+                  'font-cormorant text-xl text-[#1A1A1A] mt-20 italic line-clamp-3'
+                }
               >
                 El sistema origami es un éxito en la tienda. Los clientes quedan
                 fascinados con el diseño y preguntan por él de inmediato. PLEK

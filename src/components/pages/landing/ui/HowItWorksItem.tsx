@@ -12,12 +12,12 @@ export const HowItWorksItem = ({
   return (
     <div
       className={
-        'flex gap-4 not-last:border-b not-last:border-b-[#2D5016] pb-6'
+        'flex gap-4 not-last:border-b not-last:border-b-[#CDD0BE] pb-6'
       }
     >
       <div
         className={
-          'border-2 rounded-full p-3 w-10 h-10 flex justify-center items-center text-[#2D5016] border-[#2D5016]'
+          'border-2 rounded-full p-3 w-10 h-10 flex justify-center items-center font-dm-sans text-[#2D5016] border-[#2D5016]'
         }
       >
         {step}
