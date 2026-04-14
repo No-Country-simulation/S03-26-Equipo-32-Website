@@ -16,7 +16,7 @@ export const Hero = () => {
           <div>Productos para tu tienda</div>
         </div>
 
-        <h1 className="text-4xl md:text-6xl leading-tight font-semibold">
+        <h1 className="text-4xl md:text-6xl leading-tight font-font-cormorant">
           Productos de piel <em className="italic font-light">origami</em>.
           Mayoreo directo.
         </h1>
@@ -41,7 +41,7 @@ export const Hero = () => {
         <a
           href="#contacto"
           onClick={handleContactClick}
-          className="mt-10 self-start bg-[#173901] text-white text-sm tracking-wide rounded-sm px-8 py-3 hover:bg-[#1e4a02] transition-colors cursor-pointer flex flex-row items-center justify-between gap-2 font-dm-sans"
+          className="mt-10 self-start bg-[#193903] text-white text-sm tracking-wide rounded-sm px-8 py-3 hover:bg-[#1e4a02] transition-colors cursor-pointer flex flex-row items-center justify-between gap-2 font-dm-sans"
         >
           Solicita tu cotización <ArrowRight className={'size-4'} />
         </a>
