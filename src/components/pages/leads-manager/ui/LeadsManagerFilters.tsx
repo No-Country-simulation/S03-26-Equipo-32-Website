@@ -16,7 +16,7 @@ export const LeadsManagerFilters = () => {
   const [status, setStatus] = useStatusFilter();
   const { from, to, setPreset } = useDashboardFilter();
   return (
-    <div className={'flex gap-4 mb-4'}>
+    <div className={'flex gap-4 mb-4 overflow-x-auto pb-1 scrollbar-none'}>
       <CustomSelect
         className={'w-fit font-dm-sans'}
         label={'Prioridad'}

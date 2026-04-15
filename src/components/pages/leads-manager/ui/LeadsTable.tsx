@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { Eye, Trash2 } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Eye, Trash2 } from 'lucide-react';
 import type { Lead } from '@/core/leads/entities/lead.entity.ts';
 import { VOLUME_PURCHASE } from '@/components/share/constants.ts';
 import {
@@ -17,6 +17,22 @@ const dateFormatter = new Intl.DateTimeFormat('es-MX', {
   month: 'short',
   year: 'numeric',
 });
+
+const shortDateFormatter = new Intl.DateTimeFormat('es-MX', {
+  day: 'numeric',
+  month: 'short',
+});
+
+const formatShortDate = (date: Date) =>
+  shortDateFormatter.format(date).toUpperCase().replace('.', '');
+
+const BUSINESS_TYPE_SHORT: Record<string, string> = {
+  BOUTIQUE: 'Boutique',
+  WHOLESALER: 'Distribuidor',
+  STORE_GIFTS: 'T. Regalos',
+  STORE_CORPORATE_GIFT: 'Regalo Corp.',
+  OTHER: 'Otro',
+};
 
 const PAGE_SIZE = 10;
 
@@ -71,9 +87,130 @@ export function LeadsTable({
 
   const pageRange = getPageRange(safePage, totalPages);
 
+  const openDetail = (lead: Lead) =>
+    modal.open({
+      render: (
+        <LeadDetailSheet
+          lead={lead}
+          onContact={onContact}
+          onMarkContacted={onMarkContacted}
+          onMarkPending={onMarkPending}
+          onDelete={() => onDelete(lead.id)}
+        />
+      ),
+      showCloseButton: false,
+      variant: 'sheet-right',
+    });
+
   return (
-    <div className="flex flex-col font-dm-sans  rounded-lg overflow-hidden">
-      <div className="overflow-x-auto">
+    <div className="flex flex-col font-dm-sans rounded-lg overflow-hidden">
+      {/* ── Mobile card view ── */}
+      <div className="sm:hidden bg-white rounded-lg overflow-hidden">
+        {paginated.length === 0 ? (
+          <p className="px-4 py-10 text-center text-[#A8A29E] text-sm">
+            No hay leads para mostrar.
+          </p>
+        ) : (
+          <div className="divide-y divide-neutral-100">
+            {paginated.map((lead) => {
+              const score = calculateScore(lead);
+              const priority = getPriority(score);
+              const contacted = !!lead.contactedAt;
+
+              return (
+                <button
+                  key={lead.id}
+                  type="button"
+                  className="flex items-center gap-3 px-4 py-3 w-full text-left active:bg-[#F6F3EF] transition-colors"
+                  onClick={() => openDetail(lead)}
+                >
+                  <span
+                    className={twMerge(
+                      'size-10 rounded-full flex items-center justify-center text-sm font-bold shrink-0',
+                      PRIORITY_STYLES[priority],
+                    )}
+                  >
+                    {score}
+                  </span>
+
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-start justify-between gap-2">
+                      <p className="font-medium text-[#162C14] text-sm truncate">
+                        {lead.businessName}
+                      </p>
+                      {contacted ? (
+                        <span className="inline-flex rounded-full bg-[#4A7C59] px-2.5 py-0.5 text-xs font-medium text-white uppercase whitespace-nowrap shrink-0">
+                          Contactado
+                        </span>
+                      ) : (
+                        <span className="inline-flex rounded-full border border-[#D1CFC9] px-2.5 py-0.5 text-xs font-medium text-[#78716C] uppercase whitespace-nowrap shrink-0">
+                          En espera
+                        </span>
+                      )}
+                    </div>
+                    <div className="flex items-center justify-between mt-0.5">
+                      <p className="text-xs text-[#A8A29E]">
+                        {BUSINESS_TYPE_SHORT[lead.businessType] ??
+                          lead.businessType}
+                      </p>
+                      <p className="text-xs text-[#A8A29E]">
+                        {formatShortDate(new Date(lead.createdAt))}
+                      </p>
+                    </div>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        )}
+
+        {totalPages > 1 && (
+          <div className="flex items-center justify-center gap-1 py-3 border-t border-[#F6F3EF]">
+            <button
+              type="button"
+              onClick={() => setPage((p) => Math.max(1, p - 1))}
+              disabled={safePage === 1}
+              className="h-8 w-8 rounded-lg flex items-center justify-center text-[#162C14] hover:bg-[#F6F3EF] disabled:opacity-30"
+            >
+              <ChevronLeft size={16} />
+            </button>
+
+            {pageRange.map((item, i) =>
+              item === '...' ? (
+                <span key={`ellipsis-${i}`} className="px-2 text-[#A8A29E]">
+                  …
+                </span>
+              ) : (
+                <button
+                  key={item}
+                  type="button"
+                  onClick={() => setPage(item)}
+                  className={twMerge(
+                    'h-8 w-8 rounded-lg text-sm font-medium transition-colors',
+                    safePage === item
+                      ? 'bg-[#6B9E7A] text-white'
+                      : 'text-[#162C14] hover:bg-[#F6F3EF]',
+                  )}
+                >
+                  {item}
+                </button>
+              ),
+            )}
+
+            <button
+              type="button"
+              onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+              disabled={safePage === totalPages}
+              className="h-8 w-8 rounded-lg flex items-center justify-center text-[#162C14] hover:bg-[#F6F3EF] disabled:opacity-30"
+            >
+              <ChevronRight size={16} />
+            </button>
+          </div>
+        )}
+      </div>
+
+      {/* ── Desktop table view ── */}
+      <div className="hidden sm:block overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
             <tr className="bg-[#F6F3EF]/50">
@@ -185,22 +322,7 @@ export function LeadsTable({
                         <WhatsAppIcon className="size-5 text-[#78716C] hover:text-[#162C14] transition-colors" />
                       </button>
 
-                      <button
-                        onClick={() =>
-                          modal.open({
-                            render: (
-                              <LeadDetailSheet
-                                lead={lead}
-                                onContact={onContact}
-                                onMarkContacted={onMarkContacted}
-                                onMarkPending={onMarkPending}
-                              />
-                            ),
-                            showCloseButton: false,
-                            variant: 'sheet-right',
-                          })
-                        }
-                      >
+                      <button onClick={() => openDetail(lead)}>
                         <Eye
                           size={20}
                           className="text-[#78716C] hover:text-[#162C14] transition-colors"
@@ -235,7 +357,7 @@ export function LeadsTable({
         </table>
       </div>
 
-      <div className="flex items-center justify-between p-3 text-sm text-[#A8A29E] bg-[#FDFDFC] border-t border-[#F6F3EF]">
+      <div className="hidden sm:flex items-center justify-between p-3 text-sm text-[#A8A29E] bg-[#FDFDFC] border-t border-[#F6F3EF]">
         <span className={'uppercase tracking-wide text-xs'}>
           Mostrando {leads.length === 0 ? 0 : start + 1}–{end} de {leads.length}{' '}
           leads

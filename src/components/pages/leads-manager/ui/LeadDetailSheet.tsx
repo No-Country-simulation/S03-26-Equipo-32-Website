@@ -1,5 +1,11 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { CheckCircle2, ChevronDown, Circle, X } from 'lucide-react';
+import {
+  CheckCircle2,
+  ChevronDown,
+  Circle,
+  MoreHorizontal,
+  X,
+} from 'lucide-react';
 import type { Lead } from '@/core/leads/entities/lead.entity.ts';
 import {
   BUSINESS,
@@ -10,11 +16,14 @@ import {
 import { useModal } from '@/context/ModalContext.tsx';
 import { WhatsAppIcon } from '@/components/share/ui/WhatsAppIcon.tsx';
 
+import { DeleteLeadModal } from '@/components/pages/leads-manager/ui/DeleteLeadModal.tsx';
+
 interface Props {
   lead: Lead;
   onContact: (lead: Lead) => void;
   onMarkContacted: (lead: Lead) => Promise<void>;
   onMarkPending: (lead: Lead) => Promise<void>;
+  onDelete?: () => void;
 }
 
 const FIELD_CARD = 'rounded-xl bg-[#F6F3EF] border border-[#EFE7DE] px-3 py-2';
@@ -24,14 +33,17 @@ export const LeadDetailSheet = ({
   onContact,
   onMarkContacted,
   onMarkPending,
+  onDelete,
 }: Props) => {
   const modal = useModal();
   const statusRef = useRef<HTMLDivElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
   const [status, setStatus] = useState<'en-espera' | 'contactado'>(
     lead.contactedAt ? 'contactado' : 'en-espera',
   );
   const [savingStatus, setSavingStatus] = useState(false);
   const [statusOpen, setStatusOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const location = useMemo(() => {
     const chunks = [lead.city, lead.region, lead.country].filter(Boolean);
@@ -45,6 +57,9 @@ export const LeadDetailSheet = ({
         !statusRef.current.contains(event.target as Node)
       ) {
         setStatusOpen(false);
+      }
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setMenuOpen(false);
       }
     };
 
@@ -74,19 +89,57 @@ export const LeadDetailSheet = ({
   return (
     <section className="flex h-full flex-col bg-white font-dm-sans">
       <header className="flex items-center justify-between px-6 py-4">
-        <div>
-          <h2 className="text-[24px] leading-none text-[#1C1C1A] font-cormorant">
-            Detalle del lead
-          </h2>
+        <h2 className="text-[24px] leading-none text-[#1C1C1A] font-cormorant">
+          Detalle del lead
+        </h2>
+        <div className="flex items-center gap-1">
+          {onDelete && (
+            <div ref={menuRef} className="relative">
+              <button
+                type="button"
+                onClick={() => setMenuOpen((prev) => !prev)}
+                aria-label="Más opciones"
+                className="rounded-full p-2 text-[#8B8176] transition-colors hover:bg-[#F6F3EF] hover:text-[#5F574E]"
+              >
+                <MoreHorizontal size={18} />
+              </button>
+              {menuOpen && (
+                <div className="absolute right-0 top-full z-30 mt-1 w-40 rounded-xl bg-white shadow-lg border border-[#EFE7DE] py-1">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setMenuOpen(false);
+                      modal.open({
+                        render: (
+                          <DeleteLeadModal
+                            businessName={lead.businessName}
+                            onConfirm={() => {
+                              onDelete();
+                              modal.close();
+                            }}
+                          />
+                        ),
+                        size: 'sm',
+                        showCloseButton: false,
+                      });
+                    }}
+                    className="w-full px-4 py-2.5 text-left text-sm font-medium text-[#BA1A1A] transition-colors hover:bg-[#BA1A1A]/10"
+                  >
+                    Eliminar lead
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+          <button
+            type="button"
+            onClick={modal.close}
+            aria-label="Cerrar detalle"
+            className="rounded-full p-2 text-[#8B8176] transition-colors hover:bg-[#F6F3EF] hover:text-[#5F574E]"
+          >
+            <X size={18} />
+          </button>
         </div>
-        <button
-          type="button"
-          onClick={modal.close}
-          aria-label="Cerrar detalle"
-          className="rounded-full p-2 text-[#8B8176] transition-colors hover:bg-[#F6F3EF] hover:text-[#5F574E]"
-        >
-          <X size={18} />
-        </button>
       </header>
 
       <div className="flex-1 overflow-y-auto px-6 pb-6 pt-5">

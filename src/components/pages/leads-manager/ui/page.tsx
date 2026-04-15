@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Search } from 'lucide-react';
 import { LeadsManagerFilters } from '@/components/pages/leads-manager/ui/LeadsManagerFilters.tsx';
 import { LeadsTable } from '@/components/pages/leads-manager/ui/LeadsTable.tsx';
 import { usePriorityFilter } from '@/components/pages/leads-manager/model/usePriorityFilter.ts';
@@ -20,6 +21,7 @@ export const LeadsManagerPage = () => {
   const [priority] = usePriorityFilter();
   const [urgency] = useUrgencyFilter();
   const [status] = useStatusFilter();
+  const [search, setSearch] = useState('');
 
   const { leads: fetchedLeads } = useLeads({ from, to });
   const [leads, setLeads] = useState<Lead[]>([]);
@@ -37,7 +39,16 @@ export const LeadsManagerPage = () => {
 
     const contacted = !!lead.contactedAt;
     if (status === 'contactado' && !contacted) return false;
-    return !(status === 'en-espera' && contacted);
+    if (status === 'en-espera' && contacted) return false;
+
+    if (search.trim()) {
+      const q = search.trim().toLowerCase();
+      const matchName = lead.businessName?.toLowerCase().includes(q);
+      const matchContact = lead.fullName?.toLowerCase().includes(q);
+      if (!matchName && !matchContact) return false;
+    }
+
+    return true;
   });
 
   const handleDeleteLead = async (id: string) => {
@@ -71,9 +82,21 @@ export const LeadsManagerPage = () => {
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-semibold font-cormorant mb-4">
+      <h1 className="text-2xl font-semibold font-cormorant mb-4 text-[#162C14]">
         Gestión de Leads
       </h1>
+
+      <div className="flex items-center gap-2 rounded-full px-3 py-2 bg-white mb-4">
+        <Search className="size-3 text-gray-400 shrink-0" />
+        <input
+          type="text"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Buscar leads..."
+          className="outline-none focus:outline-none bg-transparent placeholder:text-[#6B7280] placeholder:text-sm font-dm-sans text-sm w-full"
+        />
+      </div>
+
       <LeadsManagerFilters />
       <LeadsTable
         leads={filteredLeads}
