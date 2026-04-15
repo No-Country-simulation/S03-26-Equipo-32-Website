@@ -95,6 +95,7 @@ export function LeadsTable({
           onContact={onContact}
           onMarkContacted={onMarkContacted}
           onMarkPending={onMarkPending}
+          onDelete={() => onDelete(lead.id)}
         />
       ),
       showCloseButton: false,
