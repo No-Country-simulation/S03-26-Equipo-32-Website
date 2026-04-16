@@ -62,6 +62,7 @@ export const CERTIFICATIONS = [
     name: 'USAID Pro-Integridad',
     description: 'Estándar internacional de transparencia y calidad',
     icon: Award,
+    svgSrc: '/landing/usaid_pro.svg',
   },
   {
     name: 'Exposición SAPICA',
