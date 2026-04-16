@@ -12,7 +12,7 @@ export const FAQ = () => {
             <div className={'text-[#8B4513] text-xs uppercase'}>FAQ</div>
 
             <div className={'font-cormorant text-4xl'}>
-              Preguntas frecuentes
+              Preguntas <span className="italic">frecuentes</span>
             </div>
 
             <p className={'text-[#6B6B6B]'}>
