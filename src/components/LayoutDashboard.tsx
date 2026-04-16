@@ -60,7 +60,7 @@ export const LayoutDashboard = () => {
           />
         </header>
 
-        <main className="p-6">
+        <main className="sm:p-6">
           <Outlet />
         </main>
       </div>

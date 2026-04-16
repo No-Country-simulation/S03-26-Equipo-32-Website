@@ -98,13 +98,15 @@ export const LeadsManagerPage = () => {
       </div>
 
       <LeadsManagerFilters />
-      <LeadsTable
-        leads={filteredLeads}
-        onDelete={handleDeleteLead}
-        onContact={handleContactLead}
-        onMarkContacted={handleMarkLeadContacted}
-        onMarkPending={handleMarkLeadPending}
-      />
+      <div className="-mx-4 sm:mx-0">
+        <LeadsTable
+          leads={filteredLeads}
+          onDelete={handleDeleteLead}
+          onContact={handleContactLead}
+          onMarkContacted={handleMarkLeadContacted}
+          onMarkPending={handleMarkLeadPending}
+        />
+      </div>
       <ScoringRules />
     </div>
   );

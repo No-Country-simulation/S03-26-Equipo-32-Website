@@ -48,7 +48,7 @@ export const KPIOverview = ({
       <KPIItem
         icon={<BadgeCheck size={20} />}
         value={'0'}
-        label={'Leads calificados (SQL)'}
+        label={'Leads calificados'}
         trend={15.9}
         className={'col-span-2 lg:col-span-1'}
       />
