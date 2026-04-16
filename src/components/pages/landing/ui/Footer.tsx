@@ -1,7 +1,7 @@
 import { Logo } from '@/components/share/ui/logo.tsx';
-import { Camera, Mail, MapPin } from 'lucide-react';
+import { Mail, MapPin } from 'lucide-react';
 import { WhatsAppIcon } from '@/components/share/ui/WhatsAppIcon.tsx';
-import { WHATSAPP_LINK } from '@/components/share/constants.ts';
+import { WHATSAPP_LINK, INSTAGRAM_LINK } from '@/components/share/constants.ts';
 
 export const Footer = () => {
   return (
@@ -41,14 +41,29 @@ export const Footer = () => {
             <Mail className={'size-3'} />
             ventas@plekmoda.com
           </p>
-          <p className={'text-sm flex items-center gap-1'}>
-            <Camera className={'size-3'} />
+          <a
+            href={INSTAGRAM_LINK}
+            target="_blank"
+            rel="noreferrer"
+            className={'text-sm flex items-center gap-1 hover:underline'}
+          >
+            <img
+              src="/landing/instagram.svg"
+              alt=""
+              aria-hidden="true"
+              className="size-3"
+            />
             @plekmoda
-          </p>
-          <p className={'text-sm flex items-center gap-1'}>
+          </a>
+          <a
+            href="https://maps.app.goo.gl/eZh5xvMgZs6Yprst6"
+            target="_blank"
+            rel="noreferrer"
+            className={'text-sm flex items-center gap-1 hover:underline'}
+          >
             <MapPin className={'size-3'} />
             León, Guanajuato
-          </p>
+          </a>
         </div>
       </div>
 
