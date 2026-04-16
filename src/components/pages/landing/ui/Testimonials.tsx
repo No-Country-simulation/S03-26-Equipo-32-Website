@@ -23,7 +23,16 @@ export const Testimonials = () => {
                       : '')
                   }
                 >
-                  <cert.icon className={'size-6 text-[#173901]'} />
+                  {cert.svgSrc ? (
+                    <img
+                      src={cert.svgSrc}
+                      alt=""
+                      aria-hidden="true"
+                      className="size-6 shrink-0"
+                    />
+                  ) : (
+                    <cert.icon className={'size-6 text-[#173901] shrink-0'} />
+                  )}
                   <div className="flex flex-col gap-0 w-full">
                     <div
                       className="font-cormorant text-lg whitespace-nowrap overflow-hidden text-ellipsis max-w-xs md:max-w-sm lg:max-w-md"
