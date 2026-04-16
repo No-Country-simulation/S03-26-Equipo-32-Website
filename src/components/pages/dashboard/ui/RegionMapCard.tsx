@@ -329,6 +329,22 @@ export const RegionMapCard = ({ regions }: RegionMapCardProps) => {
   const [mapZoom, setMapZoom] = useState(1);
   const [mapCenter, setMapCenter] = useState<[number, number]>([0, 16]);
 
+  const countryLeadsMap = useMemo(() => {
+    const map = new Map<string, number>();
+    markers.forEach((marker) => {
+      map.set(normalizeText(marker.label), marker.leads);
+      if (marker.country) map.set(normalizeText(marker.country), marker.leads);
+    });
+    return map;
+  }, [markers]);
+
+  const getGeoFill = (geoName: string): string => {
+    const leads = countryLeadsMap.get(normalizeText(geoName)) ?? 0;
+    if (leads === 0) return '#B8D4BE';
+    if (leads <= 2) return '#6B9E7A';
+    return '#2D5A3D';
+  };
+
   const resetMapView = () => {
     setSelectedMarker(null);
     setMapZoom(1);
@@ -460,18 +476,16 @@ export const RegionMapCard = ({ regions }: RegionMapCardProps) => {
       <div className={'px-4 pb-4 sm:px-6 sm:pb-6'}>
         <div
           className={
-            'relative h-65 sm:h-96 overflow-hidden rounded-[22px] border border-[#D5E7D0] shadow-[0_8px_32px_rgba(44,62,50,0.13)] lg:h-136 bg-[#0B0F14]'
+            'relative h-65 sm:h-96 overflow-hidden rounded-[14px] border border-[#B8D4BE] bg-[#F0F4EF] lg:h-136'
           }
         >
           {/* Desktop-only: top country overlay */}
           <div
-            className={
-              'hidden sm:block absolute top-5 left-5 z-20 max-w-60 text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.65)]'
-            }
+            className={'hidden sm:block absolute top-5 left-5 z-20 max-w-60'}
           >
             <p
               className={
-                'font-dm-sans text-[11px] uppercase tracking-[0.2em] text-white/55'
+                'font-dm-sans text-[11px] uppercase tracking-[0.2em] text-[#6B9E7A]'
               }
             >
               País con más leads
@@ -480,17 +494,17 @@ export const RegionMapCard = ({ regions }: RegionMapCardProps) => {
               <div className={'mt-1'}>
                 <div
                   className={
-                    'text-[22px] leading-tight font-semibold text-white truncate'
+                    'text-[22px] leading-tight font-semibold text-[#162C14] truncate'
                   }
                 >
                   {topCountry.label}
                 </div>
-                <p className={'mt-1 text-sm text-white/75 font-dm-sans'}>
+                <p className={'mt-1 text-sm text-[#2D5A3D]/80 font-dm-sans'}>
                   {topCountry.leads} leads · {topCountry.percent}% del total
                 </p>
               </div>
             ) : (
-              <p className={'mt-1 text-sm text-white/65 font-dm-sans'}>
+              <p className={'mt-1 text-sm text-[#6B9E7A] font-dm-sans'}>
                 Aún no hay leads para resumir.
               </p>
             )}
@@ -499,19 +513,19 @@ export const RegionMapCard = ({ regions }: RegionMapCardProps) => {
           {/* Desktop-only: ranking overlay */}
           <div
             className={
-              'hidden sm:block absolute bottom-5 right-5 z-20 w-[min(16rem,calc(100%-2.5rem))] text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.65)]'
+              'hidden sm:block absolute bottom-5 right-5 z-20 w-[min(16rem,calc(100%-2.5rem))] rounded-xl bg-[#2D5A3D]/80 px-4 py-3 backdrop-blur-sm'
             }
           >
             <div
               className={
-                'mb-2 text-[11px] uppercase tracking-[0.2em] text-white/55 font-dm-sans'
+                'mb-2 text-[11px] uppercase tracking-[0.2em] text-[#F0F4EF]/70 font-dm-sans'
               }
             >
               País / Usuarios
             </div>
             <div className={'space-y-1.5'}>
               {countryRanking.length === 0 ? (
-                <p className={'text-sm text-white/60 font-dm-sans'}>
+                <p className={'text-sm text-[#F0F4EF]/60 font-dm-sans'}>
                   Sin datos todavía.
                 </p>
               ) : (
@@ -522,12 +536,14 @@ export const RegionMapCard = ({ regions }: RegionMapCardProps) => {
                   >
                     <div className={'min-w-0'}>
                       <div
-                        className={'truncate text-sm font-medium text-white'}
+                        className={
+                          'truncate text-sm font-medium text-[#F0F4EF]'
+                        }
                       >
                         {item.label}
                       </div>
                     </div>
-                    <div className={'text-sm font-medium text-white/80'}>
+                    <div className={'text-sm font-medium text-[#F0F4EF]/80'}>
                       {item.leads}
                     </div>
                   </div>
@@ -616,8 +632,6 @@ export const RegionMapCard = ({ regions }: RegionMapCardProps) => {
             </div>
           )}
 
-          {/* Fondo decorativo eliminado para mantener el fondo verde claro uniforme */}
-
           <ComposableMap
             projection="geoMercator"
             projectionConfig={{ scale: 175 }}
@@ -631,23 +645,29 @@ export const RegionMapCard = ({ regions }: RegionMapCardProps) => {
               maxZoom={8}
               onMoveEnd={handleMapMoveEnd}
             >
-              {/* Países en azul oscuro y bordes gris, sin verde */}
               <Geographies geography={countries110m as never}>
                 {({ geographies }) =>
-                  geographies.map((geo) => (
-                    <Geography
-                      key={geo.rsmKey}
-                      geography={geo}
-                      fill="#1A202A"
-                      stroke="#3A4556"
-                      strokeWidth={0.45}
-                      style={{
-                        default: { outline: 'none' },
-                        hover: { outline: 'none', fill: '#283242' },
-                        pressed: { outline: 'none' },
-                      }}
-                    />
-                  ))
+                  geographies.map((geo) => {
+                    const fill = getGeoFill(
+                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                      ((geo as any).properties as { name?: string })?.name ??
+                        '',
+                    );
+                    return (
+                      <Geography
+                        key={geo.rsmKey}
+                        geography={geo}
+                        fill={fill}
+                        stroke="#F0F4EF"
+                        strokeWidth={0.5}
+                        style={{
+                          default: { outline: 'none' },
+                          hover: { outline: 'none', fill: '#6B9E7A' },
+                          pressed: { outline: 'none' },
+                        }}
+                      />
+                    );
+                  })
                 }
               </Geographies>
 
@@ -671,7 +691,7 @@ export const RegionMapCard = ({ regions }: RegionMapCardProps) => {
                           y1={16}
                           x2={-1}
                           y2={8}
-                          stroke="rgba(244, 247, 243, 0.24)"
+                          stroke="rgba(22, 44, 20, 0.35)"
                           strokeWidth={1}
                           strokeLinecap="round"
                         />
@@ -682,14 +702,14 @@ export const RegionMapCard = ({ regions }: RegionMapCardProps) => {
                           ry={16}
                           width={Math.max(68, marker.label.length * 6.1)}
                           height={22}
-                          fill="rgba(7, 11, 15, 0.78)"
-                          stroke="rgba(219, 229, 222, 0.16)"
+                          fill="rgba(107, 114, 128, 0.9)"
+                          stroke="rgba(107, 114, 128, 0.4)"
                           strokeWidth={0.7}
                         />
                         <text
                           x={6}
                           y={-3}
-                          fill="#F8FBF8"
+                          fill="#FFFFFF"
                           fontSize={9.5}
                           fontWeight={700}
                           letterSpacing="0.01em"
@@ -700,14 +720,14 @@ export const RegionMapCard = ({ regions }: RegionMapCardProps) => {
                       </g>
                       <circle
                         r={8}
-                        fill="#9BB79E"
-                        fillOpacity={0.1}
+                        fill="#2D5A3D"
+                        fillOpacity={0.18}
                         className={'animate-ping motion-reduce:animate-none'}
                       />
                       <circle
                         r={3.1}
-                        fill={isStrong ? '#E3EEE1' : '#C0D0C4'}
-                        stroke="#F2F6F1"
+                        fill={isStrong ? '#162C14' : '#2D5A3D'}
+                        stroke="#F0F4EF"
                         strokeWidth={1}
                       />
                     </g>
@@ -717,19 +737,13 @@ export const RegionMapCard = ({ regions }: RegionMapCardProps) => {
             </ZoomableGroup>
           </ComposableMap>
 
-          <div
-            className={
-              'pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_30%,rgba(11,15,20,0.06)_68%,rgba(11,15,20,0.24)_100%)]'
-            }
-          />
-
           {!hasRegions && (
             <div
               className={'absolute inset-0 flex items-center justify-center'}
             >
               <div
                 className={
-                  'rounded-full bg-white/8 px-4 py-2 text-xs font-dm-sans text-white/80 shadow-sm backdrop-blur-sm'
+                  'rounded-full bg-[#2D5A3D]/70 px-4 py-2 text-xs font-dm-sans text-[#F0F4EF] shadow-sm backdrop-blur-sm'
                 }
               >
                 El mapa se activará cuando existan leads con ubicación
