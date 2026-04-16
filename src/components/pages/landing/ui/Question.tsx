@@ -28,7 +28,8 @@ export const Question = ({
         </span>
       </button>
       <div
-        className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-40 opacity-100 pb-5' : 'max-h-0 opacity-0'}`}
+        className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-[500px] opacity-100 pb-5' : 'max-h-0 opacity-0'}`}
+        style={{ maxHeight: isOpen ? 500 : 0 }}
       >
         <p className={'text-[#6B6B6B] text-sm leading-relaxed font-dm-sans'}>
           {answer}
