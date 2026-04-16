@@ -121,12 +121,12 @@ export function LeadsTable({
                 <button
                   key={lead.id}
                   type="button"
-                  className="flex items-center gap-3 px-4 py-3 w-full text-left active:bg-[#F6F3EF] transition-colors"
+                  className="flex items-center gap-4 px-4 py-4 w-full text-left active:bg-[#F6F3EF] transition-colors"
                   onClick={() => openDetail(lead)}
                 >
                   <span
                     className={twMerge(
-                      'size-10 rounded-full flex items-center justify-center text-sm font-bold shrink-0',
+                      'size-12 rounded-full flex items-center justify-center text-base font-bold shrink-0',
                       PRIORITY_STYLES[priority],
                     )}
                   >
@@ -135,7 +135,7 @@ export function LeadsTable({
 
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-2">
-                      <p className="font-medium text-[#162C14] text-sm truncate">
+                      <p className="font-semibold text-[#162C14] text-base truncate">
                         {lead.businessName}
                       </p>
                       {contacted ? (
@@ -148,7 +148,7 @@ export function LeadsTable({
                         </span>
                       )}
                     </div>
-                    <div className="flex items-center justify-between mt-0.5">
+                    <div className="flex items-center justify-between mt-1">
                       <p className="text-xs text-[#A8A29E]">
                         {BUSINESS_TYPE_SHORT[lead.businessType] ??
                           lead.businessType}
@@ -214,25 +214,25 @@ export function LeadsTable({
         <table className="w-full text-sm">
           <thead>
             <tr className="bg-[#F6F3EF]/50">
-              <th className="px-4 py-3 text-left font-medium text-[#A8A29E] uppercase text-xs tracking-wide">
+              <th className="px-4 py-2 text-left font-medium text-[#A8A29E] uppercase text-xs tracking-wide">
                 Puntaje
               </th>
-              <th className="px-4 py-3 text-left font-medium text-[#A8A29E] uppercase text-xs tracking-wide">
+              <th className="px-4 py-2 text-left font-medium text-[#A8A29E] uppercase text-xs tracking-wide">
                 Empresa
               </th>
-              <th className="px-4 py-3 text-left font-medium text-[#A8A29E] uppercase text-xs tracking-wide">
+              <th className="px-4 py-2 text-left font-medium text-[#A8A29E] uppercase text-xs tracking-wide">
                 Contacto
               </th>
-              <th className="px-4 py-3 text-left font-medium text-[#A8A29E] uppercase text-xs tracking-wide">
+              <th className="px-4 py-2 text-left font-medium text-[#A8A29E] uppercase text-xs tracking-wide">
                 Fecha
               </th>
-              <th className="px-4 py-3 text-left font-medium text-[#A8A29E] uppercase text-xs tracking-wide">
+              <th className="px-4 py-2 text-left font-medium text-[#A8A29E] uppercase text-xs tracking-wide">
                 Volumen
               </th>
-              <th className="px-4 py-3 text-left font-medium text-[#A8A29E] uppercase text-xs tracking-wide">
+              <th className="px-4 py-2 text-left font-medium text-[#A8A29E] uppercase text-xs tracking-wide">
                 Estado
               </th>
-              <th className="px-4 py-3 text-left font-medium text-[#A8A29E] uppercase text-xs tracking-wide">
+              <th className="px-4 py-2 text-left font-medium text-[#A8A29E] uppercase text-xs tracking-wide">
                 Acciones
               </th>
             </tr>
@@ -258,7 +258,7 @@ export function LeadsTable({
                     key={lead.id}
                     className="border-b border-neutral-100 last:border-0 bg-white transition-colors hover:bg-[#F6F3EF]"
                   >
-                    <td className="px-4 py-3">
+                    <td className="px-4 py-2">
                       <div className="flex items-center gap-2">
                         <span
                           className={twMerge(
@@ -271,7 +271,7 @@ export function LeadsTable({
                       </div>
                     </td>
 
-                    <td className="px-4 py-3">
+                    <td className="px-4 py-2">
                       <div>
                         <p className="font-medium text-[#162C14]">
                           {lead.businessName}
@@ -282,7 +282,7 @@ export function LeadsTable({
                       </div>
                     </td>
 
-                    <td className="px-4 py-3">
+                    <td className="px-4 py-2">
                       <div>
                         <p className="font-medium text-[#162C14]">
                           {lead.whatsapp}
@@ -293,11 +293,11 @@ export function LeadsTable({
                       </div>
                     </td>
 
-                    <td className="px-4 py-3 text-[#162C14] whitespace-nowrap">
+                    <td className="px-4 py-2 text-[#162C14] whitespace-nowrap">
                       {dateFormatter.format(new Date(lead.createdAt))}
                     </td>
 
-                    <td className="px-4 py-3 text-[#78716C] whitespace-nowrap">
+                    <td className="px-4 py-2 text-[#78716C] whitespace-nowrap">
                       <span className="inline-flex items-center gap-1 rounded-full bg-[#EBE8E4] px-2.5 py-1 text-xs font-medium text-black">
                         {VOLUME_PURCHASE[
                           lead.volumePurchase as keyof typeof VOLUME_PURCHASE
@@ -305,7 +305,7 @@ export function LeadsTable({
                       </span>
                     </td>
 
-                    <td className="px-4 py-3">
+                    <td className="px-4 py-2">
                       {contacted ? (
                         <span className="inline-flex items-center gap-1 rounded-full bg-[#B8D4BE] px-2.5 py-1 text-xs font-medium text-[#162C14] uppercase">
                           Contactado
@@ -317,7 +317,7 @@ export function LeadsTable({
                       )}
                     </td>
 
-                    <td className="px-4 py-3 flex items-center gap-2">
+                    <td className="px-4 py-2 flex items-center gap-2">
                       <button onClick={() => onContact(lead)}>
                         <WhatsAppIcon className="size-5 text-[#78716C] hover:text-[#162C14] transition-colors" />
                       </button>

@@ -21,13 +21,13 @@ export function CustomSelect({
   options,
   value,
   onChange,
-  placeholder = 'Seleccionar',
   className,
 }: CustomSelectProps) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
   const selected = options.find((o) => o.value === value);
+  const isActive = !!selected && selected.value !== options[0]?.value;
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -40,32 +40,30 @@ export function CustomSelect({
   }, []);
 
   return (
-    <div ref={ref} className={twMerge('relative w-full', className)}>
+    <div ref={ref} className={twMerge('relative', className)}>
       <button
         type="button"
         onClick={() => setOpen((prev) => !prev)}
-        className="flex w-full items-center justify-between rounded-lg bg-[#F6F3EF] px-4 py-2 text-sm text-[#2D2D2D] transition-colors hover:bg-[#EDE9E3] gap-3"
+        className={twMerge(
+          'flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-dm-sans transition-colors cursor-pointer focus:outline-none select-none',
+          isActive
+            ? 'bg-[#6B9E7A] text-white hover:bg-[#5a8a68]'
+            : 'bg-[#F6F3EF] text-black hover:bg-[#EDE9E3]',
+        )}
       >
-        <span className="font-light text-[#A8A29E] uppercase text-xs">
-          {label}
-        </span>
-
-        <div className="flex items-center gap-2">
-          <span className={selected ? 'text-[#162C14]' : 'text-[#2D2D2D]/40'}>
-            {selected ? selected.label : placeholder}
-          </span>
-
-          <ChevronDown
-            className={twMerge(
-              'h-4 w-4 shrink-0 text-[#2D2D2D] transition-transform duration-200',
-              open && 'rotate-180',
-            )}
-          />
-        </div>
+        <span>{isActive ? selected!.label : label}</span>
+        <ChevronDown
+          size={14}
+          className={twMerge(
+            'shrink-0 transition-transform duration-200',
+            open && 'rotate-180',
+            isActive ? 'text-white' : 'text-[#78716C]',
+          )}
+        />
       </button>
 
       {open && (
-        <ul className="absolute right-0 mt-2 min-w-40 rounded-xl border border-neutral-200 bg-[#FCF9F5] shadow-md z-50 overflow-hidden py-1 px-2">
+        <ul className="absolute left-0 mt-2 min-w-40 rounded-xl border border-neutral-200 bg-[#FCF9F5] shadow-md z-50 overflow-hidden py-2 px-2">
           {options.map((option) => {
             const isSelected = option.value === value;
             return (

@@ -8,7 +8,7 @@ import {
 import { X } from 'lucide-react';
 
 type ModalSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
-type ModalVariant = 'modal' | 'sheet-right';
+type ModalVariant = 'modal' | 'sheet-right' | 'sheet-bottom';
 
 const sizeClass: Record<ModalSize, string> = {
   xs: 'max-w-xs w-full',
@@ -56,26 +56,32 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
     });
   }, []);
 
+  const overlayAlign =
+    state.variant === 'sheet-right'
+      ? 'items-stretch justify-end'
+      : state.variant === 'sheet-bottom'
+        ? 'items-end justify-center'
+        : 'items-center justify-center';
+
+  const panelClass =
+    state.variant === 'sheet-right'
+      ? 'h-full w-full max-w-[560px] rounded-none md:rounded-l-2xl'
+      : state.variant === 'sheet-bottom'
+        ? 'w-full rounded-t-2xl max-h-[80vh] overflow-y-auto'
+        : `rounded-xl ${sizeClass[state.size ?? 'md']}`;
+
   return (
     <ModalContext.Provider value={{ open, close }}>
       {children}
       {state.visible && (
         <div
-          className={`fixed inset-0 z-50 flex bg-black/50 ${
-            state.variant === 'sheet-right'
-              ? 'items-stretch justify-end'
-              : 'items-center justify-center'
-          }`}
+          className={`fixed inset-0 z-50 flex bg-black/50 ${overlayAlign}`}
           onClick={(e) => {
             if (e.target === e.currentTarget) close();
           }}
         >
           <div
-            className={`relative bg-white shadow-xl overflow-hidden ${
-              state.variant === 'sheet-right'
-                ? 'h-full w-full max-w-[560px] rounded-none md:rounded-l-2xl'
-                : `rounded-xl ${sizeClass[state.size ?? 'md']}`
-            }`}
+            className={`relative bg-white shadow-xl overflow-hidden ${panelClass}`}
           >
             {state.showCloseButton && (
               <button
