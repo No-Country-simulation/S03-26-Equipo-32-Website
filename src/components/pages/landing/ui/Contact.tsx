@@ -8,11 +8,11 @@ export const Contact = () => {
         <div className={'grid grid-cols-1 md:grid-cols-12 items-center gap-10'}>
           <div className={'md:col-span-4 flex flex-col gap-4'}>
             <div className={'text-[#8B4513] text-xs uppercase'}>
-              comienza ahora
+              solicita tu cotización
             </div>
 
             <div className={'font-cormorant text-4xl'}>
-              Solicita tu cotización personalizada
+              Accede a descuentos por volumen de compra
             </div>
 
             <p className={'text-[#1A1A1A] text-sm max-w-md'}>
