@@ -358,7 +358,7 @@ export const RegionMapCard = ({ regions }: RegionMapCardProps) => {
         'overflow-hidden rounded-[18px] border border-[#EFE7DE] bg-[#E9E5DE] shadow-[0_20px_40px_rgba(40,30,20,0.08)]'
       }
     >
-      <div className={'px-6 pt-8 pb-4'}>
+      <div className={'px-6 pt-5 pb-3'}>
         <h2
           className={
             'font-cormorant text-[22px] leading-7 font-semibold text-[#3B2F24]'
@@ -375,15 +375,98 @@ export const RegionMapCard = ({ regions }: RegionMapCardProps) => {
         </p>
       </div>
 
-      <div className={'px-6 pb-6'}>
+      {/* ── Mobile: info fuera del mapa ── */}
+      <div className={'sm:hidden px-6 pb-3'}>
+        <div className={'flex flex-col gap-3'}>
+          {/* Top country */}
+          <div>
+            <p
+              className={
+                'font-dm-sans text-[11px] uppercase tracking-[0.2em] text-[#8B8176]'
+              }
+            >
+              País con más leads
+            </p>
+            {topCountry ? (
+              <div className={'mt-1'}>
+                <div
+                  className={
+                    'font-cormorant text-[28px] leading-none font-semibold text-[#3B2F24]'
+                  }
+                >
+                  {topCountry.label}
+                </div>
+                <p
+                  className={
+                    'font-dm-sans text-[13px] text-[#8B8176] mt-1 tracking-wide'
+                  }
+                >
+                  {topCountry.leads} leads · {topCountry.percent}% del total
+                </p>
+              </div>
+            ) : (
+              <p className={'font-dm-sans text-sm text-[#8B8176] mt-1'}>
+                Sin datos.
+              </p>
+            )}
+          </div>
+          {/* Separador */}
+          <div className={'h-px bg-[#D5CEC7]/50'} />
+          {/* Ranking con barra */}
+          <div>
+            <p
+              className={
+                'font-dm-sans text-[11px] uppercase tracking-[0.2em] text-[#8B8176] mb-2'
+              }
+            >
+              País / Usuarios
+            </p>
+            <div className={'space-y-2'}>
+              {countryRanking.map((item) => (
+                <div
+                  key={item.label}
+                  className={
+                    'grid grid-cols-[1fr_minmax(0,80px)_auto] items-center gap-3'
+                  }
+                >
+                  <span className={'font-dm-sans text-sm text-[#3B2F24]'}>
+                    {item.label}
+                  </span>
+                  <div
+                    className={
+                      'h-1 rounded-full bg-[#D5CEC7]/70 overflow-hidden'
+                    }
+                  >
+                    <div
+                      style={{ width: `${item.percent}%` }}
+                      className={'h-full bg-[#6B5E54] rounded-full'}
+                    />
+                  </div>
+                  <span
+                    className={
+                      'font-dm-sans text-sm font-semibold text-[#3B2F24] tabular-nums'
+                    }
+                  >
+                    {item.leads}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* eliminado – el rounded del mapa ya separa visualmente */}
+
+      <div className={'px-4 pb-4 sm:px-6 sm:pb-6'}>
         <div
           className={
-            'relative h-96 overflow-hidden rounded-[14px] border border-[#1F2733] bg-[#0B0F14] lg:h-136'
+            'relative h-65 sm:h-96 overflow-hidden rounded-[22px] border border-[#D5E7D0] shadow-[0_8px_32px_rgba(44,62,50,0.13)] lg:h-136 bg-[#0B0F14]'
           }
         >
+          {/* Desktop-only: top country overlay */}
           <div
             className={
-              'absolute top-4 left-4 z-20 max-w-60 text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.65)]'
+              'hidden sm:block absolute top-5 left-5 z-20 max-w-60 text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.65)]'
             }
           >
             <p
@@ -397,7 +480,7 @@ export const RegionMapCard = ({ regions }: RegionMapCardProps) => {
               <div className={'mt-1'}>
                 <div
                   className={
-                    'text-[22px] leading-tight font-semibold text-white'
+                    'text-[22px] leading-tight font-semibold text-white truncate'
                   }
                 >
                   {topCountry.label}
@@ -413,32 +496,10 @@ export const RegionMapCard = ({ regions }: RegionMapCardProps) => {
             )}
           </div>
 
+          {/* Desktop-only: ranking overlay */}
           <div
             className={
-              'absolute top-4 right-4 z-20 flex items-center gap-4 rounded-full bg-white/95 px-4 py-2 shadow-[0_8px_24px_rgba(0,0,0,0.18)] backdrop-blur-sm'
-            }
-          >
-            <span
-              className={
-                'flex items-center gap-2 text-[11px] font-dm-sans text-[#2D5A3D]'
-              }
-            >
-              <span className={'size-2 rounded-full bg-[#2D5A3D]'} />
-              Alta actividad
-            </span>
-            <span
-              className={
-                'flex items-center gap-2 text-[11px] font-dm-sans text-[#9BB79E]'
-              }
-            >
-              <span className={'size-2 rounded-full bg-[#B8D4BE]'} />
-              Emergente
-            </span>
-          </div>
-
-          <div
-            className={
-              'absolute bottom-4 right-4 z-20 w-[min(16rem,calc(100%-2rem))] text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.65)]'
+              'hidden sm:block absolute bottom-5 right-5 z-20 w-[min(16rem,calc(100%-2.5rem))] text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.65)]'
             }
           >
             <div
@@ -478,28 +539,23 @@ export const RegionMapCard = ({ regions }: RegionMapCardProps) => {
           {selectedMarker && (
             <div
               className={
-                'absolute bottom-4 left-4 z-20 w-[min(24rem,calc(100%-2rem))] rounded-xl border border-[#6C7A92]/28 bg-[linear-gradient(145deg,rgba(10,18,30,0.66),rgba(8,14,24,0.5))] p-4 text-white shadow-[0_16px_34px_rgba(0,0,0,0.36)] backdrop-blur-md'
+                'absolute bottom-3 left-3 z-20 w-[min(24rem,calc(100%-1.5rem))] rounded-xl border border-[#6C7A92]/28 bg-[linear-gradient(145deg,rgba(10,18,30,0.85),rgba(8,14,24,0.75))] p-3 sm:p-4 text-white shadow-[0_16px_34px_rgba(0,0,0,0.36)] backdrop-blur-md'
               }
             >
-              <div className={'flex items-start justify-between gap-3'}>
-                <div>
-                  <p
-                    className={
-                      'font-dm-sans text-[10px] uppercase tracking-[0.24em] text-white/55'
-                    }
-                  >
-                    Ubicación seleccionada
-                  </p>
+              <div className={'flex items-center justify-between gap-3'}>
+                <div className={'min-w-0'}>
                   <h3
                     className={
-                      'mt-1 font-dm-sans text-[24px] leading-tight font-semibold text-white'
+                      'font-dm-sans text-base sm:text-[24px] leading-tight font-semibold text-white truncate'
                     }
                   >
                     {selectedMarker.country || selectedMarker.label}
                   </h3>
-                  <p className={'mt-1 text-sm text-white/75 font-dm-sans'}>
-                    {selectedMarker.city || 'Varias ciudades'}
-                    {selectedMarker.region ? ` · ${selectedMarker.region}` : ''}
+                  <p
+                    className={'text-xs sm:text-sm text-white/70 font-dm-sans'}
+                  >
+                    {selectedMarker.leads} leads
+                    {selectedMarker.city ? ` · ${selectedMarker.city}` : ''}
                   </p>
                 </div>
 
@@ -507,15 +563,16 @@ export const RegionMapCard = ({ regions }: RegionMapCardProps) => {
                   type="button"
                   onClick={resetMapView}
                   className={
-                    'rounded-full border border-[#7D8CA3]/34 bg-[#0A1422]/45 px-3 py-1 text-[11px] font-dm-sans text-white/80 transition hover:bg-[#0D1A2C]/60'
+                    'shrink-0 rounded-full border border-[#7D8CA3]/34 bg-[#0A1422]/45 px-3 py-1 text-[11px] font-dm-sans text-white/80 transition hover:bg-[#0D1A2C]/60'
                   }
                 >
-                  Ver todo
+                  ✕
                 </button>
               </div>
+
               <div
                 className={
-                  'mt-4 grid grid-cols-[1fr_auto] items-center border-y border-[#6C7A92]/25 py-2 text-sm font-dm-sans'
+                  'hidden sm:grid grid-cols-[1fr_auto] items-center mt-4 border-y border-[#6C7A92]/25 py-2 text-sm font-dm-sans'
                 }
               >
                 <span className={'text-white/65'}>Leads</span>
@@ -524,7 +581,7 @@ export const RegionMapCard = ({ regions }: RegionMapCardProps) => {
                 </span>
               </div>
 
-              <div className={'mt-3 space-y-1.5'}>
+              <div className={'hidden sm:block mt-3 space-y-1.5'}>
                 <p
                   className={
                     'font-dm-sans text-[10px] uppercase tracking-[0.24em] text-white/55'
@@ -559,11 +616,7 @@ export const RegionMapCard = ({ regions }: RegionMapCardProps) => {
             </div>
           )}
 
-          <div
-            className={
-              'absolute inset-0 bg-[radial-gradient(circle_at_20%_28%,rgba(88,129,87,0.16),transparent_22%),radial-gradient(circle_at_72%_48%,rgba(96,165,250,0.1),transparent_20%),linear-gradient(180deg,rgba(17,24,39,0.98),rgba(11,15,20,1))]'
-            }
-          />
+          {/* Fondo decorativo eliminado para mantener el fondo verde claro uniforme */}
 
           <ComposableMap
             projection="geoMercator"
@@ -578,6 +631,7 @@ export const RegionMapCard = ({ regions }: RegionMapCardProps) => {
               maxZoom={8}
               onMoveEnd={handleMapMoveEnd}
             >
+              {/* Países en azul oscuro y bordes gris, sin verde */}
               <Geographies geography={countries110m as never}>
                 {({ geographies }) =>
                   geographies.map((geo) => (
