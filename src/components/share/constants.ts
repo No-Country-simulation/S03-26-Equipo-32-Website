@@ -108,7 +108,7 @@ export const BUSINESS = {
 };
 
 export const VOLUME_PURCHASE = {
-  A: 'Menos de $10,000 MXN',
+  A: '$5,000 - $10,000 MXN',
   B: '$10,000 - $15,000 MXN',
   C: '$15,000 - $20,000 MXN',
   D: 'Más de $20,000 MXN',
